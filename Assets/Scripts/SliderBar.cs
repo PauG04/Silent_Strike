@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[ExecuteInEditMode]
 public class SliderBar : MonoBehaviour
 {
     [SerializeField] private float maxValue;
@@ -22,6 +23,8 @@ public class SliderBar : MonoBehaviour
         mask.fillAmount = fillAmount;
 
         mask.color = color;
+
+
     }
 
     public void SetMaxValue(float value)
