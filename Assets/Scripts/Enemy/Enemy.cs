@@ -27,17 +27,45 @@ public class Enemy : Character
     [Header("Collider")]
     [SerializeField] private GameObject colliderPosition;
 
+    [Header("GenerateTime")]
+    [SerializeField] private float generateTime;
+    private float currentGenerateTime;
+
 
     protected void InitializeEnemy()
     {
         base.InitializeCharacter();
+
         currentRecoveryTime = 0;
-        colliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0 ,0);
+        currentGenerateTime = 0;
+
+
+        if (transform.position.x > target.transform.position.x)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+            colliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+            colliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+        }
+
     }
 
     protected void UpdateEnemy()
     {
         base.UpdateCharacter();
+    }
+
+    protected void Generating()
+    {
+        currentGenerateTime += Time.deltaTime;
+        if(currentGenerateTime > generateTime)
+        {
+            currentState = enemyState.RUNNING;
+            animator.SetBool("Running", true);
+        }
     }
 
     //Movement
@@ -46,10 +74,32 @@ public class Enemy : Character
     {
         if (target != null)
         {
+            animator.SetBool("Running", true);
             Seek();
             CalculateForces();
             Rotate();
             MoveEnemy();
+        }
+
+    }
+
+    private void Seek()
+    {
+        if (transform.position.x > target.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 ||
+            transform.position.x < target.transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2)
+        {
+            Vector3 targetPosition = Vector3.zero;
+
+            if (!GetComponent<SpriteRenderer>().flipX)
+                targetPosition = new Vector3(target.transform.position.x + target.GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, target.transform.position.z);
+            else
+                targetPosition = new Vector3(target.transform.position.x - target.GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, target.transform.position.z);
+
+            direction = targetPosition - transform.position;
+        }
+        else
+        {
+            direction = target.transform.position - transform.position;
         }
 
     }
@@ -75,26 +125,7 @@ public class Enemy : Character
         rgbd.AddForce(movement, ForceMode.Force);
     }
 
-    private void Seek()
-    {
-        if (transform.position.x > target.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 ||
-            transform.position.x < target.transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2)
-        {
-            Vector3 targetPosition = Vector3.zero;
 
-            if (!GetComponent<SpriteRenderer>().flipX)
-                targetPosition = new Vector3(target.transform.position.x + target.GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, target.transform.position.z);
-            else
-                targetPosition = new Vector3(target.transform.position.x - target.GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, target.transform.position.z);
-
-            direction = targetPosition - transform.position;
-        }
-        else
-        {
-            direction = target.transform.position -  transform.position;
-        }
-
-    }
     #endregion
 
     //Forces
@@ -237,12 +268,12 @@ public class Enemy : Character
         if (currentHP <= 0)
         {
             currentState = enemyState.DIE;
-            animator.SetBool("Hurt", true);
+            animator.SetBool("Die", true);
         }
         else
         {
             currentState = enemyState.HURT;
-            animator.SetBool("Die", true);
+            animator.SetBool("Hurt", true);
         }     
     }
 

@@ -102,7 +102,7 @@ Transform:
   m_Children:
   - {fileID: 5815158972203851935}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6947593321855925665
 SpriteRenderer:
@@ -179,6 +179,7 @@ MonoBehaviour:
   alligmentWeight: 1
   recoveryTime: 1
   colliderPosition: {fileID: 9259915653349204}
+  generateTime: 0.5
   dashForce: 15
 --- !u!65 &1123124086480058593
 BoxCollider:

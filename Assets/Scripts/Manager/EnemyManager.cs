@@ -50,6 +50,9 @@ public class EnemyManager : MonoBehaviour
             enemiesToSpawn[index].spawnPosition.position.y + enemy.GetComponent<SpriteRenderer>().bounds.size.y / 2, 
             enemiesToSpawn[index].spawnPosition.position.z);
 
+        enemiesToSpawn[index].spawnPosition.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
+        enemiesToSpawn[index].spawnPosition.GetChild(0).GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
+
         spawnedEnemies.Add(enemy);
         enemy.GetComponent<Enemy>().SetTarget(target);
         index++;

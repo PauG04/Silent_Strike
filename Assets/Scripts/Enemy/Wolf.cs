@@ -49,7 +49,7 @@ public class Wolf : Enemy
     #region
     private void IdleState()
     {
-
+        Generating();
     }
 
     private void RunningState()
@@ -90,11 +90,11 @@ public class Wolf : Enemy
     #endregion
     private void Dash()
     {
-        if(canDash)
+        float animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        if (canDash && animationTime >= 0.5f && animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("WolfAttack"))
         {
             rgbd.AddForce(direction.normalized * dashForce, ForceMode.Impulse);
             canDash = false;
         }
-
     }
 }
