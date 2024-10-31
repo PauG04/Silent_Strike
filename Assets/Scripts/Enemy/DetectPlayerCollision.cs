@@ -5,11 +5,11 @@ using UnityEngine;
 public class DetectPlayerCollision : MonoBehaviour
 {
     [SerializeField] private Enemy enemy;
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if(other.gameObject.CompareTag("Player") && enemy.GetCurrentState() == Enemy.enemyState.RUNNING)
         {
-           enemy.ChangeState(Enemy.enemyState.ATTACK);
+           enemy.ChangeState(Enemy.enemyState.CHARGING);
         }
     }
 }

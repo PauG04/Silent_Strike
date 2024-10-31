@@ -33,9 +33,5 @@ public abstract class Character : MonoBehaviour
     protected virtual void ReceiveDamage(float amount)
     {
         currentHP -= amount;
-        if(currentHP <= 0) 
-        { 
-            //animation
-        }
     }
 }
