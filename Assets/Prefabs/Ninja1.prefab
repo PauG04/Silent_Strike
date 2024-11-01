@@ -97,7 +97,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2561975879969506166}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.282, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -176,12 +176,15 @@ MonoBehaviour:
   damage: 1
   currentState: 0
   separationDistance: {x: 0.1, y: 0.1, z: 0.1}
+  speedDivider: 4
+  current_speed: 0
   cohesionWeight: 1
   separationWeight: 1
   alligmentWeight: 1
-  recoveryTime: 1
+  recoveryTime: 3
   colliderPosition: {fileID: 9259915653349204}
   generateTime: 0.25
+  wanderRadius: 0.1
 --- !u!65 &1123124086480058593
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -263,7 +266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c537853bbcdf54ab71bec280b65001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 7115627929365018159}
   slider: {fileID: 5029393517403363285}
   offsetY: 1.2
   timeToDesapear: 2

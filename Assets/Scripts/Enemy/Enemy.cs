@@ -1,4 +1,6 @@
+using System.Drawing;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Enemy : Character
 {
@@ -7,6 +9,8 @@ public class Enemy : Character
 
     [Header("MovementEnemy")]
     [SerializeField] private Vector3 separationDistance;
+    [SerializeField] protected float speedDivider;
+    [SerializeField] protected float current_speed;
     protected GameObject target;
     protected Vector3 direction;
 
@@ -27,6 +31,13 @@ public class Enemy : Character
     [SerializeField] private float generateTime;
     private float currentGenerateTime;
 
+    [Header("WanderRadius")]
+    [SerializeField] private float wanderRadius;
+    private float wanderChangeDirectionTime;
+    private float changeDirectionTime;
+
+    protected Vector3 centerPosition;
+
     private EnemyHpSlider hpSlider;
 
     private void Awake()
@@ -40,6 +51,10 @@ public class Enemy : Character
 
         currentRecoveryTime = 0;
         currentGenerateTime = 0;
+        changeDirectionTime = 0;
+        current_speed = speed;
+
+        wanderChangeDirectionTime = recoveryTime / 5;
 
 
         if (transform.position.x > target.transform.position.x)
@@ -84,6 +99,61 @@ public class Enemy : Character
 
     }
 
+    protected void WanderTarget()
+    {
+        if (target != null)
+        {
+            Wander();
+            CalculateForces();
+            MoveEnemy();
+        }
+
+    }
+
+    protected void Wander()
+    {
+        changeDirectionTime += Time.deltaTime;
+        if (changeDirectionTime > wanderChangeDirectionTime)
+        {
+            GenerateWanderPosition();
+        }
+    }
+
+    public void GenerateWanderPosition()
+    {
+        Vector2 randomPosition = Random.insideUnitCircle * wanderRadius;
+        direction = (centerPosition + new Vector3(randomPosition.x, 0, randomPosition.y)) - transform.position;
+        changeDirectionTime = 0;
+    }
+
+    public void GenerateRadius()
+    {
+        if (transform.position.x > target.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 || 
+            transform.position.x < target.transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2)
+        {
+            if (!GetComponent<SpriteRenderer>().flipX)
+            {
+                centerPosition = new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius, transform.position.y, transform.position.z);
+            }
+            else
+            {
+                centerPosition = new Vector3(transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius, transform.position.y, transform.position.z);
+            }
+        }
+        else
+        {
+            if(transform.position.z > target.transform.position.z)
+            {
+                centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius);
+            }
+            else
+            {
+                centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius);
+            }
+        }
+        current_speed /= speedDivider;
+    }
+
     protected void Seek()
     {
         if (transform.position.x > target.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 ||
@@ -121,18 +191,10 @@ public class Enemy : Character
 
     private void MoveEnemy()
     {
-        if (direction.magnitude < 0.15f)
-        {
-            animator.SetBool("Running", false);
-            rgbd.velocity = Vector3.zero;
-        }
-        else
-        {
-            animator.SetBool("Running", true);
-            Vector3 combinedDirection = (direction.normalized + separationForce).normalized;
-            Vector3 movement = combinedDirection * speed * Time.deltaTime;
-            rgbd.AddForce(movement, ForceMode.Force);
-        }
+        animator.SetBool("Running", true);
+        Vector3 combinedDirection = (direction.normalized + separationForce).normalized;
+        Vector3 movement = combinedDirection * current_speed * Time.deltaTime;
+        rgbd.AddForce(movement, ForceMode.Force);
     }
 
 
@@ -232,6 +294,8 @@ public class Enemy : Character
         {
             animator.SetBool("Attack", false);
             currentState = enemyState.RECOVERY;
+            GenerateRadius();
+            GenerateWanderPosition();
         }
     }
 
@@ -241,6 +305,7 @@ public class Enemy : Character
         if(currentRecoveryTime >= recoveryTime)
         {
             currentState = enemyState.RUNNING;
+            current_speed = speed; 
             currentRecoveryTime = 0;
         }
     }

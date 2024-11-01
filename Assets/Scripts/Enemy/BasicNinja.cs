@@ -58,7 +58,6 @@ public class BasicNinja : Enemy
     {
         ChargingAttack();
         AttackReady("NinjaPrepareAttack");
-
     }
 
     private void AttackState()
@@ -68,8 +67,10 @@ public class BasicNinja : Enemy
 
     private void RecoveryState()
     {
-        SeekTarget();
+        WanderTarget();
+        FlipSprite();
         Recovery();
+
     }
     private void HurtState()
     {
@@ -82,4 +83,16 @@ public class BasicNinja : Enemy
     }
 
     #endregion
+
+    private void FlipSprite()
+    {
+        if (transform.position.x > target.transform.position.x)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+    }
 }
