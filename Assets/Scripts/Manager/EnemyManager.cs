@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    public static EnemyManager instance;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+
+        instance = this;
+    }
+
     [System.Serializable]
     public class EnemySpawnData
     {
@@ -40,6 +53,10 @@ public class EnemyManager : MonoBehaviour
                 SpawnEnemy();
             }
         }
+        else
+        {
+            LevelManager.instance.SetCanCangeLevel(true);
+        }
     }
 
     private void SpawnEnemy()
@@ -57,6 +74,11 @@ public class EnemyManager : MonoBehaviour
         enemy.GetComponent<Enemy>().SetTarget(target);
         index++;
         
+    }
+
+    public List<GameObject> GetSpawnedEnemies()
+    {
+        return spawnedEnemies;
     }
 
 
