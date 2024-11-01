@@ -1,28 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Enemy;
 
-public class Wolf : Enemy
+public class BasicNinja : Enemy
 {
-    [Header("Dash")]
-    [SerializeField] private float dashForce;
-    private bool canDash;
-
     private void Start()
     {
         base.InitializeEnemy();
         animator.SetBool("Idle", true);
         currentState = enemyState.GENERATING;
-        canDash = false;
     }
 
     private void Update()
     {
-        switch(currentState)
+        switch (currentState)
         {
             case enemyState.GENERATING:
                 GeneratingState();
-            break;
+                break;
             case enemyState.RUNNING:
                 RunningState();
                 break;
@@ -47,10 +43,10 @@ public class Wolf : Enemy
 
     //State
     #region
-
     private void GeneratingState()
     {
         Generating();
+
     }
 
     private void RunningState()
@@ -61,16 +57,13 @@ public class Wolf : Enemy
     private void ChargingState()
     {
         ChargingAttack();
-        AttackReady("WolfPrepareAttack");
+        AttackReady("NinjaPrepareAttack");
 
-        if(!canDash)
-            canDash = true;
     }
 
     private void AttackState()
     {
-        Dash();
-        Attack("WolfAttack");
+        Attack("NinjaAttack");
     }
 
     private void RecoveryState()
@@ -80,22 +73,13 @@ public class Wolf : Enemy
     }
     private void HurtState()
     {
-        Hurt("WolfHurt");
+        Hurt("NinjaHurt");
     }
 
     private void DieState()
     {
-        Die("WolfDie");
+        Die("NinjaDie");
     }
 
     #endregion
-    private void Dash()
-    {
-        float animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        if (canDash && animationTime >= 0.5f && animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("WolfAttack"))
-        {
-            rgbd.AddForce(direction.normalized * dashForce, ForceMode.Impulse);
-            canDash = false;
-        }
-    }
 }

@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class Enemy : Character
 {
-    public enum enemyState { IDLE, RUNNING, CHARGING, ATTACK, RECOVERY, HURT, DIE };
+    public enum enemyState { GENERATING, RUNNING, CHARGING, ATTACK, RECOVERY, HURT, DIE };
     public enemyState currentState;
 
     [Header("MovementEnemy")]
     [SerializeField] private Vector3 separationDistance;
-    [SerializeField] protected GameObject target;
+    protected GameObject target;
     protected Vector3 direction;
 
     [Header("Forces")]
@@ -74,7 +74,6 @@ public class Enemy : Character
     {
         if (target != null)
         {
-            animator.SetBool("Running", true);
             Seek();
             CalculateForces();
             Rotate();
@@ -83,7 +82,7 @@ public class Enemy : Character
 
     }
 
-    private void Seek()
+    protected void Seek()
     {
         if (transform.position.x > target.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 ||
             transform.position.x < target.transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2)
@@ -120,9 +119,18 @@ public class Enemy : Character
 
     private void MoveEnemy()
     {
-        Vector3 combinedDirection = (direction.normalized + separationForce).normalized;
-        Vector3 movement = combinedDirection * speed * Time.deltaTime;
-        rgbd.AddForce(movement, ForceMode.Force);
+        if (direction.magnitude < 0.15f)
+        {
+            animator.SetBool("Running", false);
+            rgbd.velocity = Vector3.zero;
+        }
+        else
+        {
+            animator.SetBool("Running", true);
+            Vector3 combinedDirection = (direction.normalized + separationForce).normalized;
+            Vector3 movement = combinedDirection * speed * Time.deltaTime;
+            rgbd.AddForce(movement, ForceMode.Force);
+        }
     }
 
 
