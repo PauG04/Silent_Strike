@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using TMPro;
 using UnityEngine;
 
 public class Enemy : Character
@@ -31,6 +27,12 @@ public class Enemy : Character
     [SerializeField] private float generateTime;
     private float currentGenerateTime;
 
+    private EnemyHpSlider hpSlider;
+
+    private void Awake()
+    {
+        hpSlider = GetComponent<EnemyHpSlider>();
+    }
 
     protected void InitializeEnemy()
     {
@@ -282,7 +284,9 @@ public class Enemy : Character
         {
             currentState = enemyState.HURT;
             animator.SetBool("Hurt", true);
-        }     
+        }
+
+        hpSlider.UpdateSlider();
     }
 
     public void ChangeState(enemyState state)

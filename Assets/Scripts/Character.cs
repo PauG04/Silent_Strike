@@ -34,4 +34,14 @@ public abstract class Character : MonoBehaviour
     {
         currentHP -= amount;
     }
+
+    public virtual float GetMaxHp()
+    {
+        return maxHP;
+    }
+
+    public virtual float GetCurrentHp()
+    {
+        return currentHP;
+    }
 }

@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHpSlider : MonoBehaviour
 {
-    //[SerializeField] private Enemy enemy;
+    private Enemy enemy;
     [SerializeField] private GameObject slider;
     private SliderBar hpSlider;
 
@@ -13,12 +11,12 @@ public class EnemyHpSlider : MonoBehaviour
 
     private void Awake()
     {
+        enemy = GetComponent<Enemy>();
+
         hpSlider = slider.GetComponent<SliderBar>();
 
-        hpSlider.SetMaxValue(100);
-        hpSlider.SetCurrentValue(75);
-        //hpSlider.SetMaxValue(enemy.GetMaxHealth());
-        //hpSlider.SetCurrentValue(enemy.GetCurrentHealth());
+        hpSlider.SetMaxValue(enemy.GetMaxHp());
+        hpSlider.SetCurrentValue(enemy.GetCurrentHp());
 
         slider.SetActive(false);
     }
@@ -38,7 +36,7 @@ public class EnemyHpSlider : MonoBehaviour
     private void EnableSlider()
     {
         slider.SetActive(true);
-        //hpSlider.SetCurrentValue(enemy.GetCurrentHealth());
+        hpSlider.SetCurrentValue(enemy.GetCurrentHp());
 
         Invoke("DisableSlider", timeToDesapear);
     }
@@ -47,8 +45,4 @@ public class EnemyHpSlider : MonoBehaviour
     {
         slider.SetActive(false);
     }
-
-
-
-
 }
