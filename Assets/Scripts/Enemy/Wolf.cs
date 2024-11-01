@@ -75,7 +75,8 @@ public class Wolf : Enemy
 
     private void RecoveryState()
     {
-        SeekTarget();
+        WanderTarget();
+        FlipSprite();
         Recovery();
     }
     private void HurtState()
@@ -89,6 +90,18 @@ public class Wolf : Enemy
     }
 
     #endregion
+
+    private void FlipSprite()
+    {
+        if(transform.position.x > target.transform.position.x) 
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+    }
     private void Dash()
     {
         float animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
