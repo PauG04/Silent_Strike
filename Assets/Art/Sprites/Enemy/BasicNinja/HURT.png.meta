@@ -113,7 +113,7 @@ TextureImporter:
       name: HURT_0
       rect:
         serializedVersion: 2
-        x: 38
+        x: 43
         y: 30
         width: 28
         height: 37
@@ -134,7 +134,7 @@ TextureImporter:
       name: HURT_1
       rect:
         serializedVersion: 2
-        x: 138
+        x: 146
         y: 30
         width: 28
         height: 37
@@ -155,7 +155,7 @@ TextureImporter:
       name: HURT_2
       rect:
         serializedVersion: 2
-        x: 245
+        x: 237
         y: 30
         width: 26
         height: 37
@@ -176,7 +176,7 @@ TextureImporter:
       name: HURT_3
       rect:
         serializedVersion: 2
-        x: 338
+        x: 339
         y: 30
         width: 25
         height: 37

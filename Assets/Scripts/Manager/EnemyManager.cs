@@ -81,5 +81,10 @@ public class EnemyManager : MonoBehaviour
         return spawnedEnemies;
     }
 
+    public void DeleteEnemy(GameObject enemy)
+    {
+        spawnedEnemies.Remove(enemy);
+    }
+
 
 }

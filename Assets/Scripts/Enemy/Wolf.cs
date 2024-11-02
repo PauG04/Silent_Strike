@@ -95,11 +95,11 @@ public class Wolf : Enemy
     {
         if(transform.position.x > target.transform.position.x) 
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<SpriteRenderer>().flipX = true;
         }
         else
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().flipX = false;
         }
     }
     private void Dash()

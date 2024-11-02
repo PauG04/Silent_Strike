@@ -113,7 +113,7 @@ TextureImporter:
       name: ATTACK 1_0
       rect:
         serializedVersion: 2
-        x: 47
+        x: 56
         y: 30
         width: 23
         height: 37
@@ -134,7 +134,7 @@ TextureImporter:
       name: ATTACK 1_1
       rect:
         serializedVersion: 2
-        x: 144
+        x: 143
         y: 30
         width: 22
         height: 36
@@ -155,7 +155,7 @@ TextureImporter:
       name: ATTACK 1_2
       rect:
         serializedVersion: 2
-        x: 214
+        x: 204
         y: 27
         width: 68
         height: 48
@@ -176,7 +176,7 @@ TextureImporter:
       name: ATTACK 1_3
       rect:
         serializedVersion: 2
-        x: 321
+        x: 316
         y: 30
         width: 34
         height: 45
@@ -197,7 +197,7 @@ TextureImporter:
       name: ATTACK 1_4
       rect:
         serializedVersion: 2
-        x: 420
+        x: 417
         y: 30
         width: 34
         height: 41
@@ -218,7 +218,7 @@ TextureImporter:
       name: ATTACK 1_5
       rect:
         serializedVersion: 2
-        x: 493
+        x: 500
         y: 30
         width: 35
         height: 40
