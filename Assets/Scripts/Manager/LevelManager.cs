@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
     {
         if(canChangeLevel && EnemyManager.instance.GetSpawnedEnemies().Count == 0)
         {
-
+            Debug.Log("victory");
         }
     }
 

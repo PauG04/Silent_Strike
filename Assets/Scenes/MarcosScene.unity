@@ -5674,6 +5674,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 500
+  hp: 0
+  dashForce: 0
 --- !u!114 &312970808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5715,6 +5717,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 43c06b4d-6c71-4ff6-9662-0b304546b4bc
     m_ActionName: Movement/Move[/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 59ed841d-9e51-4cab-8367-81daefb4f8f2
+    m_ActionName: Movement/Dash
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movement
@@ -34004,7 +34010,7 @@ PrefabInstance:
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].enemyPrefab
       value: 
-      objectReference: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
+      objectReference: {fileID: 2561975879969506166, guid: 41fd54d79c626264bb0593baeb379bbb, type: 3}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[1].enemyPrefab
       value: 

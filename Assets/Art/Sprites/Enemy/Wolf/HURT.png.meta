@@ -113,12 +113,12 @@ TextureImporter:
       name: HURT_0
       rect:
         serializedVersion: 2
-        x: 62
-        y: 8
-        width: 66
-        height: 44
+        x: 65
+        y: 12
+        width: 64
+        height: 42
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: HURT_1
       rect:
         serializedVersion: 2
-        x: 268
-        y: 8
-        width: 54
-        height: 53
+        x: 266
+        y: 12
+        width: 52
+        height: 49
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -155,12 +155,12 @@ TextureImporter:
       name: HURT_2
       rect:
         serializedVersion: 2
-        x: 460
-        y: 8
-        width: 54
-        height: 53
+        x: 453
+        y: 12
+        width: 52
+        height: 49
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -177,11 +177,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 646
-        y: 8
-        width: 59
-        height: 50
+        y: 12
+        width: 57
+        height: 48
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -197,12 +197,12 @@ TextureImporter:
       name: HURT_4
       rect:
         serializedVersion: 2
-        x: 832
-        y: 8
-        width: 64
-        height: 44
+        x: 838
+        y: 12
+        width: 62
+        height: 41
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -218,12 +218,12 @@ TextureImporter:
       name: HURT_5
       rect:
         serializedVersion: 2
-        x: 1022
-        y: 8
-        width: 66
-        height: 44
+        x: 1018
+        y: 12
+        width: 64
+        height: 42
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

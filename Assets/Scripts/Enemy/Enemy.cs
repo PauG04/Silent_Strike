@@ -1,6 +1,7 @@
 using System.Drawing;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : Character
 {
@@ -34,8 +35,6 @@ public class Enemy : Character
 
     [Header("WanderRadius")]
     [SerializeField] private float wanderRadius;
-    private float wanderChangeDirectionTime;
-    private float changeDirectionTime;
     private bool generateRadius;
 
     protected Vector3 centerPosition;
@@ -54,21 +53,17 @@ public class Enemy : Character
 
         currentRecoveryTime = 0;
         currentGenerateTime = 0;
-        changeDirectionTime = 0;
         current_speed = speed;
-
-        wanderChangeDirectionTime = recoveryTime / 5;
-
 
         if (transform.position.x > target.transform.position.x)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<SpriteRenderer>().flipX = true;
             colliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
         }
         else
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().flipX = false;
             colliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
         }
@@ -80,6 +75,7 @@ public class Enemy : Character
     protected void UpdateEnemy()
     {
         base.UpdateCharacter();
+        if (Input.GetKeyDown(KeyCode.N)) { ReceiveDamage(20); }
     }
 
     protected void Generating()
@@ -110,15 +106,13 @@ public class Enemy : Character
     {
         if (target != null)
         {
-            if (target.GetComponent<Rigidbody>().velocity.magnitude < rgbd.velocity.magnitude)
+            if(target.GetComponent<Rigidbody>().velocity.magnitude < rgbd.velocity.magnitude)
             {
                 Wander();
                 GenerateRadius();
-                Debug.Log("wander");
             }
             else
             {
-                Debug.Log("Seek");
                 Seek();
             }
 
@@ -130,8 +124,7 @@ public class Enemy : Character
 
     protected void Wander()
     {
-        changeDirectionTime += Time.deltaTime;
-        if (changeDirectionTime > wanderChangeDirectionTime)
+        if((transform.position - centerPosition).magnitude > wanderRadius)
         {
             GenerateWanderPosition();
         }
@@ -141,7 +134,6 @@ public class Enemy : Character
     {
         Vector2 randomPosition = Random.insideUnitCircle * wanderRadius;
         direction = (centerPosition + new Vector3(randomPosition.x, 0, randomPosition.y)) - transform.position;
-        changeDirectionTime = 0;
     }
 
     public void GenerateRadius()
@@ -151,7 +143,7 @@ public class Enemy : Character
             if (transform.position.x > target.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 ||
             transform.position.x < target.transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2)
             {
-                if (!GetComponent<SpriteRenderer>().flipX)
+                if (GetComponent<SpriteRenderer>().flipX)
                 {
                     centerPosition = new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius, transform.position.y, transform.position.z);
                 }
@@ -184,7 +176,7 @@ public class Enemy : Character
         {
             Vector3 targetPosition = Vector3.zero;
 
-            if (!GetComponent<SpriteRenderer>().flipX)
+            if (GetComponent<SpriteRenderer>().flipX)
                 targetPosition = new Vector3(target.transform.position.x + target.GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, target.transform.position.z);
             else
                 targetPosition = new Vector3(target.transform.position.x - target.GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, target.transform.position.z);
@@ -209,13 +201,13 @@ public class Enemy : Character
     {
         if (rgbd.velocity.x > 0)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().flipX = false;
             colliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
         }
         else
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<SpriteRenderer>().flipX = true;
             colliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
         }
@@ -357,7 +349,7 @@ public class Enemy : Character
 
     protected void Die(string animationName)
     {
-        Destroy(transform.GetChild(0).gameObject);
+        Destroy(transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
         Destroy(GetComponent<BoxCollider2D>());
 
         float animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
@@ -375,7 +367,9 @@ public class Enemy : Character
         if (currentHP <= 0)
         {
             currentState = enemyState.DIE;
+            animator.SetBool("Hurt", false);
             animator.SetBool("Die", true);
+            EnemyManager.instance.DeleteEnemy(this.gameObject);
         }
         else
         {
