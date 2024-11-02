@@ -26,6 +26,7 @@ public class Enemy : Character
 
     [Header("Collider")]
     [SerializeField] private GameObject colliderPosition;
+    [SerializeField] private GameObject damageColliderPosition;
 
     [Header("GenerateTime")]
     [SerializeField] private float generateTime;
@@ -35,10 +36,12 @@ public class Enemy : Character
     [SerializeField] private float wanderRadius;
     private float wanderChangeDirectionTime;
     private float changeDirectionTime;
+    private bool generateRadius;
 
     protected Vector3 centerPosition;
 
     private EnemyHpSlider hpSlider;
+    private bool attackHitted;
 
     private void Awake()
     {
@@ -61,13 +64,17 @@ public class Enemy : Character
         {
             GetComponent<SpriteRenderer>().flipX = false;
             colliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            damageColliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
         }
         else
         {
             GetComponent<SpriteRenderer>().flipX = true;
             colliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            damageColliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
         }
 
+        generateRadius = false;
+        attackHitted = false;
     }
 
     protected void UpdateEnemy()
@@ -103,11 +110,22 @@ public class Enemy : Character
     {
         if (target != null)
         {
-            Wander();
+            if (target.GetComponent<Rigidbody>().velocity.magnitude < rgbd.velocity.magnitude)
+            {
+                Wander();
+                GenerateRadius();
+                Debug.Log("wander");
+            }
+            else
+            {
+                Debug.Log("Seek");
+                Seek();
+            }
+
+
             CalculateForces();
             MoveEnemy();
         }
-
     }
 
     protected void Wander()
@@ -128,30 +146,35 @@ public class Enemy : Character
 
     public void GenerateRadius()
     {
-        if (transform.position.x > target.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 || 
+        if(!generateRadius)
+        {
+            if (transform.position.x > target.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 ||
             transform.position.x < target.transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2)
-        {
-            if (!GetComponent<SpriteRenderer>().flipX)
             {
-                centerPosition = new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius, transform.position.y, transform.position.z);
+                if (!GetComponent<SpriteRenderer>().flipX)
+                {
+                    centerPosition = new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius, transform.position.y, transform.position.z);
+                }
+                else
+                {
+                    centerPosition = new Vector3(transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius, transform.position.y, transform.position.z);
+                }
             }
             else
             {
-                centerPosition = new Vector3(transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius, transform.position.y, transform.position.z);
+                if (transform.position.z > target.transform.position.z)
+                {
+                    centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius);
+                }
+                else
+                {
+                    centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius);
+                }
             }
+            current_speed /= speedDivider;
+            generateRadius = true;
+            GenerateWanderPosition();
         }
-        else
-        {
-            if(transform.position.z > target.transform.position.z)
-            {
-                centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius);
-            }
-            else
-            {
-                centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius);
-            }
-        }
-        current_speed /= speedDivider;
     }
 
     protected void Seek()
@@ -173,6 +196,13 @@ public class Enemy : Character
             direction = target.transform.position - transform.position;
         }
 
+        if(generateRadius)
+        {
+            current_speed = speed;
+            generateRadius = false;
+        }
+
+
     }
 
     private void Rotate()
@@ -181,11 +211,13 @@ public class Enemy : Character
         {
             GetComponent<SpriteRenderer>().flipX = true;
             colliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            damageColliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
         }
         else
         {
             GetComponent<SpriteRenderer>().flipX = false;
             colliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            damageColliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
         }
     }
 
@@ -295,7 +327,6 @@ public class Enemy : Character
             animator.SetBool("Attack", false);
             currentState = enemyState.RECOVERY;
             GenerateRadius();
-            GenerateWanderPosition();
         }
     }
 
@@ -307,6 +338,7 @@ public class Enemy : Character
             currentState = enemyState.RUNNING;
             current_speed = speed; 
             currentRecoveryTime = 0;
+            attackHitted = false;
         }
     }
     #endregion
@@ -359,6 +391,11 @@ public class Enemy : Character
         currentState = state;
     }
 
+    public float GetDamage()
+    {
+        return damage;
+    }
+
     public enemyState GetCurrentState()
     {
         return currentState;
@@ -368,4 +405,16 @@ public class Enemy : Character
     {
         target = _target;
     }
+
+    public void SetAttackHitted(bool state)
+    {
+        attackHitted = state;
+    }
+
+    public bool GetAttackHitted()
+    {
+        return attackHitted;
+    }
 }
+
+
