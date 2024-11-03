@@ -48,7 +48,7 @@ public class EnemyManager : MonoBehaviour
         currentTime += Time.deltaTime;
         if (index < enemiesToSpawn.Count) 
         {
-            if (enemiesToSpawn[index].spawnTime < currentTime || spawnedEnemies.Count == 0)
+            if (enemiesToSpawn[index].spawnTime < currentTime || (spawnedEnemies.Count == 0 && index != 0))
             {
                 SpawnEnemy();
             }
