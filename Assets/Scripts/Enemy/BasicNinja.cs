@@ -32,7 +32,6 @@ public class BasicNinja : Enemy
                 RecoveryState();
                 break;
             case enemyState.HURT:
-                HurtState();
                 break;
             case enemyState.DIE:
                 DieState();
@@ -57,12 +56,10 @@ public class BasicNinja : Enemy
     private void ChargingState()
     {
         ChargingAttack();
-        AttackReady("NinjaPrepareAttack");
     }
 
     private void AttackState()
     {
-        Attack("NinjaAttack");
     }
 
     private void RecoveryState()
@@ -72,14 +69,10 @@ public class BasicNinja : Enemy
         Recovery();
 
     }
-    private void HurtState()
-    {
-        Hurt("NinjaHurt");
-    }
 
     private void DieState()
     {
-        Die("NinjaDie");
+        Die();
     }
 
     #endregion

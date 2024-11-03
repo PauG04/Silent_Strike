@@ -5539,6 +5539,7 @@ GameObject:
   - component: {fileID: 312970804}
   - component: {fileID: 312970803}
   - component: {fileID: 312970808}
+  - component: {fileID: 312970809}
   m_Layer: 7
   m_Name: Target
   m_TagString: Player
@@ -5676,6 +5677,8 @@ MonoBehaviour:
   speed: 500
   hp: 0
   dashForce: 0
+  dashAnimationName: DASH
+  animator: {fileID: 312970809}
 --- !u!114 &312970808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5726,6 +5729,27 @@ MonoBehaviour:
   m_DefaultActionMap: Movement
   m_SplitScreenIndex: 0
   m_Camera: {fileID: 0}
+--- !u!95 &312970809
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312970802}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8fdce4c00234f7d4c86e84aa38655f99, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &316976110
 GameObject:
   m_ObjectHideFlags: 0
@@ -34151,7 +34175,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].spawnTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[1].spawnTime

@@ -7,7 +7,7 @@ public class AttackPlayer : MonoBehaviour
     [SerializeField] private Enemy enemy;
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && enemy.GetCurrentState() == Enemy.enemyState.ATTACK && !enemy.GetAttackHitted())
+        if (other.gameObject.CompareTag("Player") && enemy.GetCurrentState() == Enemy.enemyState.ATTACK && !enemy.GetAttackHitted() && enemy.GetCanAttack())
         {
             Debug.Log(enemy.GetDamage());
             enemy.SetAttackHitted(true);
