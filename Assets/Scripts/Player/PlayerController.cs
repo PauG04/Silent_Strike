@@ -91,6 +91,9 @@ public class PlayerController : MonoBehaviour
 
     public void DashAction(InputAction.CallbackContext obj)
     {
+        if (currentState == State.DASHING || currentState == State.DEATH)
+            return;
+
         ChangeState(State.DASHING);
     }
 
@@ -205,12 +208,14 @@ public class PlayerController : MonoBehaviour
     {
         if(currentHp <= 0)
         {
+            ChangeState(State.IDLE);
             Die();
         }
     }
 
     private void Die()
     {
-        Destroy(gameObject);
+        ChangeState(State.DEATH);
+        animator.SetBool("dead", true);
     }
 }
