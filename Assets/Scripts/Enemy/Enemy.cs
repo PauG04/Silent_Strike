@@ -38,6 +38,7 @@ public class Enemy : Character
     private bool generateRadius;
 
     protected Vector3 centerPosition;
+    protected Vector3 targetCenterPosition;
 
     private EnemyHpSlider hpSlider;
     private bool attackHitted;
@@ -106,7 +107,7 @@ public class Enemy : Character
     {
         if (target != null)
         {
-            if(target.GetComponent<Rigidbody>().velocity.magnitude < rgbd.velocity.magnitude)
+            if (target.GetComponent<Rigidbody>().velocity.magnitude < rgbd.velocity.magnitude)
             {
                 Wander();
                 GenerateRadius();
@@ -115,8 +116,6 @@ public class Enemy : Character
             {
                 Seek();
             }
-
-
             CalculateForces();
             MoveEnemy();
         }
@@ -124,7 +123,7 @@ public class Enemy : Character
 
     protected void Wander()
     {
-        if((transform.position - centerPosition).magnitude > wanderRadius)
+        if(Vector3.Distance(centerPosition, transform.position) > wanderRadius)
         {
             GenerateWanderPosition();
         }
@@ -146,10 +145,12 @@ public class Enemy : Character
                 if (GetComponent<SpriteRenderer>().flipX)
                 {
                     centerPosition = new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius, transform.position.y, transform.position.z);
+                    targetCenterPosition = new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, transform.position.z);
                 }
                 else
                 {
                     centerPosition = new Vector3(transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius, transform.position.y, transform.position.z);
+                    targetCenterPosition = new Vector3(transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, transform.position.z);
                 }
             }
             else
@@ -157,10 +158,12 @@ public class Enemy : Character
                 if (transform.position.z > target.transform.position.z)
                 {
                     centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius);
+                    targetCenterPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + GetComponent<SpriteRenderer>().bounds.size.x / 2);
                 }
                 else
                 {
                     centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius);
+                    targetCenterPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - GetComponent<SpriteRenderer>().bounds.size.x / 2);
                 }
             }
             current_speed /= speedDivider;
