@@ -826,7 +826,7 @@ MonoBehaviour:
       sizeOverriden: 0
     m_OverlaysVisible: 1
   m_WindowGUID: cc27987af1a868c49b0894db9c0f5429
-  m_Gizmos: 1
+  m_Gizmos: 0
   m_OverrideSceneCullingMask: 6917529027641081856
   m_SceneIsLit: 1
   m_SceneLighting: 1
@@ -907,7 +907,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.090182364, y: 0.009558033, z: -0.0008651033, w: -0.9958806}
+  m_LastSceneViewRotation: {x: 0.031106958, y: -0.07131168, z: -0.002229453, w: -0.99698687}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -936,7 +936,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 357
     y: 73
-    width: 1091
+    width: 353
     height: 572
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -952,6 +952,7 @@ MonoBehaviour:
     m_KeySerializationHelper:
     - {fileID: -3621790517419738482, guid: e39d2699802c66244acedc5a02d36d5a, type: 2}
     - {fileID: -3621790517419738482, guid: d31bfec8e3b90c14a81a1181f26b6e74, type: 2}
+    - {fileID: 3679754910621246089, guid: 8fdce4c00234f7d4c86e84aa38655f99, type: 2}
     m_ValueSerializationHelper:
     - e00: 0.59880954
       e01: 0
@@ -985,10 +986,26 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
+    - e00: 0.64318633
+      e01: 0
+      e02: 0
+      e03: -239.16132
+      e10: 0
+      e11: 0.64318633
+      e12: 0
+      e13: 228.83273
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
   m_PreviewAnimator: {fileID: 0}
-  m_AnimatorController: {fileID: 9100000, guid: d31bfec8e3b90c14a81a1181f26b6e74, type: 2}
+  m_AnimatorController: {fileID: 9100000, guid: 8fdce4c00234f7d4c86e84aa38655f99, type: 2}
   m_BreadCrumbs:
-  - m_Target: {fileID: -3621790517419738482, guid: d31bfec8e3b90c14a81a1181f26b6e74, type: 2}
+  - m_Target: {fileID: 3679754910621246089, guid: 8fdce4c00234f7d4c86e84aa38655f99, type: 2}
     m_ScrollPosition: {x: 0, y: 0}
   stateMachineGraph: {fileID: 0}
   stateMachineGraphGUI: {fileID: 0}
@@ -1243,7 +1260,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c62300008e7f000082810000165b000000000000125c0000c67b0000
+    m_ExpandedInstanceIDs: c62300008e7f000082810000165b000000000000125c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1383,7 +1400,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 617
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
