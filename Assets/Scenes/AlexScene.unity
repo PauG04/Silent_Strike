@@ -16619,6 +16619,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4000
   hp: 100
+  maxStamina: 100
+  attackStaminaConsume: 20
+  timeToRecoverStamina: 0
   dashForce: 1200
   dashAnimationName: DASH
   animator: {fileID: 1030697725}

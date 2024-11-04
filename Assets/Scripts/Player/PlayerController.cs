@@ -13,6 +13,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float hp;
     private float currentHp;
 
+    [Header("Stamina")]
+    [SerializeField] private float maxStamina;
+    [SerializeField] private float attackStaminaConsume;
+    [SerializeField] private float timeToRecoverStamina;
+    private float currentStamina;
+
     [Header("Dash")]
     [SerializeField] private float dashForce;
     [SerializeField] private string dashAnimationName;
@@ -24,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] GameObject attackCollider;
+
 
     public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING}
 
@@ -37,6 +44,7 @@ public class PlayerController : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         currentHp = hp;
         dashDirection = new Vector3(1, 0, 0);
+        currentStamina = maxStamina;
     }
 
 
@@ -151,6 +159,7 @@ public class PlayerController : MonoBehaviour
     private void Attack()
     {
         attackCollider.gameObject.SetActive(true);
+        ConsumeStamina(attackStaminaConsume);
     }
 
     public void EndAttack()
@@ -163,6 +172,9 @@ public class PlayerController : MonoBehaviour
     public void AttackAction(InputAction.CallbackContext obj)
     {
         if (currentState == State.ATTACKING || currentState == State.DEATH)
+            return;
+
+        if (currentStamina < attackStaminaConsume)
             return;
 
         ChangeState(State.ATTACKING); 
@@ -207,6 +219,16 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("dead", true);
     }
 
+    #endregion
+
+    #region Stamina
+
+    private void ConsumeStamina(float staminaConsumeValue)
+    {
+        currentStamina -= staminaConsumeValue;
+
+        Debug.Log(currentStamina);
+    }
     #endregion
 
     public void ChangeState(State state)
