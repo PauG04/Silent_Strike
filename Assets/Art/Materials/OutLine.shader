@@ -1,10 +1,10 @@
-Shader "Custom/OutlineShader"
+Shader "Custom/EdgeDetectOutlineShader"
 {
     Properties
     {
         _MainTex ("Sprite Texture", 2D) = "white" {}
         _OutlineColor ("Outline Color", Color) = (0,0,0,1)
-        _OutlineThickness ("Outline Thickness", Range(0.0, 0.5)) = 0.03
+        _OutlineThickness ("Outline Thickness", Range(0.0, 0.1)) = 0.03
     }
     SubShader
     {
@@ -24,7 +24,7 @@ Shader "Custom/OutlineShader"
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
-            
+
             struct appdata_t
             {
                 float4 vertex : POSITION;
@@ -37,40 +37,55 @@ Shader "Custom/OutlineShader"
                 float4 vertex : SV_POSITION;
             };
             
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
-            float4 _OutlineColor;
-            float _OutlineThickness;
+            sampler2D _MainTex; // Textura principal
+            float4 _MainTex_ST; // Transformación de la textura
+            float4 _OutlineColor; // Color del contorno
+            float _OutlineThickness; // Grosor del contorno
             
             v2f vert (appdata_t v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex); // Transformar UVs
                 return o;
             }
 
             half4 frag (v2f i) : SV_Target
             {
                 float2 uv = i.uv;
-                half4 color = tex2D(_MainTex, uv);
-                
-                if (color.a == 0) // Si el pixel es transparente
+                half4 color = tex2D(_MainTex, uv); // Muestra la textura
+
+                // Si el pixel es transparente
+                if (color.a == 0) 
                 {
+                    // Variable para el alpha
                     float alpha = 0.0;
-                    for (int x = -1; x <= 1; x++)
+
+                    // Definir offsets para la detección de bordes
+                    float2 offsets[8] = {
+                        float2(-_OutlineThickness, 0),
+                        float2(_OutlineThickness, 0),
+                        float2(0, -_OutlineThickness),
+                        float2(0, _OutlineThickness),
+                        float2(-_OutlineThickness, -_OutlineThickness),
+                        float2(_OutlineThickness, -_OutlineThickness),
+                        float2(-_OutlineThickness, _OutlineThickness),
+                        float2(_OutlineThickness, _OutlineThickness)
+                    };
+
+                    // Revisar los píxeles alrededor del actual
+                    for (int j = 0; j < 8; j++)
                     {
-                        for (int y = -1; y <= 1; y++)
-                        {
-                            float2 offset = float2(x, y) * _OutlineThickness;
-                            alpha = max(alpha, tex2D(_MainTex, uv + offset).a);
-                        }
+                        alpha = max(alpha, tex2D(_MainTex, uv + offsets[j]).a);
                     }
+
+                    // Si se detecta un borde, aplicar el color de contorno
                     if (alpha > 0.0)
                         return _OutlineColor;
                 }
 
-                return color;
+                // Devolver el color original si no hay borde
+                return color; 
             }
             ENDCG
         }
