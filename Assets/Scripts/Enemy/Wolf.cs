@@ -36,7 +36,6 @@ public class Wolf : Enemy
                 RecoveryState();
                 break;
             case enemyState.HURT:
-                HurtState();
                 break;
             case enemyState.DIE:
                 DieState();
@@ -61,7 +60,6 @@ public class Wolf : Enemy
     private void ChargingState()
     {
         ChargingAttack();
-        AttackReady("WolfPrepareAttack");
 
         if(!canDash)
             canDash = true;
@@ -69,8 +67,6 @@ public class Wolf : Enemy
 
     private void AttackState()
     {
-        Dash();
-        Attack("WolfAttack");
     }
 
     private void RecoveryState()
@@ -79,14 +75,10 @@ public class Wolf : Enemy
         FlipSprite();
         Recovery();
     }
-    private void HurtState()
-    {
-        Hurt("WolfHurt");
-    }
 
     private void DieState()
     {
-        Die("WolfDie");
+        Die();
     }
 
     #endregion
@@ -104,11 +96,7 @@ public class Wolf : Enemy
     }
     private void Dash()
     {
-        float animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        if (canDash && animationTime >= 0.5f && animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("WolfAttack"))
-        {
-            rgbd.AddForce(direction.normalized * dashForce, ForceMode.Impulse);
-            canDash = false;
-        }
+        rgbd.AddForce(direction.normalized * dashForce, ForceMode.Impulse);
+        canDash = false;
     }
 }

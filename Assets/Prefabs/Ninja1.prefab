@@ -196,7 +196,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -244,12 +244,14 @@ MonoBehaviour:
   maxHP: 30
   damage: 1
   currentState: 0
+  hurtLastState: 0
   separationDistance: {x: 0.1, y: 0.1, z: 0.1}
   speedDivider: 4
   current_speed: 0
   cohesionWeight: 1
   separationWeight: 1
   alligmentWeight: 1
+  knockBackForce: 2
   recoveryTime: 3
   colliderPosition: {fileID: 9259915653349204}
   damageColliderPosition: {fileID: 1669257261796109920}
@@ -519,7 +521,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0.75
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

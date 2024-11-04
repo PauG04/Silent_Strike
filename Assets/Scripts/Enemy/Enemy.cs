@@ -7,6 +7,7 @@ public class Enemy : Character
 {
     public enum enemyState { GENERATING, RUNNING, CHARGING, ATTACK, RECOVERY, HURT, DIE };
     public enemyState currentState;
+    public enemyState hurtLastState;
 
     [Header("MovementEnemy")]
     [SerializeField] private Vector3 separationDistance;
@@ -19,6 +20,7 @@ public class Enemy : Character
     [SerializeField] private float cohesionWeight;
     [SerializeField] private float separationWeight;
     [SerializeField] private float alligmentWeight;
+    [SerializeField] private float knockBackForce;
     private Vector3 separationForce;
 
     [Header("Recovery")]
@@ -38,10 +40,10 @@ public class Enemy : Character
     private bool generateRadius;
 
     protected Vector3 centerPosition;
-    protected Vector3 targetCenterPosition;
 
     private EnemyHpSlider hpSlider;
     private bool attackHitted;
+    private bool canAttack;
 
     private void Awake()
     {
@@ -71,12 +73,14 @@ public class Enemy : Character
 
         generateRadius = false;
         attackHitted = false;
+        canAttack = false;
     }
 
     protected void UpdateEnemy()
     {
         base.UpdateCharacter();
-        if (Input.GetKeyDown(KeyCode.N)) { ReceiveDamage(20); }
+        if (Input.GetKeyDown(KeyCode.N)) { ReceiveDamageEnemy(20); }
+        SetOrdingLayer();
     }
 
     protected void Generating()
@@ -86,6 +90,17 @@ public class Enemy : Character
         {
             currentState = enemyState.RUNNING;
             animator.SetBool("Running", true);
+        }
+    }
+
+    private void SetOrdingLayer()
+    {
+        if(target != null)
+        {
+            if (transform.position.z > target.transform.position.z)
+                GetComponent<SpriteRenderer>().sortingOrder = target.GetComponent<SpriteRenderer>().sortingOrder - 1;
+            else
+                GetComponent<SpriteRenderer>().sortingOrder = target.GetComponent<SpriteRenderer>().sortingOrder + 1;
         }
     }
 
@@ -145,12 +160,10 @@ public class Enemy : Character
                 if (GetComponent<SpriteRenderer>().flipX)
                 {
                     centerPosition = new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius, transform.position.y, transform.position.z);
-                    targetCenterPosition = new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, transform.position.z);
                 }
                 else
                 {
                     centerPosition = new Vector3(transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius, transform.position.y, transform.position.z);
-                    targetCenterPosition = new Vector3(transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, transform.position.z);
                 }
             }
             else
@@ -158,12 +171,10 @@ public class Enemy : Character
                 if (transform.position.z > target.transform.position.z)
                 {
                     centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius);
-                    targetCenterPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + GetComponent<SpriteRenderer>().bounds.size.x / 2);
                 }
                 else
                 {
                     centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius);
-                    targetCenterPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - GetComponent<SpriteRenderer>().bounds.size.x / 2);
                 }
             }
             current_speed /= speedDivider;
@@ -303,26 +314,18 @@ public class Enemy : Character
         rgbd.velocity = Vector3.zero;
     }
 
-    protected void AttackReady(string animationName)
+    protected void AttackReady()
     {
-        float animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        if (animationTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash(animationName))
-        {
-            currentState = enemyState.ATTACK;
-            animator.SetBool("Attack", true);
-            animator.SetBool("Charging", false);
-        }
+        currentState = enemyState.ATTACK;
+        animator.SetBool("Attack", true);
+        animator.SetBool("Charging", false);
     }
 
-    protected void Attack(string animationName)
+    protected void Attack()
     {
-        float animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        if (animationTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash(animationName))
-        {
-            animator.SetBool("Attack", false);
-            currentState = enemyState.RECOVERY;
-            GenerateRadius();
-        }
+        animator.SetBool("Attack", false);
+        currentState = enemyState.RECOVERY;
+        GenerateRadius();
     }
 
     protected void Recovery()
@@ -334,49 +337,53 @@ public class Enemy : Character
             current_speed = speed; 
             currentRecoveryTime = 0;
             attackHitted = false;
+            canAttack = false;
         }
     }
     #endregion
 
     //Damage
     #region
-    protected void Hurt(string animationName)
+    protected void Hurt()
     {
-        float animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        if (animationTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash(animationName))
-        {
+        if (hurtLastState != enemyState.RUNNING)
+            currentState = enemyState.RECOVERY;
+        else
             currentState = enemyState.RUNNING;
-            animator.SetBool("Hurt", false);
-        }
+        animator.SetBool("Hurt", false);
     }
 
-    protected void Die(string animationName)
+    protected void Die()
     {
         Destroy(transform.GetChild(0).gameObject.GetComponent<BoxCollider>());
         Destroy(GetComponent<BoxCollider2D>());
+    }
 
-        float animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        if (animationTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash(animationName))
-        {
-            Destroy(gameObject);
-        }
+    private void DestroyEnemy()
+    {
+        Destroy(gameObject);
     }
     #endregion
 
-    protected virtual void ReceiveDamage(float amount)
+    protected virtual void ReceiveDamageEnemy(float amount)
     {
         base.ReceiveDamage(amount);
         rgbd.velocity = Vector3.zero;
+        animator.SetBool("Running", false);
+        animator.SetBool("Attack", false);
+        animator.SetBool("Charging", false);
+
         if (currentHP <= 0)
         {
             currentState = enemyState.DIE;
-            animator.SetBool("Hurt", false);
             animator.SetBool("Die", true);
             EnemyManager.instance.DeleteEnemy(this.gameObject);
         }
         else
         {
+            hurtLastState = currentState;
             currentState = enemyState.HURT;
+            rgbd.AddForce(-(target.transform.position - transform.position).normalized * knockBackForce, ForceMode.Impulse);
             animator.SetBool("Hurt", true);
         }
 
@@ -408,9 +415,19 @@ public class Enemy : Character
         attackHitted = state;
     }
 
+    public void SetCanAttack()
+    {
+        canAttack = true;
+    }
+
     public bool GetAttackHitted()
     {
         return attackHitted;
+    }
+
+    public bool GetCanAttack()
+    {
+        return canAttack;
     }
 }
 
