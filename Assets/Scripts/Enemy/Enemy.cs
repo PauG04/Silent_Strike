@@ -346,7 +346,7 @@ public class Enemy : Character
     #region
     protected void Hurt()
     {
-        if (hurtLastState != enemyState.RUNNING)
+        if (hurtLastState != enemyState.RUNNING && hurtLastState != enemyState.HURT)
             currentState = enemyState.RECOVERY;
         else
             currentState = enemyState.RUNNING;
@@ -376,6 +376,7 @@ public class Enemy : Character
         if (currentHP <= 0)
         {
             currentState = enemyState.DIE;
+            animator.SetBool("Hurt", false);
             animator.SetBool("Die", true);
             EnemyManager.instance.DeleteEnemy(this.gameObject);
         }
@@ -385,6 +386,7 @@ public class Enemy : Character
             currentState = enemyState.HURT;
             rgbd.AddForce(-(target.transform.position - transform.position).normalized * knockBackForce, ForceMode.Impulse);
             animator.SetBool("Hurt", true);
+            animator.Play(animator.GetCurrentAnimatorStateInfo(0).fullPathHash, -1, 0f);
         }
 
         hpSlider.UpdateSlider();

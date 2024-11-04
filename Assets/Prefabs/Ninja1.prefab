@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 400
-  maxHP: 30
+  maxHP: 50
   damage: 1
   currentState: 0
   hurtLastState: 0

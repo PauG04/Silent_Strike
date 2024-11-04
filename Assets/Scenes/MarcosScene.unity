@@ -5615,7 +5615,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5680,6 +5680,7 @@ MonoBehaviour:
   dashForce: 0
   dashAnimationName: DASH
   animator: {fileID: 312970809}
+  attackCollider: {fileID: 0}
 --- !u!114 &312970808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5725,6 +5726,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 59ed841d-9e51-4cab-8367-81daefb4f8f2
     m_ActionName: Movement/Dash
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e379bf1a-decb-47ad-b9f1-dd5a7cb1a0a2
+    m_ActionName: Movement/Attack[/DualSenseGamepadHID/buttonWest]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movement
