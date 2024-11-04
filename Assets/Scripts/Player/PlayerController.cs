@@ -174,8 +174,19 @@ public class PlayerController : MonoBehaviour
     private void ReceiveDamage(float damage)
     {
         currentHp -= damage;
-        CheckIfDead();
+        ChangeState(State.HURT);
         Debug.Log(currentHp);
+    }
+
+    public void HurtFinished()
+    {
+        if (inputMovementDirection != Vector2.zero)
+        {
+            ChangeState(State.RUNNING);
+            return;
+        }
+
+        ChangeState(State.IDLE);
     }
 
     private void CheckIfDead()
@@ -184,7 +195,10 @@ public class PlayerController : MonoBehaviour
         {
             ChangeState(State.IDLE);
             Die();
+            return;
         }
+
+        HurtFinished();
     }
 
     private void Die()
@@ -210,6 +224,7 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = Vector3.zero;
                 break;
             case State.HURT:
+                animator.SetBool("hurt", false);
                 break;
             case State.DEATH:
                 break;
@@ -233,8 +248,11 @@ public class PlayerController : MonoBehaviour
                 Dash();
                 break;
             case State.HURT:
+                animator.SetBool("hurt", true);
+                CheckIfDead();
                 break;
             case State.DEATH:
+                animator.SetBool("hurt", false);
                 break;
             case State.ATTACKING:
                 animator.SetBool("attacking", true);
