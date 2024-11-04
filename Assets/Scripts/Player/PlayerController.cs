@@ -16,12 +16,14 @@ public class PlayerController : MonoBehaviour
     [Header("Dash")]
     [SerializeField] private float dashForce;
     [SerializeField] private string dashAnimationName;
-    private bool canDash;
     private Vector3 dashDirection;
 
     [Header("Art")]
     [SerializeField] private Animator animator;
     private SpriteRenderer sp;
+
+    [Header("Attack")]
+    [SerializeField] GameObject attackCollider;
 
     public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING}
 
@@ -34,7 +36,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         sp = GetComponent<SpriteRenderer>();
         currentHp = hp;
-        canDash = true;
         dashDirection = new Vector3(1, 0, 0);
     }
 
@@ -78,7 +79,8 @@ public class PlayerController : MonoBehaviour
 
     public void MovementAction(InputAction.CallbackContext obj)
     {
-        lastInputMovementDirection = inputMovementDirection;
+        if(inputMovementDirection != Vector2.zero)
+            lastInputMovementDirection = inputMovementDirection;
 
         inputMovementDirection = obj.action.ReadValue<Vector2>();
     }
@@ -107,7 +109,6 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(dashDirection * dashForce * Time.deltaTime, ForceMode.Impulse);
         Debug.Log(dashDirection);
-        canDash = false;
     }
 
     private void CheckIfDashFinished()
@@ -120,8 +121,6 @@ public class PlayerController : MonoBehaviour
             else
                 ChangeState(State.IDLE);
             
-            Debug.Log("Dash terminado");
-            canDash = true;
         }
     }
 
@@ -147,6 +146,55 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    #region Attack
+
+    private void Attack()
+    {
+        attackCollider.gameObject.SetActive(true);
+    }
+
+    public void EndAttack()
+    {
+        attackCollider.gameObject.SetActive(false);
+
+        ChangeState(State.IDLE);
+    }
+
+    public void AttackAction(InputAction.CallbackContext obj)
+    {
+        if (currentState == State.ATTACKING || currentState == State.DEATH)
+            return;
+
+        ChangeState(State.ATTACKING); 
+    }
+    #endregion
+
+    #region HP
+
+    private void ReceiveDamage(float damage)
+    {
+        currentHp -= damage;
+        CheckIfDead();
+        Debug.Log(currentHp);
+    }
+
+    private void CheckIfDead()
+    {
+        if (currentHp <= 0)
+        {
+            ChangeState(State.IDLE);
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        ChangeState(State.DEATH);
+        animator.SetBool("dead", true);
+    }
+
+    #endregion
+
     public void ChangeState(State state)
     {
         switch (currentState)
@@ -166,6 +214,7 @@ public class PlayerController : MonoBehaviour
             case State.DEATH:
                 break;
             case State.ATTACKING:
+                animator.SetBool("attacking", false);
                 break;
             default:
                 break;
@@ -180,7 +229,6 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("running", true);
                 break;
             case State.DASHING:
-                rb.velocity = Vector3.zero;
                 animator.SetBool("dashing", true);
                 Dash();
                 break;
@@ -189,6 +237,8 @@ public class PlayerController : MonoBehaviour
             case State.DEATH:
                 break;
             case State.ATTACKING:
+                animator.SetBool("attacking", true);
+                Attack();
                 break;
             default:
                 break;
@@ -197,25 +247,5 @@ public class PlayerController : MonoBehaviour
         currentState = state;
     }
 
-    private void ReceiveDamage(float damage)
-    {
-        currentHp -= damage;
-        CheckIfDead();
-        Debug.Log(currentHp);
-    }
-
-    private void CheckIfDead()
-    {
-        if(currentHp <= 0)
-        {
-            ChangeState(State.IDLE);
-            Die();
-        }
-    }
-
-    private void Die()
-    {
-        ChangeState(State.DEATH);
-        animator.SetBool("dead", true);
-    }
+   
 }
