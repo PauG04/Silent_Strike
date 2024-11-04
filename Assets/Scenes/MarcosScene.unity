@@ -5536,7 +5536,6 @@ GameObject:
   - component: {fileID: 312970806}
   - component: {fileID: 312970805}
   - component: {fileID: 312970807}
-  - component: {fileID: 312970810}
   - component: {fileID: 312970804}
   - component: {fileID: 312970803}
   - component: {fileID: 312970808}
@@ -5636,8 +5635,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: -1399307464, guid: 3ac5bb39bb71fbe4198a8289d78800f7, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -1028994599, guid: a7e51244c03706a48a186798ff287dbd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5659,7 +5658,8 @@ Transform:
   m_LocalPosition: {x: -0.77, y: 0.272, z: 1.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1517307919}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5751,32 +5751,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &312970810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 312970802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor:
-    r: 1
-    g: 1
-    b: 1
-    a: 1
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
-  renderers: []
-  outlineMaskMaterial: {fileID: 0}
-  outlineFillMaterial: {fileID: 0}
-  needsUpdate: 1
 --- !u!1 &316976110
 GameObject:
   m_ObjectHideFlags: 0
@@ -23617,6 +23591,59 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1517307918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1517307919}
+  - component: {fileID: 1517307920}
+  m_Layer: 7
+  m_Name: WallCollisionm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1517307919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517307918}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 312970806}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1517307920
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517307918}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 224
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3233002, y: 0.44698143, z: 0.21905957}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1524838647
 GameObject:
   m_ObjectHideFlags: 0
@@ -34198,7 +34225,7 @@ PrefabInstance:
       objectReference: {fileID: 312970802}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].spawnTime
@@ -34206,7 +34233,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[1].spawnTime
-      value: 5
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[2].spawnTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[3].spawnTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[4].spawnTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[5].spawnTime
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].enemyPrefab
@@ -34217,6 +34260,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[2].enemyPrefab
+      value: 
+      objectReference: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[3].enemyPrefab
+      value: 
+      objectReference: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[4].enemyPrefab
+      value: 
+      objectReference: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[5].enemyPrefab
+      value: 
+      objectReference: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].spawnPosition
       value: 
       objectReference: {fileID: 16515033}
@@ -34224,9 +34283,25 @@ PrefabInstance:
       propertyPath: enemiesToSpawn.Array.data[1].spawnPosition
       value: 
       objectReference: {fileID: 1690724031}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[2].spawnPosition
+      value: 
+      objectReference: {fileID: 1690724031}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[3].spawnPosition
+      value: 
+      objectReference: {fileID: 1690724031}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[4].spawnPosition
+      value: 
+      objectReference: {fileID: 1690724031}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[5].spawnPosition
+      value: 
+      objectReference: {fileID: 1690724031}
     - target: {fileID: 1792578465436595214, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.34
+      value: -2.868
       objectReference: {fileID: 0}
     - target: {fileID: 3596509283192479454, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: m_LocalPosition.x

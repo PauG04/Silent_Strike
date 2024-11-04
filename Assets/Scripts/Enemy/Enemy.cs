@@ -20,6 +20,7 @@ public class Enemy : Character
     [SerializeField] private float cohesionWeight;
     [SerializeField] private float separationWeight;
     [SerializeField] private float alligmentWeight;
+    [SerializeField] private float knockBackForce;
     private Vector3 separationForce;
 
     [Header("Recovery")]
@@ -39,7 +40,6 @@ public class Enemy : Character
     private bool generateRadius;
 
     protected Vector3 centerPosition;
-    protected Vector3 targetCenterPosition;
 
     private EnemyHpSlider hpSlider;
     private bool attackHitted;
@@ -80,6 +80,7 @@ public class Enemy : Character
     {
         base.UpdateCharacter();
         if (Input.GetKeyDown(KeyCode.N)) { ReceiveDamageEnemy(20); }
+        SetOrdingLayer();
     }
 
     protected void Generating()
@@ -89,6 +90,17 @@ public class Enemy : Character
         {
             currentState = enemyState.RUNNING;
             animator.SetBool("Running", true);
+        }
+    }
+
+    private void SetOrdingLayer()
+    {
+        if(target != null)
+        {
+            if (transform.position.z > target.transform.position.z)
+                GetComponent<SpriteRenderer>().sortingOrder = target.GetComponent<SpriteRenderer>().sortingOrder - 1;
+            else
+                GetComponent<SpriteRenderer>().sortingOrder = target.GetComponent<SpriteRenderer>().sortingOrder + 1;
         }
     }
 
@@ -148,12 +160,10 @@ public class Enemy : Character
                 if (GetComponent<SpriteRenderer>().flipX)
                 {
                     centerPosition = new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius, transform.position.y, transform.position.z);
-                    targetCenterPosition = new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, transform.position.z);
                 }
                 else
                 {
                     centerPosition = new Vector3(transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius, transform.position.y, transform.position.z);
-                    targetCenterPosition = new Vector3(transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, transform.position.z);
                 }
             }
             else
@@ -161,12 +171,10 @@ public class Enemy : Character
                 if (transform.position.z > target.transform.position.z)
                 {
                     centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius);
-                    targetCenterPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + GetComponent<SpriteRenderer>().bounds.size.x / 2);
                 }
                 else
                 {
                     centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius);
-                    targetCenterPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - GetComponent<SpriteRenderer>().bounds.size.x / 2);
                 }
             }
             current_speed /= speedDivider;
@@ -375,6 +383,7 @@ public class Enemy : Character
         {
             hurtLastState = currentState;
             currentState = enemyState.HURT;
+            rgbd.AddForce(-(target.transform.position - transform.position).normalized * knockBackForce, ForceMode.Impulse);
             animator.SetBool("Hurt", true);
         }
 
