@@ -16621,7 +16621,8 @@ MonoBehaviour:
   hp: 100
   maxStamina: 100
   attackStaminaConsume: 20
-  timeToRecoverStamina: 0
+  timeToRecoverStamina: 2
+  staminaRecoverValue: 2
   dashForce: 1200
   dashAnimationName: DASH
   animator: {fileID: 1030697725}
