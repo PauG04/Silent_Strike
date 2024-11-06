@@ -440,6 +440,7 @@ public class Enemy : Character
         animator.SetBool("Running", false);
         animator.SetBool("Attack", false);
         animator.SetBool("Charging", false);
+        GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.white);
 
         hpSlider.UpdateSlider();
     }
