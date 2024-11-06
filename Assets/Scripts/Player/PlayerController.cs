@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float hp;
     private float currentHp;
 
+    [Header("Stamina")]
+    [SerializeField] private float maxStamina;
+    [SerializeField] private float attackStaminaConsume;
+    [SerializeField] private float timeToRecoverStamina;
+    [SerializeField] private float staminaRecoverValue;
+    private float currentStamina;
+    private bool canRecoverStamina;
+    private bool recoverCoroutineisRunning;
+
     [Header("Dash")]
     [SerializeField] private float dashForce;
     [SerializeField] private string dashAnimationName;
@@ -24,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] GameObject attackCollider;
+
 
     public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING}
 
@@ -37,6 +48,9 @@ public class PlayerController : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         currentHp = hp;
         dashDirection = new Vector3(1, 0, 0);
+        currentStamina = maxStamina;
+
+        recoverCoroutineisRunning = false;
     }
 
 
@@ -71,6 +85,8 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
+
+        RecoverStamina();
 
         if(Input.GetKeyDown(KeyCode.L)) { ReceiveDamage(20); }
     }
@@ -151,6 +167,7 @@ public class PlayerController : MonoBehaviour
     private void Attack()
     {
         attackCollider.gameObject.SetActive(true);
+        ConsumeStamina(attackStaminaConsume);
     }
 
     public void EndAttack()
@@ -163,6 +180,9 @@ public class PlayerController : MonoBehaviour
     public void AttackAction(InputAction.CallbackContext obj)
     {
         if (currentState == State.ATTACKING || currentState == State.DEATH)
+            return;
+
+        if (currentStamina < attackStaminaConsume)
             return;
 
         ChangeState(State.ATTACKING); 
@@ -207,6 +227,41 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("dead", true);
     }
 
+    #endregion
+
+    #region Stamina
+
+    private void ConsumeStamina(float staminaConsumeValue)
+    {
+        canRecoverStamina = false;
+        currentStamina -= staminaConsumeValue;
+        Debug.Log(currentStamina);
+
+        StartCoroutine(CanRecoverStamina());
+    }
+
+    private void RecoverStamina()
+    {
+        if (!canRecoverStamina)
+            return;
+
+        if(currentStamina <= maxStamina)
+        {
+            currentStamina += staminaRecoverValue;
+
+            if(currentStamina > maxStamina)
+            {
+                currentStamina = maxStamina;
+            }
+        }
+    }
+
+    private IEnumerator CanRecoverStamina()
+    {
+        yield return new WaitForSeconds(timeToRecoverStamina);
+
+        canRecoverStamina = true;
+    }
     #endregion
 
     public void ChangeState(State state)
