@@ -42,9 +42,16 @@ public class Enemy : Character
     private Vector3 centerPosition;
     private bool wander;
 
-    private EnemyHpSlider hpSlider;
+    [Header("Material")]
+    [SerializeField] private Material materialShader;
+
+    [Header("Attack")]
+    [SerializeField] private string animationName;
+    [SerializeField] private GameObject particles;
     private bool attackHitted;
     private bool canAttack;
+
+    private EnemyHpSlider hpSlider;
 
     private void Awake()
     {
@@ -64,18 +71,23 @@ public class Enemy : Character
             GetComponent<SpriteRenderer>().flipX = true;
             colliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            particles.transform.localPosition = new Vector3(-particles.transform.localPosition.x, particles.transform.localPosition.y, particles.transform.localPosition.z);
         }
         else
         {
             GetComponent<SpriteRenderer>().flipX = false;
             colliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            particles.transform.localPosition = new Vector3(particles.transform.localPosition.x, particles.transform.localPosition.y, particles.transform.localPosition.z);
         }
 
         generateRadius = false;
         attackHitted = false;
         canAttack = false;
         wander = false;
+
+        Material newMaterial = new Material(materialShader);
+        GetComponent<SpriteRenderer>().material = newMaterial;
     }
 
     protected void UpdateEnemy()
@@ -135,7 +147,7 @@ public class Enemy : Character
             {
                 Seek();
             }
-
+            WanderRotation();
             CalculateForces();
             MoveEnemy();
         }
@@ -230,19 +242,39 @@ public class Enemy : Character
 
     }
 
+    private void WanderRotation()
+    {
+        if (transform.position.x > target.transform.position.x && !GetComponent<SpriteRenderer>().flipX)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+            particles.transform.localPosition = new Vector3(-particles.transform.localPosition.x, particles.transform.localPosition.y, particles.transform.localPosition.z);
+
+        }
+        else if(transform.position.x <= target.transform.position.x && GetComponent<SpriteRenderer>().flipX)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+            particles.transform.localPosition = new Vector3(-particles.transform.localPosition.x, particles.transform.localPosition.y, particles.transform.localPosition.z);
+        }
+    }
+
     private void Rotate()
     {
-        if (rgbd.velocity.x > 0)
+        if (rgbd.velocity.x > 0 && GetComponent<SpriteRenderer>().flipX)
         {
             GetComponent<SpriteRenderer>().flipX = false;
             colliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            particles.transform.localPosition = new Vector3(-particles.transform.localPosition.x, particles.transform.localPosition.y, particles.transform.localPosition.z);
+
         }
-        else
+        else if(rgbd.velocity.x <= 0 && !GetComponent<SpriteRenderer>().flipX)
         {
             GetComponent<SpriteRenderer>().flipX = true;
             colliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            particles.transform.position = new Vector3(particles.transform.position.x, particles.transform.position.y, particles.transform.position.z);
+            particles.transform.localPosition = new Vector3(-particles.transform.localPosition.x, particles.transform.localPosition.y, particles.transform.localPosition.z);
+
         }
     }
 
@@ -347,6 +379,13 @@ public class Enemy : Character
         GenerateRadiusEnemy();
     }
 
+    protected void ChangeToAttackColor()
+    {
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
+            GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.Lerp(GetComponent<SpriteRenderer>().color, Color.red, animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1));
+
+    }
+
     protected void Recovery()
     {
         currentRecoveryTime += Time.deltaTime;
@@ -439,6 +478,7 @@ public class Enemy : Character
     public void SetCanAttack()
     {
         canAttack = true;
+        GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.white);
     }
 
     public bool GetAttackHitted()

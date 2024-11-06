@@ -55,17 +55,18 @@ public class BasicNinja : Enemy
 
     private void ChargingState()
     {
+        ChangeToAttackColor();
         ChargingAttack();
     }
 
     private void AttackState()
     {
+
     }
 
     private void RecoveryState()
     {
         WanderTarget();
-        FlipSprite();
         Recovery();
 
     }
@@ -77,15 +78,5 @@ public class BasicNinja : Enemy
 
     #endregion
 
-    private void FlipSprite()
-    {
-        if (transform.position.x > target.transform.position.x)
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().flipX = false;
-        }
-    }
+
 }

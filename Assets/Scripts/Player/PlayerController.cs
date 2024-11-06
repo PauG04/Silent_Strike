@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour
     [Header("Attack")]
     [SerializeField] GameObject attackCollider;
 
+    [Header("Material")]
+    [SerializeField] private Material materialShader;
+
 
     public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING}
 
@@ -51,6 +54,9 @@ public class PlayerController : MonoBehaviour
         currentStamina = maxStamina;
 
         recoverCoroutineisRunning = false;
+
+        Material newMaterial = new Material(materialShader);
+        GetComponent<SpriteRenderer>().material = newMaterial;
     }
 
 
