@@ -252,7 +252,7 @@ MonoBehaviour:
   separationWeight: 1
   alligmentWeight: 1
   knockBackForce: 2
-  recoveryTime: 3
+  recoveryTime: 1000000
   colliderPosition: {fileID: 9259915653349204}
   damageColliderPosition: {fileID: 1669257261796109920}
   generateTime: 0.25

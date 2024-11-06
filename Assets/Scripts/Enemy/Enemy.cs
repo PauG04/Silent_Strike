@@ -1,7 +1,8 @@
-using System.Drawing;
+
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
-using static UnityEngine.GraphicsBuffer;
+using System.Collections;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 
 public class Enemy : Character
 {
@@ -38,8 +39,8 @@ public class Enemy : Character
     [Header("WanderRadius")]
     [SerializeField] private float wanderRadius;
     private bool generateRadius;
-
-    protected Vector3 centerPosition;
+    private Vector3 centerPosition;
+    private bool wander;
 
     private EnemyHpSlider hpSlider;
     private bool attackHitted;
@@ -74,6 +75,7 @@ public class Enemy : Character
         generateRadius = false;
         attackHitted = false;
         canAttack = false;
+        wander = false;
     }
 
     protected void UpdateEnemy()
@@ -122,18 +124,35 @@ public class Enemy : Character
     {
         if (target != null)
         {
-            if (target.GetComponent<Rigidbody>().velocity.magnitude < rgbd.velocity.magnitude)
+            WanderActivation();
+
+            if (wander)
             {
                 Wander();
-                GenerateRadius();
+                GenerateRadiusEnemy();
             }
             else
             {
                 Seek();
             }
+
             CalculateForces();
             MoveEnemy();
         }
+    }
+
+    private void WanderActivation()
+    {
+        if (target.GetComponent<Rigidbody>().velocity.magnitude > rgbd.velocity.magnitude)
+        {
+            wander = false;
+            return;
+        }
+        if (Vector3.Distance(target.transform.position, transform.position) + (wanderRadius * 2) < 1)
+        {
+            wander = true;
+        }
+
     }
 
     protected void Wander()
@@ -150,7 +169,7 @@ public class Enemy : Character
         direction = (centerPosition + new Vector3(randomPosition.x, 0, randomPosition.y)) - transform.position;
     }
 
-    public void GenerateRadius()
+    public void GenerateRadiusEnemy()
     {
         if(!generateRadius)
         {
@@ -325,7 +344,7 @@ public class Enemy : Character
     {
         animator.SetBool("Attack", false);
         currentState = enemyState.RECOVERY;
-        GenerateRadius();
+        GenerateRadiusEnemy();
     }
 
     protected void Recovery()

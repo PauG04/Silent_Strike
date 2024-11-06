@@ -10,6 +10,7 @@ public class AttackPlayer : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && enemy.GetCurrentState() == Enemy.enemyState.ATTACK && !enemy.GetAttackHitted() && enemy.GetCanAttack())
         {
             enemy.SetAttackHitted(true);
+            Debug.Log("daño");
         }
     }
 }
