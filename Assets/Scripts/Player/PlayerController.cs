@@ -38,6 +38,10 @@ public class PlayerController : MonoBehaviour
     [Header("Material")]
     [SerializeField] private Material materialShader;
 
+    [Header("Slider")]
+    [SerializeField] private SliderBar hpBar;
+    [SerializeField] private SliderBar staminaBar;
+
 
     public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING}
 
@@ -55,8 +59,14 @@ public class PlayerController : MonoBehaviour
 
         recoverCoroutineisRunning = false;
 
+        hpBar.SetMaxValue(hp);
+        hpBar.SetCurrentValue(currentHp);
+        staminaBar.SetMaxValue(maxStamina);
+        staminaBar.SetCurrentValue(currentStamina);
+
         Material newMaterial = new Material(materialShader);
         GetComponent<SpriteRenderer>().material = newMaterial;
+
     }
 
 
@@ -201,7 +211,8 @@ public class PlayerController : MonoBehaviour
     {
         currentHp -= damage;
         ChangeState(State.HURT);
-        Debug.Log(currentHp);
+        hpBar.SetCurrentValue(currentHp);
+        //Debug.Log(currentHp);
     }
 
     public void HurtFinished()

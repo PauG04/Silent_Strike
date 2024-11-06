@@ -426,6 +426,7 @@ public class Enemy : Character
     protected virtual void ReceiveDamageEnemy(float amount)
     {
         base.ReceiveDamage(amount);
+        GetComponent<EnemyHpSlider>().UpdateSlider();
         rgbd.velocity = Vector3.zero;
         animator.SetBool("Running", false);
         animator.SetBool("Attack", false);
