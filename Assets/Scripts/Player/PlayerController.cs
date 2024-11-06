@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Art")]
     [SerializeField] private Animator animator;
+    [SerializeField] private float damage;
     private SpriteRenderer sp;
 
     [Header("Attack")]
@@ -41,6 +43,9 @@ public class PlayerController : MonoBehaviour
     [Header("Slider")]
     [SerializeField] private SliderBar hpBar;
     [SerializeField] private SliderBar staminaBar;
+
+    [Header("PostProcessing")]
+    [SerializeField] private PostProcessingLerpColor postProcessingLerpColor;
 
 
     public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING}
@@ -73,7 +78,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        attackCollider.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
     }
 
     // Update is called once per frame
@@ -171,9 +176,15 @@ public class PlayerController : MonoBehaviour
     private void CheckIfFlipSriteRender()
     {
         if (inputMovementDirection.x < 0 && !sp.flipX)
+        {
             sp.flipX = true;
+            attackCollider.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+        }
         else if (inputMovementDirection.x > 0 && sp.flipX)
+        {
             sp.flipX = false;
+            attackCollider.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+        }
     }
 
     #endregion
@@ -207,11 +218,12 @@ public class PlayerController : MonoBehaviour
 
     #region HP
 
-    private void ReceiveDamage(float damage)
+    public void ReceiveDamage(float damage)
     {
         currentHp -= damage;
         ChangeState(State.HURT);
         hpBar.SetCurrentValue(currentHp);
+        postProcessingLerpColor.ChangeVignetteColor(currentHp / hp);
         //Debug.Log(currentHp);
     }
 
@@ -348,5 +360,9 @@ public class PlayerController : MonoBehaviour
         currentState = state;
     }
 
+    public float GetDamage()
+    {
+        return damage;
+    }
    
 }

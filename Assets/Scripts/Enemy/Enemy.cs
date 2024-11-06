@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using System.Collections;
 using System.Runtime.CompilerServices;
@@ -47,7 +46,7 @@ public class Enemy : Character
 
     [Header("Attack")]
     [SerializeField] private string animationName;
-    [SerializeField] private GameObject particles;
+    [SerializeField] private GameObject blood;
     private bool attackHitted;
     private bool canAttack;
 
@@ -71,14 +70,12 @@ public class Enemy : Character
             GetComponent<SpriteRenderer>().flipX = true;
             colliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
-            particles.transform.localPosition = new Vector3(-particles.transform.localPosition.x, particles.transform.localPosition.y, particles.transform.localPosition.z);
         }
         else
         {
             GetComponent<SpriteRenderer>().flipX = false;
             colliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
-            particles.transform.localPosition = new Vector3(particles.transform.localPosition.x, particles.transform.localPosition.y, particles.transform.localPosition.z);
         }
 
         generateRadius = false;
@@ -93,7 +90,6 @@ public class Enemy : Character
     protected void UpdateEnemy()
     {
         base.UpdateCharacter();
-        if (Input.GetKeyDown(KeyCode.N)) { ReceiveDamageEnemy(20); }
         SetOrdingLayer();
     }
 
@@ -247,13 +243,10 @@ public class Enemy : Character
         if (transform.position.x > target.transform.position.x && !GetComponent<SpriteRenderer>().flipX)
         {
             GetComponent<SpriteRenderer>().flipX = true;
-            particles.transform.localPosition = new Vector3(-particles.transform.localPosition.x, particles.transform.localPosition.y, particles.transform.localPosition.z);
-
         }
         else if(transform.position.x <= target.transform.position.x && GetComponent<SpriteRenderer>().flipX)
         {
             GetComponent<SpriteRenderer>().flipX = false;
-            particles.transform.localPosition = new Vector3(-particles.transform.localPosition.x, particles.transform.localPosition.y, particles.transform.localPosition.z);
         }
     }
 
@@ -264,17 +257,12 @@ public class Enemy : Character
             GetComponent<SpriteRenderer>().flipX = false;
             colliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
-            particles.transform.localPosition = new Vector3(-particles.transform.localPosition.x, particles.transform.localPosition.y, particles.transform.localPosition.z);
-
         }
         else if(rgbd.velocity.x <= 0 && !GetComponent<SpriteRenderer>().flipX)
         {
             GetComponent<SpriteRenderer>().flipX = true;
             colliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
-            particles.transform.position = new Vector3(particles.transform.position.x, particles.transform.position.y, particles.transform.position.z);
-            particles.transform.localPosition = new Vector3(-particles.transform.localPosition.x, particles.transform.localPosition.y, particles.transform.localPosition.z);
-
         }
     }
 
@@ -423,14 +411,11 @@ public class Enemy : Character
     }
     #endregion
 
-    protected virtual void ReceiveDamageEnemy(float amount)
+    public virtual void ReceiveDamageEnemy(float amount)
     {
         base.ReceiveDamage(amount);
-        GetComponent<EnemyHpSlider>().UpdateSlider();
-        rgbd.velocity = Vector3.zero;
-        animator.SetBool("Running", false);
-        animator.SetBool("Attack", false);
-        animator.SetBool("Charging", false);
+        PrepareReceiveDamage();
+        GenerateBlood();
 
         if (currentHP <= 0)
         {
@@ -447,8 +432,24 @@ public class Enemy : Character
             animator.SetBool("Hurt", true);
             animator.Play(animator.GetCurrentAnimatorStateInfo(0).fullPathHash, -1, 0f);
         }
+    }
+
+    private void PrepareReceiveDamage()
+    {
+        rgbd.velocity = Vector3.zero;
+        animator.SetBool("Running", false);
+        animator.SetBool("Attack", false);
+        animator.SetBool("Charging", false);
 
         hpSlider.UpdateSlider();
+    }
+
+    private void GenerateBlood()
+    {
+        GameObject _blood = Instantiate(blood);
+        _blood.transform.position = transform.position;
+        _blood.GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + 1;
+        _blood.GetComponent<Rigidbody>().AddForce(-(target.transform.position - transform.position).normalized * knockBackForce * 6, ForceMode.Impulse);
     }
 
     public void ChangeState(enemyState state)
