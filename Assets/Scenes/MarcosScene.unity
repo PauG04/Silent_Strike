@@ -22402,41 +22402,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1274804365765067904, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1399307464, guid: 3ac5bb39bb71fbe4198a8289d78800f7, type: 3}
-    - target: {fileID: 1274804365765067904, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
     - target: {fileID: 3125886790430822290, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4478490217455750707, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_Size.x
-      value: 0.31129187
-      objectReference: {fileID: 0}
-    - target: {fileID: 4478490217455750707, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_Size.y
-      value: 0.51554275
-      objectReference: {fileID: 0}
-    - target: {fileID: 4478490217455750707, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_Center.x
-      value: 0.0037110746
-      objectReference: {fileID: 0}
-    - target: {fileID: 4478490217455750707, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_Center.y
-      value: 0.010207891
-      objectReference: {fileID: 0}
-    - target: {fileID: 4478490217455750707, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: dashForce
-      value: 1200
       objectReference: {fileID: 0}
     - target: {fileID: 6890663775397318365, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_RootOrder
