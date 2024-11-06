@@ -83,7 +83,10 @@ public class Wolf : Enemy
 
     #endregion
 
-
+    public override void ReceiveDamageEnemy(float amount)
+    {
+        base.ReceiveDamageEnemy(amount);
+    }
     private void Dash()
     {
         rgbd.AddForce(direction.normalized * dashForce, ForceMode.Impulse);
