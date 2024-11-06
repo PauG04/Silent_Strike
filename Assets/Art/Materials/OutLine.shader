@@ -5,6 +5,7 @@ Shader "Custom/EdgeDetectOutlineShader"
         _MainTex ("Sprite Texture", 2D) = "white" {}
         _OutlineColor ("Outline Color", Color) = (0,0,0,1)
         _OutlineThickness ("Outline Thickness", Range(0.0, 0.1)) = 0.03
+        _SpriteColor ("Sprite Color", Color) = (1,1,1,1)
     }
     SubShader
     {
@@ -41,6 +42,7 @@ Shader "Custom/EdgeDetectOutlineShader"
             float4 _MainTex_ST; // Transformación de la textura
             float4 _OutlineColor; // Color del contorno
             float _OutlineThickness; // Grosor del contorno
+            float4 _SpriteColor; // Color del SpriteRenderer
             
             v2f vert (appdata_t v)
             {
@@ -84,8 +86,8 @@ Shader "Custom/EdgeDetectOutlineShader"
                         return _OutlineColor;
                 }
 
-                // Devolver el color original si no hay borde
-                return color; 
+                // Mezclar el color del sprite y la textura si no hay borde
+                return color * _SpriteColor; 
             }
             ENDCG
         }

@@ -60,19 +60,19 @@ public class Wolf : Enemy
     private void ChargingState()
     {
         ChargingAttack();
-
-        if(!canDash)
+        ChangeToAttackColor();
+        if (!canDash)
             canDash = true;
     }
 
     private void AttackState()
     {
+
     }
 
     private void RecoveryState()
     {
         WanderTarget();
-        FlipSprite();
         Recovery();
     }
 
@@ -83,17 +83,7 @@ public class Wolf : Enemy
 
     #endregion
 
-    private void FlipSprite()
-    {
-        if(transform.position.x > target.transform.position.x) 
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().flipX = false;
-        }
-    }
+
     private void Dash()
     {
         rgbd.AddForce(direction.normalized * dashForce, ForceMode.Impulse);
