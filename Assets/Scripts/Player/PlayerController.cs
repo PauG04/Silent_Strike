@@ -237,6 +237,12 @@ public class PlayerController : MonoBehaviour
         currentStamina -= staminaConsumeValue;
         Debug.Log(currentStamina);
 
+        if(recoverCoroutineisRunning)
+        {
+            Debug.Log("Corutina stopeada");
+            StopCoroutine(CanRecoverStamina());
+        }
+
         StartCoroutine(CanRecoverStamina());
     }
 
@@ -258,9 +264,14 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator CanRecoverStamina()
     {
+        recoverCoroutineisRunning = true;
+        Debug.Log("corutina empezada");
+
         yield return new WaitForSeconds(timeToRecoverStamina);
 
         canRecoverStamina = true;
+        recoverCoroutineisRunning = false;
+
     }
     #endregion
 
