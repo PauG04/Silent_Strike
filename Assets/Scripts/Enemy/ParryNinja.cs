@@ -43,7 +43,7 @@ public class ParryNinja : Enemy
                 break;
         }
         base.UpdateEnemy();
-        if (Input.GetKeyDown(KeyCode.N)) { ReceiveDamageEnemy(1); }
+        if (Input.GetKeyDown(KeyCode.N)) { ReceiveDamageEnemy(1, true); }
     }
 
     //State
@@ -90,7 +90,7 @@ public class ParryNinja : Enemy
         animator.SetBool("Parry", false);
     }
 
-    public override void ReceiveDamageEnemy(float amount)
+    public override void ReceiveDamageEnemy(float amount, bool isFlipped)
     {
         base.PrepareReceiveDamage();
         ParryPlayer();

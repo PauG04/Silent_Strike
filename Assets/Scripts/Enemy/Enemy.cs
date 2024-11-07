@@ -1,7 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 
 public class Enemy : Character
 {
@@ -51,10 +48,12 @@ public class Enemy : Character
     private bool canAttack;
 
     private EnemyHpSlider hpSlider;
+    private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         hpSlider = GetComponent<EnemyHpSlider>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     protected void InitializeEnemy()
@@ -67,15 +66,15 @@ public class Enemy : Character
 
         if (transform.position.x > target.transform.position.x)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
-            colliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
-            damageColliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            spriteRenderer.flipX = true;
+            colliderPosition.transform.localPosition = new Vector3(-spriteRenderer.bounds.size.x / 2, 0, 0);
+            damageColliderPosition.transform.localPosition = new Vector3(-spriteRenderer.bounds.size.x / 2, 0, 0);
         }
         else
         {
-            GetComponent<SpriteRenderer>().flipX = false;
-            colliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
-            damageColliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            spriteRenderer.flipX = false;
+            colliderPosition.transform.localPosition = new Vector3(spriteRenderer.bounds.size.x / 2, 0, 0);
+            damageColliderPosition.transform.localPosition = new Vector3(spriteRenderer.bounds.size.x / 2, 0, 0);
         }
 
         generateRadius = false;
@@ -84,7 +83,7 @@ public class Enemy : Character
         wander = false;
 
         Material newMaterial = new Material(materialShader);
-        GetComponent<SpriteRenderer>().material = newMaterial;
+        spriteRenderer.material = newMaterial;
     }
 
     protected void UpdateEnemy()
@@ -108,9 +107,9 @@ public class Enemy : Character
         if(target != null)
         {
             if (transform.position.z > target.transform.position.z)
-                GetComponent<SpriteRenderer>().sortingOrder = target.GetComponent<SpriteRenderer>().sortingOrder - 1;
+                spriteRenderer.sortingOrder = target.GetComponent<SpriteRenderer>().sortingOrder - 1;
             else
-                GetComponent<SpriteRenderer>().sortingOrder = target.GetComponent<SpriteRenderer>().sortingOrder + 1;
+                spriteRenderer.sortingOrder = target.GetComponent<SpriteRenderer>().sortingOrder + 1;
         }
     }
 
@@ -411,9 +410,13 @@ public class Enemy : Character
     }
     #endregion
 
-    public virtual void ReceiveDamageEnemy(float amount)
+    public virtual void ReceiveDamageEnemy(float amount, bool isFlipped)
     {
-        base.ReceiveDamage(amount);
+        if(isFlipped == spriteRenderer.flipX)
+            base.ReceiveDamage(amount * 2);
+        else
+            base.ReceiveDamage(amount);
+
         PrepareReceiveDamage();
         GenerateBlood();
 

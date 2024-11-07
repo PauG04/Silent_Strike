@@ -38,7 +38,7 @@ public class BasicNinja : Enemy
                 break;
         }
         base.UpdateEnemy();
-        if (Input.GetKeyDown(KeyCode.N)) { ReceiveDamageEnemy(1); }
+        if (Input.GetKeyDown(KeyCode.N)) { ReceiveDamageEnemy(1, true); }
     }
 
     //State
@@ -79,9 +79,9 @@ public class BasicNinja : Enemy
 
     #endregion
 
-    public override void ReceiveDamageEnemy(float amount)
+    public override void ReceiveDamageEnemy(float amount, bool isFlipped)
     {
-        base.ReceiveDamageEnemy(amount);
+        base.ReceiveDamageEnemy(amount, isFlipped);
     }
 
 }

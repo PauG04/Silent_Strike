@@ -1,17 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAttackCollider : MonoBehaviour
 {
     [SerializeField] private ParticleSystem[] slashParticles;
+    private SpriteRenderer spriteRenderer;
+    private PlayerController playerController;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponentInParent<SpriteRenderer>();
+        playerController = GetComponentInParent<PlayerController>();
+    }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
             slashParticles[0].gameObject.transform.parent.transform.position = other.transform.position;
-            other.GetComponent<Enemy>().ReceiveDamageEnemy(GetComponentInParent<PlayerController>().GetDamage());
+            other.GetComponent<Enemy>().ReceiveDamageEnemy(playerController.GetDamage(), spriteRenderer.flipX);
             if (other.GetComponent<Enemy>().GetCurrentState() != Enemy.enemyState.BLOCK)
                 GenerateParticles();
             gameObject.SetActive(false);
