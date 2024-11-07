@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Dash")]
     [SerializeField] private float dashForce;
-    [SerializeField] private string dashAnimationName;
     private Vector3 dashDirection;
 
     [Header("Art")]
@@ -36,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] GameObject attackCollider;
+    [SerializeField] private float attackDashForceIdle;
+    [SerializeField] private float attackDashForceRunning;
 
     [Header("Material")]
     [SerializeField] private Material materialShader;
@@ -59,7 +60,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         sp = GetComponent<SpriteRenderer>();
         currentHp = hp;
-        dashDirection = new Vector3(1, 0, 0);
+        lastInputMovementDirection = Vector3.right;
+        dashDirection = Vector3.right;
         currentStamina = maxStamina;
 
         recoverCoroutineisRunning = false;
@@ -71,7 +73,6 @@ public class PlayerController : MonoBehaviour
 
         Material newMaterial = new Material(materialShader);
         GetComponent<SpriteRenderer>().material = newMaterial;
-
     }
 
 
@@ -95,7 +96,6 @@ public class PlayerController : MonoBehaviour
                 CheckIfFlipSriteRender();
                 break;
             case State.DASHING:
-                CheckIfDashFinished();
                 break;
             case State.HURT:
                 break;
@@ -116,10 +116,11 @@ public class PlayerController : MonoBehaviour
 
     public void MovementAction(InputAction.CallbackContext obj)
     {
+        inputMovementDirection = obj.action.ReadValue<Vector2>();
+       
         if(inputMovementDirection != Vector2.zero)
             lastInputMovementDirection = inputMovementDirection;
 
-        inputMovementDirection = obj.action.ReadValue<Vector2>();
     }
 
     private void Move()
@@ -136,29 +137,22 @@ public class PlayerController : MonoBehaviour
         ChangeState(State.DASHING);
     }
 
-    private void Dash()
+    private void Dash(float _dashForce)
     {
-        if (inputMovementDirection == Vector2.zero)
-            dashDirection = new Vector3(lastInputMovementDirection.x, 0, lastInputMovementDirection.y);
-        else
-            dashDirection = new Vector3(inputMovementDirection.x, 0, inputMovementDirection.y);
+        CheckIfFlipSriteRender();
 
-
-        rb.AddForce(dashDirection * dashForce * Time.deltaTime, ForceMode.Impulse);
+        dashDirection = new Vector3(lastInputMovementDirection.normalized.x, 0, lastInputMovementDirection.normalized.y);
         Debug.Log(dashDirection);
+
+        rb.AddForce(dashDirection * _dashForce * Time.deltaTime, ForceMode.Impulse);
     }
 
-    private void CheckIfDashFinished()
+    public void EndDash()
     {
-        float animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        if (animationTime >= 1.0f && animator.GetCurrentAnimatorStateInfo(0).shortNameHash == Animator.StringToHash("DASH"))
-        {
-            if (inputMovementDirection != Vector2.zero)
-                ChangeState(State.RUNNING);
-            else
-                ChangeState(State.IDLE);
-            
-        }
+        if (inputMovementDirection != Vector2.zero)
+            ChangeState(State.RUNNING);
+        else
+            ChangeState(State.IDLE);
     }
 
     private void CheckIfIdle()
@@ -194,6 +188,20 @@ public class PlayerController : MonoBehaviour
     private void Attack()
     {
         attackCollider.gameObject.SetActive(true);
+        CheckIfFlipSriteRender();
+
+        float _dashForce = 0;
+
+        if(currentState == State.IDLE)
+        {
+            _dashForce = attackDashForceIdle;
+        }
+        else if(currentState == State.RUNNING)
+        {
+            _dashForce = attackDashForceRunning;
+        }
+        Dash(_dashForce);
+
         ConsumeStamina(attackStaminaConsume);
     }
 
@@ -224,7 +232,6 @@ public class PlayerController : MonoBehaviour
         ChangeState(State.HURT);
         hpBar.SetCurrentValue(currentHp);
         postProcessingLerpColor.ChangeVignetteColor(currentHp / hp);
-        //Debug.Log(currentHp);
     }
 
     public void HurtFinished()
@@ -264,11 +271,9 @@ public class PlayerController : MonoBehaviour
     {
         canRecoverStamina = false;
         currentStamina -= staminaConsumeValue;
-        Debug.Log(currentStamina);
 
         if(recoverCoroutineisRunning)
         {
-            Debug.Log("Corutina stopeada");
             StopCoroutine(CanRecoverStamina());
         }
 
@@ -294,7 +299,6 @@ public class PlayerController : MonoBehaviour
     private IEnumerator CanRecoverStamina()
     {
         recoverCoroutineisRunning = true;
-        Debug.Log("corutina empezada");
 
         yield return new WaitForSeconds(timeToRecoverStamina);
 
@@ -340,7 +344,8 @@ public class PlayerController : MonoBehaviour
                 break;
             case State.DASHING:
                 animator.SetBool("dashing", true);
-                Dash();
+                rb.velocity = Vector3.zero;
+                Dash(dashForce);
                 break;
             case State.HURT:
                 animator.SetBool("hurt", true);
@@ -350,6 +355,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("hurt", false);
                 break;
             case State.ATTACKING:
+                
                 animator.SetBool("attacking", true);
                 Attack();
                 break;

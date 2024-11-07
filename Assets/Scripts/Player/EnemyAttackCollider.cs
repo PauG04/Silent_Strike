@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAttackCollider : MonoBehaviour
 {
     [SerializeField] private ParticleSystem[] slashParticles;
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
