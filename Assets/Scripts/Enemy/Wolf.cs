@@ -83,9 +83,9 @@ public class Wolf : Enemy
 
     #endregion
 
-    public override void ReceiveDamageEnemy(float amount)
+    public override void ReceiveDamageEnemy(float amount, bool isFlipped)
     {
-        base.ReceiveDamageEnemy(amount);
+        base.ReceiveDamageEnemy(amount, isFlipped);
     }
     private void Dash()
     {
