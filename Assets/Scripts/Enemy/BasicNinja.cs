@@ -8,8 +8,6 @@ public class BasicNinja : Enemy
     private void Start()
     {
         base.InitializeEnemy();
-        animator.SetBool("Idle", true);
-        currentState = enemyState.GENERATING;
     }
 
     private void Update()
@@ -46,7 +44,6 @@ public class BasicNinja : Enemy
     private void GeneratingState()
     {
         Generating();
-
     }
 
     private void RunningState()
@@ -57,7 +54,6 @@ public class BasicNinja : Enemy
     private void ChargingState()
     {
         ChangeToAttackColor();
-        ChargingAttack();
     }
 
     private void AttackState()
@@ -81,6 +77,7 @@ public class BasicNinja : Enemy
 
     public override void ReceiveDamageEnemy(float amount)
     {
+        base.PrepareReceiveDamage();
         base.ReceiveDamageEnemy(amount);
     }
 

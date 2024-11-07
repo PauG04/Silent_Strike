@@ -60,11 +60,28 @@ public class Enemy : Character
     protected void InitializeEnemy()
     {
         base.InitializeCharacter();
+        InitVariables();
+        InitRotation();
+        CreateMaterial();
 
+    }
+
+    private void InitVariables()
+    {
         currentRecoveryTime = 0;
         currentGenerateTime = 0;
         current_speed = speed;
 
+        generateRadius = false;
+        attackHitted = false;
+        canAttack = false;
+        wander = false;
+
+        animator.SetBool("Idle", true);
+        currentState = enemyState.GENERATING;
+    }
+    private void InitRotation()
+    {
         if (transform.position.x > target.transform.position.x)
         {
             GetComponent<SpriteRenderer>().flipX = true;
@@ -77,12 +94,9 @@ public class Enemy : Character
             colliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
         }
-
-        generateRadius = false;
-        attackHitted = false;
-        canAttack = false;
-        wander = false;
-
+    }
+    private void CreateMaterial()
+    {
         Material newMaterial = new Material(materialShader);
         GetComponent<SpriteRenderer>().material = newMaterial;
     }
@@ -98,8 +112,7 @@ public class Enemy : Character
         currentGenerateTime += Time.deltaTime;
         if(currentGenerateTime > generateTime)
         {
-            currentState = enemyState.RUNNING;
-            animator.SetBool("Running", true);
+            ChangeState(enemyState.RUNNING);
         }
     }
 
@@ -347,24 +360,15 @@ public class Enemy : Character
 
     //Attack
     #region
-    protected void ChargingAttack()
-    {
-        animator.SetBool("Charging", true);
-        rgbd.velocity = Vector3.zero;
-    }
 
     protected void AttackReady()
     {
-        currentState = enemyState.ATTACK;
-        animator.SetBool("Attack", true);
-        animator.SetBool("Charging", false);
+        ChangeState(enemyState.ATTACK);
     }
 
     protected void Attack()
     {
-        animator.SetBool("Attack", false);
-        currentState = enemyState.RECOVERY;
-        GenerateRadiusEnemy();
+        ChangeState(enemyState.RECOVERY);
     }
 
     protected void ChangeToAttackColor()
@@ -379,11 +383,11 @@ public class Enemy : Character
         currentRecoveryTime += Time.deltaTime;
         if(currentRecoveryTime >= recoveryTime)
         {
-            currentState = enemyState.RUNNING;
             current_speed = speed; 
             currentRecoveryTime = 0;
             attackHitted = false;
             canAttack = false;
+            ChangeState(enemyState.RUNNING);
         }
     }
     #endregion
@@ -393,10 +397,9 @@ public class Enemy : Character
     protected void Hurt()
     {
         if (hurtLastState != enemyState.RUNNING && hurtLastState != enemyState.HURT)
-            currentState = enemyState.RECOVERY;
+           ChangeState(enemyState.RECOVERY);
         else
-            currentState = enemyState.RUNNING;
-        animator.SetBool("Hurt", false);
+            ChangeState(enemyState.RUNNING);
     }
 
     protected void Die()
@@ -414,22 +417,18 @@ public class Enemy : Character
     public virtual void ReceiveDamageEnemy(float amount)
     {
         base.ReceiveDamage(amount);
-        PrepareReceiveDamage();
         GenerateBlood();
 
         if (currentHP <= 0)
         {
-            currentState = enemyState.DIE;
-            animator.SetBool("Hurt", false);
-            animator.SetBool("Die", true);
+            ChangeState(enemyState.DIE);
             EnemyManager.instance.DeleteEnemy(this.gameObject);
         }
         else
         {
             hurtLastState = currentState;
-            currentState = enemyState.HURT;
+            ChangeState(enemyState.HURT);
             rgbd.AddForce(-(target.transform.position - transform.position).normalized * knockBackForce, ForceMode.Impulse);
-            animator.SetBool("Hurt", true);
             animator.Play(animator.GetCurrentAnimatorStateInfo(0).fullPathHash, -1, 0f);
         }
     }
@@ -437,11 +436,7 @@ public class Enemy : Character
     public void PrepareReceiveDamage()
     {
         rgbd.velocity = Vector3.zero;
-        animator.SetBool("Running", false);
-        animator.SetBool("Attack", false);
-        animator.SetBool("Charging", false);
         GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.white);
-
         hpSlider.UpdateSlider();
     }
 
@@ -449,12 +444,65 @@ public class Enemy : Character
     {
         GameObject _blood = Instantiate(blood);
         _blood.transform.position = transform.position;
-        _blood.GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + 1;
         _blood.GetComponent<Rigidbody>().AddForce(-(target.transform.position - transform.position).normalized * knockBackForce * 6, ForceMode.Impulse);
     }
 
     public void ChangeState(enemyState state)
     {
+        switch (currentState)
+        {
+            case enemyState.GENERATING:
+                break;
+            case enemyState.RUNNING:
+                animator.SetBool("Running", false);
+                break;
+            case enemyState.CHARGING:
+                animator.SetBool("Charging", false);
+                break;
+            case enemyState.ATTACK:
+                animator.SetBool("Attack", false);
+                GenerateRadiusEnemy();
+                break;
+            case enemyState.RECOVERY:
+                animator.SetBool("Running", false);
+                break;
+            case enemyState.HURT:
+                animator.SetBool("Hurt", false);
+                break;
+            case enemyState.DIE:
+                break;
+            case enemyState.BLOCK:
+                animator.SetBool("Parry", false);
+                break;
+        }
+
+        switch (state)
+        {
+            case enemyState.GENERATING:
+                break;
+            case enemyState.RUNNING:
+                animator.SetBool("Running", true);
+                break;
+            case enemyState.CHARGING:
+                animator.SetBool("Charging", true);
+                rgbd.velocity = Vector3.zero;
+                break;
+            case enemyState.ATTACK:
+                animator.SetBool("Attack", true);
+                break;
+            case enemyState.RECOVERY:
+                animator.SetBool("Running", true);
+                break;
+            case enemyState.HURT:
+                animator.SetBool("Hurt", true);
+                break;
+            case enemyState.DIE:
+                animator.SetBool("Die", true);
+                break;
+            case enemyState.BLOCK:
+                animator.SetBool("Parry", true);
+                break;
+        }
         currentState = state;
     }
 

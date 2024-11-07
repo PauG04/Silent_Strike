@@ -62,7 +62,6 @@ public class ParryNinja : Enemy
     private void ChargingState()
     {
         ChangeToAttackColor();
-        ChargingAttack();
     }
 
     private void AttackState()
@@ -86,32 +85,32 @@ public class ParryNinja : Enemy
 
     public void EndBlock()
     {
-        currentState = enemyState.RUNNING;
-        animator.SetBool("Parry", false);
+        ChangeState(enemyState.RUNNING);
     }
 
     public override void ReceiveDamageEnemy(float amount)
     {
         base.PrepareReceiveDamage();
         ParryPlayer();
-
     }
 
     private void ParryPlayer()
     {
-        currentState = enemyState.BLOCK;
-        animator.SetBool("Parry", true);
+        ChangeState(enemyState.BLOCK);
         animator.Play(animator.GetCurrentAnimatorStateInfo(0).fullPathHash, -1, 0f);
         target.GetComponent<Rigidbody>().velocity = Vector3.zero;
         target.GetComponent<Rigidbody>().AddForce((target.transform.position - transform.position).normalized * parryForce, ForceMode.Impulse);
+        CreateSpark();
+    }
 
+    private void CreateSpark()
+    {
         GameObject _sparks = Instantiate(sparks);
         _sparks.transform.SetParent(transform, true);
-        if(!GetComponent<SpriteRenderer>().flipX)
-            _sparks.transform.localPosition = new Vector3(0.1f,0.06f,0);
+        if (!GetComponent<SpriteRenderer>().flipX)
+            _sparks.transform.localPosition = new Vector3(0.1f, 0.06f, 0);
         else
             _sparks.transform.localPosition = new Vector3(-0.1f, 0.06f, 0);
-        _sparks.GetComponent<SpriteRenderer>().sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + 1;
     }
 
 }

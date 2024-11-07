@@ -59,7 +59,6 @@ public class Wolf : Enemy
 
     private void ChargingState()
     {
-        ChargingAttack();
         ChangeToAttackColor();
         if (!canDash)
             canDash = true;
@@ -85,6 +84,7 @@ public class Wolf : Enemy
 
     public override void ReceiveDamageEnemy(float amount)
     {
+        base.PrepareReceiveDamage();
         base.ReceiveDamageEnemy(amount);
     }
     private void Dash()
