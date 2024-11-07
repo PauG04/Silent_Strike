@@ -5041,9 +5041,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 9
+  m_SortingLayerID: 1348642567
+  m_SortingLayer: 1
+  m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -5126,7 +5126,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8074616, y: 0.6152229, z: 0.21905957}
+  m_Size: {x: 0.8, y: 0.6, z: 0.4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6863405769345344644
 MonoBehaviour:
@@ -10051,9 +10051,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 9
+  m_SortingLayerID: 1348642567
+  m_SortingLayer: 1
+  m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -10210,6 +10210,7 @@ MonoBehaviour:
   materialShader: {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
   animationName: ParryNinjaPrepareAttack
   blood: {fileID: 2038348839721942047, guid: 2b94ed9d5af15b54c8b15e8a3a00acb3, type: 3}
+  dashAttackForce: 0.5
   sparks: {fileID: 2038348839721942047, guid: 2a722a1fa7347984180e8ccf21ee0ecf, type: 3}
   parryForce: 2
 --- !u!114 &1639261319252328643
@@ -10247,7 +10248,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.37865973, y: 0.6222421, z: 0.2}
-  m_Center: {x: 0.022521734, y: 0.03262894, z: 0}
+  m_Center: {x: 0, y: 0.03262894, z: 0}
 --- !u!54 &4689039995171241156
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15303,9 +15304,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingLayerID: 1348642567
+  m_SortingLayer: 1
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -20310,9 +20311,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingLayerID: 1348642567
+  m_SortingLayer: 1
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -25241,9 +25242,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingLayerID: 1348642567
+  m_SortingLayer: 1
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -30172,9 +30173,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingLayerID: 1348642567
+  m_SortingLayer: 1
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0

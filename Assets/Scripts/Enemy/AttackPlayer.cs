@@ -22,7 +22,6 @@ public class AttackPlayer : MonoBehaviour
     {
         GameObject _blood = Instantiate(blood);
         _blood.transform.position = player.transform.position;
-        _blood.GetComponent<SpriteRenderer>().sortingOrder = player.GetComponent<SpriteRenderer>().sortingOrder + 1;
         _blood.GetComponent<Rigidbody>().AddForce((player.transform.position - gameObject.transform.parent.transform.position).normalized * knockBackForce * 6, ForceMode.Impulse);
     }
 

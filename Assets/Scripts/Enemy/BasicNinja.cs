@@ -8,8 +8,6 @@ public class BasicNinja : Enemy
     private void Start()
     {
         base.InitializeEnemy();
-        animator.SetBool("Idle", true);
-        currentState = enemyState.GENERATING;
     }
 
     private void Update()
@@ -26,7 +24,6 @@ public class BasicNinja : Enemy
                 ChargingState();
                 break;
             case enemyState.ATTACK:
-                AttackState();
                 break;
             case enemyState.RECOVERY:
                 RecoveryState();
@@ -46,7 +43,6 @@ public class BasicNinja : Enemy
     private void GeneratingState()
     {
         Generating();
-
     }
 
     private void RunningState()
@@ -57,14 +53,7 @@ public class BasicNinja : Enemy
     private void ChargingState()
     {
         ChangeToAttackColor();
-        ChargingAttack();
     }
-
-    private void AttackState()
-    {
-
-    }
-
     private void RecoveryState()
     {
         WanderTarget();
@@ -79,8 +68,23 @@ public class BasicNinja : Enemy
 
     #endregion
 
+    protected override void ChangeToAttackColor()
+    {
+        base.ChangeToAttackColor();
+    }
+    protected override void Attack()
+    {
+        base.Attack();
+    }
+
+    protected override void AttackReady()
+    {
+        base.AttackReady();
+    }
+
     public override void ReceiveDamageEnemy(float amount, bool isFlipped)
     {
+        base.PrepareReceiveDamage();
         base.ReceiveDamageEnemy(amount, isFlipped);
     }
 

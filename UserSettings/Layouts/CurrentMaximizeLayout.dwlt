@@ -806,6 +806,8 @@ MonoBehaviour:
     - {fileID: -4801457806308810730, guid: 93498ee11587a7944a3df6ed7837e3a9, type: 2}
     - {fileID: -3621790517419738482, guid: 9381acffae02f9f4fa5a8108c8ac18a4, type: 2}
     - {fileID: 8891009310941887768, guid: 31159d7edd47a144a8dc5eafdf36bb92, type: 2}
+    - {fileID: -3621790517419738482, guid: 2d741a9c37df6044887a97bcf894eb05, type: 2}
+    - {fileID: -3621790517419738482, guid: eade03a699392e544980602077fe3853, type: 2}
     m_ValueSerializationHelper:
     - e00: 0.59880954
       e01: 0
@@ -903,6 +905,38 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
+    - e00: 0.55772537
+      e01: 0
+      e02: 0
+      e03: -12.8862915
+      e10: 0
+      e11: 0.55772537
+      e12: 0
+      e13: 251.95178
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0.5917647
+      e01: 0
+      e02: 0
+      e03: -1.2176514
+      e10: 0
+      e11: 0.5917647
+      e12: 0
+      e13: 257.62354
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
   m_PreviewAnimator: {fileID: 0}
   m_AnimatorController: {fileID: 9100000, guid: 8fdce4c00234f7d4c86e84aa38655f99, type: 2}
   m_BreadCrumbs:
@@ -916,7 +950,7 @@ MonoBehaviour:
   m_MiniTool: 0
   m_LockTracker:
     m_IsLocked: 0
-  m_CurrentEditor: 0
+  m_CurrentEditor: 1
   m_LayerEditor:
     m_SelectedLayerIndex: 0
 --- !u!114 &10

@@ -34593,7 +34593,7 @@ PrefabInstance:
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].enemyPrefab
       value: 
-      objectReference: {fileID: 2561975879969506166, guid: 8d71962c44bd97b418ea72d883d2933e, type: 3}
+      objectReference: {fileID: 2561975879969506166, guid: c234ab5927d172f4e898a952712aab74, type: 3}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[1].enemyPrefab
       value: 
