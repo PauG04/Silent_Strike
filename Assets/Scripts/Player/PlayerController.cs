@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
         dashDirection = new Vector3(lastInputMovementDirection.normalized.x, 0, lastInputMovementDirection.normalized.y);
         Debug.Log(dashDirection);
 
-        rb.AddForce(dashDirection * _dashForce * Time.deltaTime, ForceMode.Impulse);
+        rb.AddForce(dashDirection * _dashForce, ForceMode.Impulse);
     }
 
     public void EndDash()

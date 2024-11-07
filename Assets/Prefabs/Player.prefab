@@ -9971,11 +9971,12 @@ MonoBehaviour:
   attackStaminaConsume: 20
   timeToRecoverStamina: 2
   staminaRecoverValue: 0.5
-  dashForce: 1200
-  dashAnimationName: DASH
+  dashForce: 25
   animator: {fileID: 4658023590269298289}
   damage: 5
   attackCollider: {fileID: 8319618179733874039}
+  attackDashForceIdle: 7
+  attackDashForceRunning: 12
   materialShader: {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
   hpBar: {fileID: 0}
   staminaBar: {fileID: 0}
