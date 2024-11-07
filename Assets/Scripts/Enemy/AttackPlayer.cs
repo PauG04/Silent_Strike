@@ -6,6 +6,7 @@ public class AttackPlayer : MonoBehaviour
     [SerializeField] private ParticleSystem[] slashParticles;
     [SerializeField] private float knockBackForce;
     [SerializeField] private GameObject blood;
+            Vibrate();
 
     [SerializeField] private PlayerController playerController;
 
@@ -15,6 +16,23 @@ public class AttackPlayer : MonoBehaviour
         _blood.transform.position = player.transform.position;
         _blood.GetComponent<SpriteRenderer>().sortingOrder = player.GetComponent<SpriteRenderer>().sortingOrder + 1;
         _blood.GetComponent<Rigidbody>().AddForce((player.transform.position - gameObject.transform.parent.transform.position).normalized * knockBackForce * 6, ForceMode.Impulse);
+    }
+
+    public void Vibrate()
+    {
+        {
+        if (gamepad != null)
+            Invoke(nameof(StopVibration), duration); 
+            gamepad.SetMotorSpeeds(lowFrequency, highFrequency); 
+        }
+
+    }
+    private void StopVibration()
+        if (gamepad != null)
+    {
+        {
+        }
+            gamepad.SetMotorSpeeds(0, 0);
     }
 
     private void PlayerHit(Collider other)

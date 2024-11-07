@@ -52,8 +52,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8459023, y: 0.6669557, z: 0.21905957}
-  m_Center: {x: 0, y: 0, z: 0.015036993}
+  m_Size: {x: 0.8459023, y: 0.6669557, z: 0.60755366}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2243403711017278617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10375,6 +10375,9 @@ MonoBehaviour:
   - {fileID: 4032810915381942576}
   knockBackForce: 2
   blood: {fileID: 2038348839721942047, guid: 2b94ed9d5af15b54c8b15e8a3a00acb3, type: 3}
+  lowFrequency: 2
+  highFrequency: 2.5
+  duration: 0.1
 --- !u!1 &3297077179996417538
 GameObject:
   m_ObjectHideFlags: 0

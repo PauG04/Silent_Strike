@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbdd84034ebb8734eb1f90b6aab157e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 7115627929365018159}
+  enemy: {fileID: 7099343794918321039}
 --- !u!1 &1091988517085703621
 GameObject:
   m_ObjectHideFlags: 0
@@ -5050,8 +5050,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.45, y: 0.6152229, z: 0.21905957}
-  m_Center: {x: 0, y: 0.02586642, z: 0.015036993}
+  m_Size: {x: 0.8074616, y: 0.6152229, z: 0.21905957}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6863405769345344644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5064,7 +5064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a232b1f70840908479e9c7f7cbf416ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 7115627929365018159}
+  enemy: {fileID: 7099343794918321039}
   slashParticles:
   - {fileID: 7016356913980845897}
   - {fileID: 2838794986724245657}
@@ -10018,13 +10018,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4199747275705273450}
   - component: {fileID: 6947593321855925665}
-  - component: {fileID: 7115627929365018159}
+  - component: {fileID: 7099343794918321039}
   - component: {fileID: 1639261319252328643}
   - component: {fileID: 1123124086480058593}
   - component: {fileID: 4689039995171241156}
   - component: {fileID: 1787264214948959020}
   m_Layer: 6
-  m_Name: Ninja1
+  m_Name: NinjaParry
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10092,7 +10092,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 242608138, guid: 056f4ac265177ae4fab67d614f47216e, type: 3}
+  m_Sprite: {fileID: 1150294634, guid: 20fcebf4363a83148a0506ff9dc756fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10103,7 +10103,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7115627929365018159
+--- !u!114 &7099343794918321039
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10112,15 +10112,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2561975879969506166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd8b532461c4dd848b3fcb11d1d61746, type: 3}
+  m_Script: {fileID: 11500000, guid: b6e9d035e28384c4fb62f717f8aa114b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
-  maxHP: 15
-  damage: 4
+  speed: 350
+  maxHP: 30
+  damage: 2
   currentState: 0
   hurtLastState: 0
-  separationDistance: {x: 0.1, y: 0.1, z: 0.1}
+  separationDistance: {x: 1, y: 1, z: 1}
   speedDivider: 4
   current_speed: 0
   cohesionWeight: 1
@@ -10133,8 +10133,10 @@ MonoBehaviour:
   generateTime: 0.25
   wanderRadius: 0.1
   materialShader: {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
-  animationName: NinjaPrepareAttack
+  animationName: ParryNinjaPrepareAttack
   blood: {fileID: 2038348839721942047, guid: 2b94ed9d5af15b54c8b15e8a3a00acb3, type: 3}
+  sparks: {fileID: 2038348839721942047, guid: 2a722a1fa7347984180e8ccf21ee0ecf, type: 3}
+  parryForce: 2
 --- !u!114 &1639261319252328643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10208,7 +10210,7 @@ Animator:
   m_GameObject: {fileID: 2561975879969506166}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d31bfec8e3b90c14a81a1181f26b6e74, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9381acffae02f9f4fa5a8108c8ac18a4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
