@@ -11,8 +11,6 @@ public class ParryNinja : Enemy
     private void Start()
     {
         base.InitializeEnemy();
-        animator.SetBool("Idle", true);
-        currentState = enemyState.GENERATING;
     }
 
     private void Update()
@@ -29,7 +27,6 @@ public class ParryNinja : Enemy
                 ChargingState();
                 break;
             case enemyState.ATTACK:
-                AttackState();
                 break;
             case enemyState.RECOVERY:
                 RecoveryState();
@@ -63,12 +60,6 @@ public class ParryNinja : Enemy
     {
         ChangeToAttackColor();
     }
-
-    private void AttackState()
-    {
-
-    }
-
     private void RecoveryState()
     {
         WanderTarget();
@@ -82,6 +73,21 @@ public class ParryNinja : Enemy
     }
 
     #endregion
+
+    protected override void ChangeToAttackColor()
+    {
+        base.ChangeToAttackColor();
+    }
+
+    protected override void Attack()
+    {
+        base.Attack();
+    }
+
+    protected override void AttackReady()
+    {
+        base.AttackReady();
+    }
 
     public void EndBlock()
     {

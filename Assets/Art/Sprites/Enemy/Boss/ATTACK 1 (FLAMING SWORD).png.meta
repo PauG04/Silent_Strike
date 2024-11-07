@@ -1,0 +1,282 @@
+fileFormatVersion: 2
+guid: ddaa9188248229b439c556ea5b2adfe6
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ATTACK 1 (FLAMING SWORD)_0
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 12
+        width: 62
+        height: 45
+      alignment: 9
+      pivot: {x: 0.76503015, y: 0.5322193}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 846f925532a0e054da5b43a04815650c
+      internalID: -1603764674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ATTACK 1 (FLAMING SWORD)_1
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 12
+        width: 62
+        height: 44
+      alignment: 9
+      pivot: {x: 0.75333774, y: 0.5192217}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dce902bfb60cc24881f167241d11246
+      internalID: 2115907870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ATTACK 1 (FLAMING SWORD)_2
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 12
+        width: 62
+        height: 44
+      alignment: 9
+      pivot: {x: 0.76113254, y: 0.5192217}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f90bf4723d8e04488f4f10a3dff7ac9
+      internalID: 1673328532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ATTACK 1 (FLAMING SWORD)_3
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 12
+        width: 66
+        height: 45
+      alignment: 9
+      pivot: {x: 0.6427904, y: 0.4946301}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbb30bc1633f5b64c9d184fa4f4dba5a
+      internalID: -1837642233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ATTACK 1 (FLAMING SWORD)_4
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 12
+        width: 58
+        height: 55
+      alignment: 9
+      pivot: {x: 0.6104063, y: 0.41432577}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ea0326831ad3ea489b5d848f87f9120
+      internalID: -2071605915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ATTACK 1 (FLAMING SWORD)_5
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 12
+        width: 52
+        height: 55
+      alignment: 9
+      pivot: {x: 0.6726755, y: 0.4148233}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a127c83eafff8064084e38fb72914c4a
+      internalID: -1593976753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ATTACK 1 (FLAMING SWORD)_7
+      rect:
+        serializedVersion: 2
+        x: 818
+        y: 12
+        width: 47
+        height: 57
+      alignment: 9
+      pivot: {x: 0.34633556, y: 0.44863257}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b43da30e57ba29498fb8bedb8bd1874
+      internalID: 1582546089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 7d1e187fb0e762b4b9d25133383b7358
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      ATTACK 1 (FLAMING SWORD)_0: -1603764674
+      ATTACK 1 (FLAMING SWORD)_1: 2115907870
+      ATTACK 1 (FLAMING SWORD)_2: 1673328532
+      ATTACK 1 (FLAMING SWORD)_3: -1837642233
+      ATTACK 1 (FLAMING SWORD)_4: -2071605915
+      ATTACK 1 (FLAMING SWORD)_5: -1593976753
+      ATTACK 1 (FLAMING SWORD)_6: 2147378569
+      ATTACK 1 (FLAMING SWORD)_7: 1582546089
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

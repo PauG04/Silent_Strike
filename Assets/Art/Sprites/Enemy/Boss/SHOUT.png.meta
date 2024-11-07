@@ -1,0 +1,515 @@
+fileFormatVersion: 2
+guid: 7b66b6ad99437e1479347b34d920d70a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SHOUT_0
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 5
+        width: 67
+        height: 77
+      alignment: 9
+      pivot: {x: 0.58645767, y: 0.42477036}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08dfc5f6c1ac6b944ae236e42b38a3e6
+      internalID: -448894950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_1
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 5
+        width: 71
+        height: 77
+      alignment: 9
+      pivot: {x: 0.58653235, y: 0.43878853}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06e5c38b6e0243e40849eebb8b66012a
+      internalID: 2107491534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_2
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 0
+        width: 81
+        height: 77
+      alignment: 9
+      pivot: {x: 0.5801836, y: 0.48404208}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c386477454173ee43a08e4182b81d95f
+      internalID: -672956116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_6
+      rect:
+        serializedVersion: 2
+        x: 1298
+        y: 1
+        width: 90
+        height: 81
+      alignment: 9
+      pivot: {x: 0.56449926, y: 0.4674934}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b472a174e781f3642a232e9001efbd47
+      internalID: -1661314749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 12
+        width: 38
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1edd16c7cbcf06a46b5b55dfc24a802f
+      internalID: 1840929155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_8
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 13
+        width: 35
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e3c6a38746708548b63114381e8075e
+      internalID: -768535499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_12
+      rect:
+        serializedVersion: 2
+        x: 1438
+        y: 12
+        width: 69
+        height: 57
+      alignment: 9
+      pivot: {x: 0.5585124, y: 0.4445675}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca57c6034ef8ce24cb9206ede12dbae4
+      internalID: 1694065386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_13
+      rect:
+        serializedVersion: 2
+        x: 1567
+        y: 12
+        width: 68
+        height: 57
+      alignment: 9
+      pivot: {x: 0.55937284, y: 0.46920407}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d157d64b0e551ca46819e537437e1534
+      internalID: -1598759469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_14
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 12
+        width: 52
+        height: 56
+      alignment: 9
+      pivot: {x: 0.70591617, y: 0.4529814}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a54b78c8e86ad834987f8d78774a2090
+      internalID: 1263626838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_16
+      rect:
+        serializedVersion: 2
+        x: 1823
+        y: 12
+        width: 51
+        height: 57
+      alignment: 9
+      pivot: {x: 0.7472115, y: 0.4604187}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 308239f8223da2740b975861efed1fc6
+      internalID: -1461079229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_17
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 12
+        width: 54
+        height: 56
+      alignment: 9
+      pivot: {x: 0.70152676, y: 0.45497206}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 100b48f02a8c0744b8db509bc63606d8
+      internalID: -1193405916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_18
+      rect:
+        serializedVersion: 2
+        x: 2080
+        y: 12
+        width: 50
+        height: 57
+      alignment: 9
+      pivot: {x: 0.7255176, y: 0.45971218}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f348e9d977285e94e8f2dce2709e9763
+      internalID: -1095514315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_19
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 10
+        width: 35
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b24d2bcf209b1264ebfe03343be91902
+      internalID: -231042632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_20
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 11
+        width: 36
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 109b244d90bfa8042aa0d7857fad62c1
+      internalID: 719716329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_21
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 12
+        width: 35
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24645979353f50f48863431ed4b74831
+      internalID: 519273620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_22
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 12
+        width: 35
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d674fc851e49d4e4183f724daf72b9fd
+      internalID: 1161298639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SHOUT_23
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 12
+        width: 35
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35f360a000e361648934ec558886eb28
+      internalID: 684340031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 2d71a8929595add4aaf87cdbc3604beb
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      SHOUT_: 1840929155
+      SHOUT_0: -448894950
+      SHOUT_1: 2107491534
+      SHOUT_10: -132418870
+      SHOUT_11: 1989596189
+      SHOUT_12: 1694065386
+      SHOUT_13: -1598759469
+      SHOUT_14: 1263626838
+      SHOUT_15: 506021749
+      SHOUT_16: -1461079229
+      SHOUT_17: -1193405916
+      SHOUT_18: -1095514315
+      SHOUT_19: -231042632
+      SHOUT_2: -672956116
+      SHOUT_20: 719716329
+      SHOUT_21: 519273620
+      SHOUT_22: 1161298639
+      SHOUT_23: 684340031
+      SHOUT_24: 2020730806
+      SHOUT_25: 1072600724
+      SHOUT_26: 1411801441
+      SHOUT_27: 448541696
+      SHOUT_28: 2128640254
+      SHOUT_29: -1586889600
+      SHOUT_3: -398910012
+      SHOUT_30: 872824672
+      SHOUT_4: -1081561396
+      SHOUT_5: 1024019910
+      SHOUT_6: -1661314749
+      SHOUT_8: -768535499
+      SHOUT_9: 685230831
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

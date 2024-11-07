@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 
 public class Enemy : Character
 {
-    public enum enemyState { GENERATING, RUNNING, CHARGING, ATTACK, RECOVERY, HURT, DIE, BLOCK };
+    public enum enemyState { GENERATING, RUNNING, CHARGING, ATTACK, RECOVERY, HURT, DIE, BLOCK, IDLE };
     public enemyState currentState;
     public enemyState hurtLastState;
 
@@ -28,8 +28,8 @@ public class Enemy : Character
     private float currentRecoveryTime;
 
     [Header("Collider")]
-    [SerializeField] private GameObject colliderPosition;
-    [SerializeField] private GameObject damageColliderPosition;
+    [SerializeField] protected GameObject colliderPosition;
+    [SerializeField] protected GameObject damageColliderPosition;
 
     [Header("GenerateTime")]
     [SerializeField] private float generateTime;
@@ -47,6 +47,7 @@ public class Enemy : Character
     [Header("Attack")]
     [SerializeField] private string animationName;
     [SerializeField] private GameObject blood;
+    [SerializeField] private float dashAttackForce;
     private bool attackHitted;
     private bool canAttack;
 
@@ -63,7 +64,6 @@ public class Enemy : Character
         InitVariables();
         InitRotation();
         CreateMaterial();
-
     }
 
     private void InitVariables()
@@ -361,17 +361,17 @@ public class Enemy : Character
     //Attack
     #region
 
-    protected void AttackReady()
+    protected virtual void AttackReady()
     {
         ChangeState(enemyState.ATTACK);
     }
 
-    protected void Attack()
+    protected virtual void Attack()
     {
         ChangeState(enemyState.RECOVERY);
     }
 
-    protected void ChangeToAttackColor()
+    protected virtual void ChangeToAttackColor()
     {
         if(animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
             GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.Lerp(GetComponent<SpriteRenderer>().color, Color.red, animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1));
@@ -389,6 +389,11 @@ public class Enemy : Character
             canAttack = false;
             ChangeState(enemyState.RUNNING);
         }
+    }
+
+    private void DashAttack()
+    {
+        rgbd.AddForce(direction.normalized * dashAttackForce, ForceMode.Impulse);
     }
     #endregion
 
@@ -529,6 +534,8 @@ public class Enemy : Character
     public void SetCanAttack()
     {
         canAttack = true;
+        SetAttackHitted(false);
+        DashAttack();
         GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.white);
     }
 

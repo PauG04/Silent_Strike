@@ -24,7 +24,6 @@ public class BasicNinja : Enemy
                 ChargingState();
                 break;
             case enemyState.ATTACK:
-                AttackState();
                 break;
             case enemyState.RECOVERY:
                 RecoveryState();
@@ -55,12 +54,6 @@ public class BasicNinja : Enemy
     {
         ChangeToAttackColor();
     }
-
-    private void AttackState()
-    {
-
-    }
-
     private void RecoveryState()
     {
         WanderTarget();
@@ -74,6 +67,20 @@ public class BasicNinja : Enemy
     }
 
     #endregion
+
+    protected override void ChangeToAttackColor()
+    {
+        base.ChangeToAttackColor();
+    }
+    protected override void Attack()
+    {
+        base.Attack();
+    }
+
+    protected override void AttackReady()
+    {
+        base.AttackReady();
+    }
 
     public override void ReceiveDamageEnemy(float amount)
     {
