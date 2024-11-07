@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 
 public class Enemy : Character
 {
-    public enum enemyState { GENERATING, RUNNING, CHARGING, ATTACK, RECOVERY, HURT, DIE };
+    public enum enemyState { GENERATING, RUNNING, CHARGING, ATTACK, RECOVERY, HURT, DIE, BLOCK };
     public enemyState currentState;
     public enemyState hurtLastState;
 
@@ -434,7 +434,7 @@ public class Enemy : Character
         }
     }
 
-    private void PrepareReceiveDamage()
+    public void PrepareReceiveDamage()
     {
         rgbd.velocity = Vector3.zero;
         animator.SetBool("Running", false);
