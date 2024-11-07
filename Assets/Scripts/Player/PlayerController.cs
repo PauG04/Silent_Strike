@@ -142,7 +142,6 @@ public class PlayerController : MonoBehaviour
         CheckIfFlipSriteRender();
 
         dashDirection = new Vector3(lastInputMovementDirection.normalized.x, 0, lastInputMovementDirection.normalized.y);
-        Debug.Log(dashDirection);
 
         rb.AddForce(dashDirection * _dashForce, ForceMode.Impulse);
     }
@@ -272,12 +271,24 @@ public class PlayerController : MonoBehaviour
         canRecoverStamina = false;
         currentStamina -= staminaConsumeValue;
 
-        if(recoverCoroutineisRunning)
+        staminaBar.SetCurrentValue(currentStamina);
+
+        if (recoverCoroutineisRunning)
         {
-            StopCoroutine(CanRecoverStamina());
+            StopCoroutine("CanRecoverStamina");
         }
 
-        StartCoroutine(CanRecoverStamina());
+        StartCoroutine("CanRecoverStamina");
+    }
+
+    private IEnumerator CanRecoverStamina()
+    {
+        recoverCoroutineisRunning = true;
+
+        yield return new WaitForSeconds(timeToRecoverStamina);
+
+        canRecoverStamina = true;
+        recoverCoroutineisRunning = false;
     }
 
     private void RecoverStamina()
@@ -289,23 +300,16 @@ public class PlayerController : MonoBehaviour
         {
             currentStamina += staminaRecoverValue;
 
-            if(currentStamina > maxStamina)
+
+            if (currentStamina > maxStamina)
             {
                 currentStamina = maxStamina;
             }
+
+            staminaBar.SetCurrentValue(currentStamina);
         }
     }
 
-    private IEnumerator CanRecoverStamina()
-    {
-        recoverCoroutineisRunning = true;
-
-        yield return new WaitForSeconds(timeToRecoverStamina);
-
-        canRecoverStamina = true;
-        recoverCoroutineisRunning = false;
-
-    }
     #endregion
 
     public void ChangeState(State state)
@@ -369,6 +373,11 @@ public class PlayerController : MonoBehaviour
     public float GetDamage()
     {
         return damage;
+    }
+
+    public State GetState()
+    {
+        return currentState;
     }
    
 }
