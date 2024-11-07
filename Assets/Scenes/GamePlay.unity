@@ -22610,54 +22610,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1804252583277427079, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.5471698
-      objectReference: {fileID: 0}
-    - target: {fileID: 1804252583277427079, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.5471698
-      objectReference: {fileID: 0}
-    - target: {fileID: 1804252583277427079, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.5471698
-      objectReference: {fileID: 0}
-    - target: {fileID: 1885866844385187099, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1885866844385187099, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1885866844385187099, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3125886790430822290, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334096905061578564, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.9150943
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334096905061578564, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.89650023
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334096905061578564, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.88487893
       objectReference: {fileID: 0}
     - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: hpBar
       value: 
       objectReference: {fileID: 1033367066}
     - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: dashForce
+      value: 1250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: staminaBar
       value: 
       objectReference: {fileID: 1629947774}
+    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: attackDashForce
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: attackDashForceIdle
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: attackDashForceRunning
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: postProcessingLerpColor
       value: 
