@@ -80,14 +80,14 @@ public class Enemy : Character
         if (transform.position.x > target.transform.position.x)
         {
             spriteRenderer.flipX = true;
-            colliderPosition.transform.localPosition = new Vector3(-spriteRenderer.bounds.size.x / 2, 0, 0);
-            damageColliderPosition.transform.localPosition = new Vector3(-spriteRenderer.bounds.size.x / 2, 0, 0);
+            colliderPosition.transform.localPosition = new Vector3(colliderPosition.transform.localPosition.x * -1, 0, 0);
+            damageColliderPosition.transform.localPosition = new Vector3(damageColliderPosition.transform.localPosition.x * -1, 0, 0);
         }
         else
         {
             spriteRenderer.flipX = false;
-            colliderPosition.transform.localPosition = new Vector3(spriteRenderer.bounds.size.x / 2, 0, 0);
-            damageColliderPosition.transform.localPosition = new Vector3(spriteRenderer.bounds.size.x / 2, 0, 0);
+            colliderPosition.transform.localPosition = new Vector3(colliderPosition.transform.localPosition.x, 0, 0);
+            damageColliderPosition.transform.localPosition = new Vector3(damageColliderPosition.transform.localPosition.x, 0, 0);
         }
     }
     private void CreateMaterial()
@@ -225,10 +225,14 @@ public class Enemy : Character
         if (transform.position.x > target.transform.position.x && !GetComponent<SpriteRenderer>().flipX)
         {
             GetComponent<SpriteRenderer>().flipX = true;
+            colliderPosition.transform.localPosition = new Vector3(colliderPosition.transform.localPosition.x * -1, 0, 0);
+            damageColliderPosition.transform.localPosition = new Vector3(damageColliderPosition.transform.localPosition.x * -1, 0, 0);
         }
         else if(transform.position.x <= target.transform.position.x && GetComponent<SpriteRenderer>().flipX)
         {
             GetComponent<SpriteRenderer>().flipX = false;
+            colliderPosition.transform.localPosition = new Vector3(colliderPosition.transform.localPosition.x * -1, 0, 0);
+            damageColliderPosition.transform.localPosition = new Vector3(damageColliderPosition.transform.localPosition.x * -1, 0, 0);
         }
     }
 
@@ -237,14 +241,14 @@ public class Enemy : Character
         if (rgbd.velocity.x > 0 && GetComponent<SpriteRenderer>().flipX)
         {
             GetComponent<SpriteRenderer>().flipX = false;
-            colliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
-            damageColliderPosition.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            colliderPosition.transform.localPosition = new Vector3(colliderPosition.transform.localPosition.x * -1, 0, 0);
+            damageColliderPosition.transform.localPosition = new Vector3(damageColliderPosition.transform.localPosition.x * -1, 0, 0);
         }
         else if(rgbd.velocity.x <= 0 && !GetComponent<SpriteRenderer>().flipX)
         {
             GetComponent<SpriteRenderer>().flipX = true;
-            colliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
-            damageColliderPosition.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            colliderPosition.transform.localPosition = new Vector3(colliderPosition.transform.localPosition.x * -1, 0, 0);
+            damageColliderPosition.transform.localPosition = new Vector3(damageColliderPosition.transform.localPosition.x * -1, 0, 0);
         }
     }
 
