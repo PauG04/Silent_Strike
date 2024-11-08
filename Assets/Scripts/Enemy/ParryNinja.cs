@@ -97,7 +97,11 @@ public class ParryNinja : Enemy
     public override void ReceiveDamageEnemy(float amount, bool isFlipped)
     {
         base.PrepareReceiveDamage();
-        ParryPlayer();
+        if (isFlipped != spriteRenderer.flipX)
+            ParryPlayer();
+        else
+            base.ReceiveDamageEnemy(amount, isFlipped);
+
     }
 
     private void ParryPlayer()

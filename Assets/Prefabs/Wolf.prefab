@@ -10214,7 +10214,7 @@ MonoBehaviour:
   materialShader: {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
   animationName: WolfPrepareAttack
   blood: {fileID: 2038348839721942047, guid: 2b94ed9d5af15b54c8b15e8a3a00acb3, type: 3}
-  dashForce: 15
+  dashAttackForce: 15
 --- !u!65 &1123124086480058593
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10296,7 +10296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c537853bbcdf54ab71bec280b65001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 0}
+  slider: {fileID: 1742503554827964754}
   offsetY: 0.4
   timeToDesapear: 2
 --- !u!1 &2695085227987586885

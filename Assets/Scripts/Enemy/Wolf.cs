@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Wolf : Enemy
 {
-    [Header("Dash")]
-    [SerializeField] private float dashForce;
-    private bool canDash;
-
     private void Start()
     {
         base.InitializeEnemy();
@@ -56,8 +52,6 @@ public class Wolf : Enemy
     private void ChargingState()
     {
         ChangeToAttackColor();
-        if (!canDash)
-            canDash = true;
     }
 
     private void RecoveryState()
@@ -91,10 +85,5 @@ public class Wolf : Enemy
     {
         base.PrepareReceiveDamage();
         base.ReceiveDamageEnemy(amount, isFlipped);
-    }
-    private void Dash()
-    {
-        rgbd.AddForce(direction.normalized * dashForce, ForceMode.Impulse);
-        canDash = false;
     }
 }
