@@ -488,6 +488,18 @@ public class Enemy : Character
         currentState = state;
     }
 
+    public void PlayerDeath()
+    {
+        animator.SetBool("Parry", false);
+        animator.SetBool("Die", false);
+        animator.SetBool("Hurt", false);
+        animator.SetBool("Running", false);
+        animator.SetBool("Attack", false);
+        animator.SetBool("Charging", false);
+        colliderPosition.SetActive(false);
+        damageColliderPosition.SetActive(false);
+    }
+
     public float GetDamage()
     {
         return damage;

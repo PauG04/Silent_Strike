@@ -258,6 +258,7 @@ public class PlayerController : MonoBehaviour
     private void Die()
     {
         ChangeState(State.DEATH);
+        EnemyManager.instance.SetNullTarget();
         animator.SetBool("dead", true);
     }
 

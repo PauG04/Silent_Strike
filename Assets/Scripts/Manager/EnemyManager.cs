@@ -76,6 +76,15 @@ public class EnemyManager : MonoBehaviour
         
     }
 
+    public void SetNullTarget()
+    {
+        for(int i = 0;  i < spawnedEnemies.Count; i++) 
+        {
+            spawnedEnemies[i].GetComponent<Enemy>().SetTarget(null);
+            spawnedEnemies[i].GetComponent<Enemy>().PlayerDeath();
+        }
+    }
+
     public List<GameObject> GetSpawnedEnemies()
     {
         return spawnedEnemies;
