@@ -49,7 +49,7 @@ public class Enemy : Character
     private bool canAttack;
 
     private EnemyHpSlider hpSlider;
-    private SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
     private void Awake()
     {

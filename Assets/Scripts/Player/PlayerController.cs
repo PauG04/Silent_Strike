@@ -352,7 +352,6 @@ public class PlayerController : MonoBehaviour
                 break;
             case State.HURT:
                 animator.SetBool("hurt", true);
-                CheckIfDead();
                 break;
             case State.DEATH:
                 animator.SetBool("hurt", false);
