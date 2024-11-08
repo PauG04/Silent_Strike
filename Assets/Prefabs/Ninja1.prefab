@@ -10130,7 +10130,6 @@ MonoBehaviour:
   colliderPosition: {fileID: 9259915653349204}
   damageColliderPosition: {fileID: 1669257261796109920}
   generateTime: 0.25
-  wanderRadius: 0.1
   materialShader: {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
   animationName: NinjaPrepareAttack
   blood: {fileID: 2038348839721942047, guid: 2b94ed9d5af15b54c8b15e8a3a00acb3, type: 3}
