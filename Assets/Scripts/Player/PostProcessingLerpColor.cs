@@ -7,17 +7,36 @@ public class PostProcessingLerpColor : MonoBehaviour
 {
     [SerializeField] private float mininValue;
     [SerializeField] private float lerpDuration;
+    [SerializeField] private float aberrationIntensity;
     [SerializeField] private Volume _volume;
 
     private Vignette _vignette;
+    private FilmGrain _filmGrain;
+    private ChromaticAberration _aberration;
     private bool startInterpolate;
     private float lerpProgress;
 
     void Start()
     {
-        if (_volume != null && _volume.profile != null && _volume.profile.TryGet(out _vignette))
+        if (_volume != null && _volume.profile != null)
         {
-            _vignette.active = true; 
+            // Vignette
+            if (_volume.profile.TryGet(out _vignette))
+            {
+                _vignette.active = true;
+            }
+
+            // Film Grain
+            if (_volume.profile.TryGet(out _filmGrain))
+            {
+                _filmGrain.active = true;
+            }
+
+            // Chromatic Aberration
+            if (_volume.profile.TryGet(out _aberration))
+            {
+                _aberration.active = true;
+            }
         }
     }
 
@@ -25,7 +44,7 @@ public class PostProcessingLerpColor : MonoBehaviour
     {
         if(startInterpolate)
         {
-            _vignette.color.value = Color.Lerp(Color.black, Color.red, lerpProgress / lerpDuration); ;
+            _vignette.color.value = Color.Lerp(Color.black, Color.red, lerpProgress / lerpDuration);
             lerpProgress += Time.deltaTime;
         }    
     }
@@ -35,6 +54,8 @@ public class PostProcessingLerpColor : MonoBehaviour
         if(_value < mininValue) 
         {
             startInterpolate = true;
+            _aberration.intensity.value = aberrationIntensity;
+            _filmGrain.type.value = FilmGrainLookup.Large02;
         }
 
     }

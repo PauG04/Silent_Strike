@@ -9,7 +9,7 @@ public class EnemyHpSlider : MonoBehaviour
     [SerializeField] private float offsetY;
     [SerializeField] private float timeToDesapear;
 
-    private void Awake()
+    private void Start()
     {
         enemy = GetComponent<Enemy>();
 
