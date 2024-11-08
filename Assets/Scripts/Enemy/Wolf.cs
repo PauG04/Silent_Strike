@@ -86,4 +86,9 @@ public class Wolf : Enemy
         base.PrepareReceiveDamage();
         base.ReceiveDamageEnemy(amount, isFlipped);
     }
+
+    public override void PlayerDeath()
+    {
+        base.PlayerDeath();
+    }
 }

@@ -10141,6 +10141,12 @@ MonoBehaviour:
   - BossChSJump
   - BossChS
   secondPhaseAnimator: {fileID: 9100000, guid: eade03a699392e544980602077fe3853, type: 2}
+  damage1WhioutFlame: 2
+  damage2WhioutFlame: 3
+  damage3WhioutFlame: 5
+  damageJumpWhioutFlame: 7
+  damageMultiplier: 2
+  secondPhaseVelocity: 600
 --- !u!114 &1639261319252328643
 MonoBehaviour:
   m_ObjectHideFlags: 0

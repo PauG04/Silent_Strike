@@ -11,6 +11,14 @@ public class Boss : Enemy
     [SerializeField] private string[] chargeAnimation;
     [SerializeField] private RuntimeAnimatorController secondPhaseAnimator;
 
+    [Header("BossStats")]
+    [SerializeField] private float damage1WhioutFlame;
+    [SerializeField] private float damage2WhioutFlame;
+    [SerializeField] private float damage3WhioutFlame;
+    [SerializeField] private float damageJumpWhioutFlame;
+    [SerializeField] private float damageMultiplier;
+    [SerializeField] private float secondPhaseVelocity;
+
     private int normalAttacksDone;
     private bool secondPhaseActive;
     private int randomValue;
@@ -170,6 +178,8 @@ public class Boss : Enemy
         GetComponent<SpriteRenderer>().SetPropertyBlock(mpb);
         ChangeBossState(attackState.NOATTACK);
         ChangeState(enemyState.RUNNING);
+        speed = secondPhaseVelocity;
+        current_speed = speed;
     }
 
     public void ChangeBossState(attackState state)
@@ -213,12 +223,24 @@ public class Boss : Enemy
                 break;
             case attackState.ATTACK1:
                 animator.SetBool("AttackNormal", true);
+                if(!secondPhaseActive)
+                    damage = damage1WhioutFlame;
+                else
+                    damage = damage1WhioutFlame * damageMultiplier;
                 break;
             case attackState.ATTACK2:
                 animator.SetBool("AttackNormal2", true);
+                if (!secondPhaseActive)
+                    damage = damage2WhioutFlame;
+                else
+                    damage = damage2WhioutFlame * damageMultiplier;
                 break;
             case attackState.ATTACK3:
                 animator.SetBool("AttackNormal3", true);
+                if (!secondPhaseActive)
+                    damage = damage3WhioutFlame;
+                else
+                    damage = damage3WhioutFlame * damageMultiplier;
                 break;
             case attackState.CHARGING1:
                 animator.SetBool("ChargingJump", true);
@@ -230,11 +252,26 @@ public class Boss : Enemy
                 break;
             case attackState.JUMPATTACK:
                 animator.SetBool("AttackJump", true);
+                if (!secondPhaseActive)
+                    damage = damageJumpWhioutFlame;
+                else
+                    damage = damageJumpWhioutFlame * damageMultiplier;
                 break;
             case attackState.SHOUT:
                 animator.SetBool("Shout", true);
                 break;
         }
         currentAttackState = state;
+    }
+
+    public override void PlayerDeath()
+    {
+        animator.SetBool("ChargingJump", false);
+        animator.SetBool("ChargingNormal", false);
+        animator.SetBool("AttackNormal", false);
+        animator.SetBool("AttackJump", false);
+        animator.SetBool("AttackNormal2", false);
+        animator.SetBool("AttackNormal3", false);
+        base.PlayerDeath();
     }
 }

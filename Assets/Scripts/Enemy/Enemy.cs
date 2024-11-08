@@ -488,7 +488,7 @@ public class Enemy : Character
         currentState = state;
     }
 
-    public void PlayerDeath()
+    public virtual void PlayerDeath()
     {
         animator.SetBool("Parry", false);
         animator.SetBool("Die", false);
