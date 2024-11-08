@@ -32,11 +32,9 @@ public class Enemy : Character
     [SerializeField] private float generateTime;
     private float currentGenerateTime;
 
-    [Header("WanderRadius")]
-    [SerializeField] private float wanderRadius;
-    private bool generateRadius;
-    private Vector3 centerPosition;
-    private bool wander;
+    private bool orbitate;
+    private bool orbiteLeft;
+    private float current_angle;
 
     [Header("Material")]
     [SerializeField] private Material materialShader;
@@ -71,10 +69,8 @@ public class Enemy : Character
         currentGenerateTime = 0;
         current_speed = speed;
 
-        generateRadius = false;
         attackHitted = false;
         canAttack = false;
-        wander = false;
 
         animator.SetBool("Idle", true);
         currentState = enemyState.GENERATING;
@@ -144,12 +140,10 @@ public class Enemy : Character
     {
         if (target != null)
         {
-            WanderActivation();
-
-            if (wander)
+            StartOrbitate();
+            if (orbitate)
             {
-                Wander();
-                GenerateRadiusEnemy();
+                Orbite();
             }
             else
             {
@@ -161,78 +155,62 @@ public class Enemy : Character
         }
     }
 
-    private void WanderActivation()
+    private void StartOrbitate()
     {
-        if (target.GetComponent<Rigidbody>().velocity.magnitude > rgbd.velocity.magnitude)
+        if(Vector3.Distance(target.transform.position, transform.position) > 1.2)
         {
-            wander = false;
-            return;
+            current_speed = speed;
+            orbitate = false;
         }
-        if (Vector3.Distance(target.transform.position, transform.position) + (wanderRadius * 2) < 1)
+        else if (Vector3.Distance(target.transform.position, transform.position) > 0.6)
         {
-            wander = true;
+            if (orbitate)
+                return;
+            current_speed = speed / speedDivider;
         }
-
-    }
-
-    protected void Wander()
-    {
-        if(Vector3.Distance(centerPosition, transform.position) > wanderRadius)
+        else
         {
-            GenerateWanderPosition();
-        }
-    }
+            if (orbitate)
+                return;
+            Vector3 relativePos = transform.position - target.transform.position;
+            current_angle = Mathf.Atan2(relativePos.z, relativePos.x);
+            orbitate = true;
 
-    public void GenerateWanderPosition()
-    {
-        Vector2 randomPosition = Random.insideUnitCircle * wanderRadius;
-        direction = (centerPosition + new Vector3(randomPosition.x, 0, randomPosition.y)) - transform.position;
-    }
-
-    public void GenerateRadiusEnemy()
-    {
-        if(!generateRadius)
-        {
-            if (transform.position.x > target.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 ||
-            transform.position.x < target.transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2)
-            {
-                if (GetComponent<SpriteRenderer>().flipX)
-                {
-                    centerPosition = new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius, transform.position.y, transform.position.z);
-                }
-                else
-                {
-                    centerPosition = new Vector3(transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius, transform.position.y, transform.position.z);
-                }
-            }
+            if (Random.Range(1, 3) == 1)
+                orbiteLeft = true;
             else
-            {
-                if (transform.position.z > target.transform.position.z)
-                {
-                    centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + GetComponent<SpriteRenderer>().bounds.size.x / 2 + wanderRadius);
-                }
-                else
-                {
-                    centerPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - GetComponent<SpriteRenderer>().bounds.size.x / 2 - wanderRadius);
-                }
-            }
-            current_speed /= speedDivider;
-            generateRadius = true;
-            GenerateWanderPosition();
+                orbiteLeft = false;
         }
+    }
+
+    private void Orbite()
+    {
+        if(orbiteLeft)
+            current_angle -= Time.deltaTime / 2.5f;
+        else
+            current_angle += Time.deltaTime / 2.5f;
+
+        float xPosition = target.transform.position.x + 0.6f * Mathf.Cos(current_angle);
+        float zPosition = target.transform.position.z + 0.6f * Mathf.Sin(current_angle);
+        Vector3 orbitePosition = new Vector3(xPosition, 0, zPosition);
+        direction = orbitePosition - transform.position;
     }
 
     protected void Seek()
     {
-        if (transform.position.x > target.transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2 ||
-            transform.position.x < target.transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2)
+        if (transform.position.x > target.transform.position.x + target.GetComponent<SpriteRenderer>().bounds.size.x / 2 ||
+            transform.position.x < target.transform.position.x - target.GetComponent<SpriteRenderer>().bounds.size.x / 2)
         {
             Vector3 targetPosition = Vector3.zero;
 
             if (GetComponent<SpriteRenderer>().flipX)
+            {
                 targetPosition = new Vector3(target.transform.position.x + target.GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, target.transform.position.z);
+            }      
             else
+            {
                 targetPosition = new Vector3(target.transform.position.x - target.GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y, target.transform.position.z);
+            }
 
             direction = targetPosition - transform.position;
         }
@@ -240,14 +218,6 @@ public class Enemy : Character
         {
             direction = target.transform.position - transform.position;
         }
-
-        if(generateRadius)
-        {
-            current_speed = speed;
-            generateRadius = false;
-        }
-
-
     }
 
     private void WanderRotation()
@@ -470,7 +440,6 @@ public class Enemy : Character
                 break;
             case enemyState.ATTACK:
                 animator.SetBool("Attack", false);
-                GenerateRadiusEnemy();
                 break;
             case enemyState.RECOVERY:
                 animator.SetBool("Running", false);
