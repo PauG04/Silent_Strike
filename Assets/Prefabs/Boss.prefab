@@ -10138,6 +10138,8 @@ MonoBehaviour:
   chargeAnimation:
   - BossChN
   - BossChNJump
+  - BossChSJump
+  - BossChS
   secondPhaseAnimator: {fileID: 9100000, guid: eade03a699392e544980602077fe3853, type: 2}
 --- !u!114 &1639261319252328643
 MonoBehaviour:

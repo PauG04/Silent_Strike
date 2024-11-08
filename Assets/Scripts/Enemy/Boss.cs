@@ -121,8 +121,12 @@ public class Boss : Enemy
     #endregion
     protected override void ChangeToAttackColor()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName(chargeAnimation[0]) || animator.GetCurrentAnimatorStateInfo(0).IsName(chargeAnimation[1]))
-            GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.Lerp(GetComponent<SpriteRenderer>().color, Color.red, animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1));
+        for(int i = 0; i< chargeAnimation.Length; i++)
+        {
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName(chargeAnimation[i]))
+                GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.Lerp(GetComponent<SpriteRenderer>().color, Color.red, animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1));
+        }
+        
     }
 
     protected override void Attack()
