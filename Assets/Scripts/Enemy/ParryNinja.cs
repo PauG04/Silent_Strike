@@ -123,5 +123,10 @@ public class ParryNinja : Enemy
             _sparks.transform.localPosition = new Vector3(-0.1f, 0.06f, 0);
     }
 
+    public override void PlayerDeath()
+    {
+        base.PlayerDeath();
+    }
+
 }
 

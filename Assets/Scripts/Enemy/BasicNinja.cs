@@ -88,4 +88,9 @@ public class BasicNinja : Enemy
         base.ReceiveDamageEnemy(amount, isFlipped);
     }
 
+    public override void PlayerDeath()
+    {
+        base.PlayerDeath();
+    }
+
 }
