@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ParryNinja : Enemy
@@ -37,6 +35,9 @@ public class ParryNinja : Enemy
                 DieState();
                 break;
             case enemyState.BLOCK:
+                break;
+            case enemyState.FREEZED:
+                Freeze();
                 break;
         }
         base.UpdateEnemy();

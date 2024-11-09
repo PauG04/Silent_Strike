@@ -21,6 +21,11 @@ public class Kunai : MonoBehaviour
         {
             PlayerController.instance.SetKunaiTarget(other.gameObject);
             other.gameObject.GetComponent<Enemy>().ActivateKunai();
+            Destroy(this.gameObject);
+        }
+
+        if (other.CompareTag("Wall"))
+        {
             PlayerController.instance.SetHasThrowedKunai(false);
             Destroy(this.gameObject);
         }

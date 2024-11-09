@@ -243,6 +243,9 @@ public class PlayerController : MonoBehaviour
     #region Throw
     public void ThrowAction(InputAction.CallbackContext obj)
     {
+        if (!obj.started)
+            return;
+
         if (currentState == State.ATTACKING || currentState == State.DEATH)
             return;
 
@@ -257,23 +260,30 @@ public class PlayerController : MonoBehaviour
         {
             KunaiAttack();
         }
-
-
     }
 
     private void KunaiAttack()
     {
         //freezear enemy
-        spriteRenderer.flipY = kunaiTarget.GetComponent<SpriteRenderer>().flipY;
-        transform.position = kunaiTarget.transform.position;
+        SpriteRenderer enemySpriteRenderer = kunaiTarget.GetComponent<SpriteRenderer>();
+        spriteRenderer.flipX = enemySpriteRenderer.flipX;
+
+        if(enemySpriteRenderer.flipX)
+            transform.position = kunaiTarget.transform.position + new Vector3(.5f,0f,0f);
+        else
+            transform.position = kunaiTarget.transform.position - new Vector3(.5f, 0f, 0f);
+
+        kunaiTarget.GetComponent<Enemy>().ChangeState(Enemy.enemyState.FREEZED);
+        PlayerController.instance.SetHasThrowedKunai(false);
 
         ChangeState(State.ATTACKING);
+        kunaiTarget = null;
     }
 
     private void Throw()
     {
         hasThrowedKunai = true;
-        GameObject newKunai = Instantiate(kunai, this.transform);
+        GameObject newKunai = Instantiate(kunai, transform.position, Quaternion.identity);
         newKunai.transform.transform.right = new Vector3(lastInputMovementDirection.normalized.x, 0, lastInputMovementDirection.normalized.y);
 
         ConsumeStamina(kunaiStaminaConsume);

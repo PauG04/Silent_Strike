@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy : Character
 {
-    public enum enemyState { GENERATING, RUNNING, CHARGING, ATTACK, RECOVERY, HURT, DIE, BLOCK, IDLE };
+    public enum enemyState { GENERATING, RUNNING, CHARGING, ATTACK, RECOVERY, HURT, DIE, BLOCK, IDLE, FREEZED };
     public enemyState currentState;
     public enemyState hurtLastState;
 
@@ -505,6 +505,16 @@ public class Enemy : Character
         animator.SetBool("Charging", false);
         colliderPosition.SetActive(false);
         damageColliderPosition.SetActive(false);
+    }
+
+    public virtual void Freeze()
+    {
+        Invoke("EndFreeze", 0.2f);
+    }
+
+    public virtual void EndFreeze()
+    {
+        ChangeState(enemyState.RUNNING);
     }
 
     public virtual void ActivateKunai()

@@ -31,6 +31,9 @@ public class BasicNinja : Enemy
             case enemyState.DIE:
                 DieState();
                 break;
+            case enemyState.FREEZED:
+                Freeze();
+                break;
         }
         base.UpdateEnemy();
         if (Input.GetKeyDown(KeyCode.N)) { ReceiveDamageEnemy(1, true); }

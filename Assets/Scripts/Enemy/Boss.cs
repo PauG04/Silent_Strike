@@ -62,6 +62,9 @@ public class Boss : Enemy
             case enemyState.DIE:
                 DieState();
                 break;
+            case enemyState.FREEZED:
+                Freeze();
+                break;
         }
         base.UpdateEnemy();
 
