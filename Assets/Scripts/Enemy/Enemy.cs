@@ -48,11 +48,14 @@ public class Enemy : Character
 
     private EnemyHpSlider hpSlider;
     protected SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject damageGameObject;
+    private ShowDamage showDamage;
 
     private void Awake()
     {
         hpSlider = GetComponent<EnemyHpSlider>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        showDamage = damageGameObject.GetComponent<ShowDamage>();
     }
 
     protected void InitializeEnemy()
@@ -394,13 +397,18 @@ public class Enemy : Character
 
     public virtual void ReceiveDamageEnemy(float amount, bool isFlipped)
     {
+        float damageReceived = amount;
+
         if(isFlipped == spriteRenderer.flipX)
-            base.ReceiveDamage(amount * 2);
+            damageReceived = amount * 2;
         else
-            base.ReceiveDamage(amount);
+            damageReceived = amount;
+
+        base.ReceiveDamage(damageReceived);
 
         PrepareReceiveDamage();
         GenerateBlood();
+        ShowDamageText(damageReceived);
 
         if (currentHP <= 0)
         {
@@ -421,6 +429,7 @@ public class Enemy : Character
         rgbd.velocity = Vector3.zero;
         GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.white);
         hpSlider.UpdateSlider();
+
     }
 
     private void GenerateBlood()
@@ -428,6 +437,12 @@ public class Enemy : Character
         GameObject _blood = Instantiate(blood);
         _blood.transform.position = transform.position;
         _blood.GetComponent<Rigidbody>().AddForce(-(target.transform.position - transform.position).normalized * knockBackForce * 6, ForceMode.Impulse);
+    }
+
+    private void ShowDamageText(float damage)
+    {
+        damageGameObject.SetActive(true);
+        showDamage.SetText(damage);
     }
 
     public void ChangeState(enemyState state)
