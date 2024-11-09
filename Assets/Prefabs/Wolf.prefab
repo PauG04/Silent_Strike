@@ -25428,7 +25428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lerpMask: {fileID: 9171001033023045266}
   mask: {fileID: 4702084184199107680}
-  lerpDuration: 150
+  lerpDuration: 3
 --- !u!1 &8619938242039843525
 GameObject:
   m_ObjectHideFlags: 0
