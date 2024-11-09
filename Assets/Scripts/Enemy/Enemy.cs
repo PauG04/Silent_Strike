@@ -394,10 +394,14 @@ public class Enemy : Character
 
     public virtual void ReceiveDamageEnemy(float amount, bool isFlipped)
     {
+        float damageReceived = amount;
+
         if(isFlipped == spriteRenderer.flipX)
-            base.ReceiveDamage(amount * 2);
+            damageReceived = amount * 2;
         else
-            base.ReceiveDamage(amount);
+            damageReceived = amount;
+
+        base.ReceiveDamage(damageReceived);
 
         PrepareReceiveDamage();
         GenerateBlood();
@@ -421,6 +425,7 @@ public class Enemy : Character
         rgbd.velocity = Vector3.zero;
         GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.white);
         hpSlider.UpdateSlider();
+
     }
 
     private void GenerateBlood()
