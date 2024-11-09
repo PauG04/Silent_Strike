@@ -21,8 +21,9 @@ public class Kunai : MonoBehaviour
         {
             PlayerController.instance.SetKunaiTarget(other.gameObject);
             other.gameObject.GetComponent<Enemy>().ActivateKunai();
+            PlayerController.instance.SetHasThrowedKunai(false);
+            Destroy(this.gameObject);
         }
 
-        Destroy(this.gameObject);
     }
 }

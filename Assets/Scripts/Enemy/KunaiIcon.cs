@@ -25,6 +25,9 @@ public class KunaiIcon : MonoBehaviour
         float currentAlpha = Mathf.Lerp(1f, 0f, timer);
 
         spriteRenderer.color = new Color(255, 255, 255, currentAlpha);
+
+        if (currentAlpha <= 0f)
+            this.gameObject.SetActive(false);
     }
 
 }

@@ -18502,6 +18502,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3125886790430822290, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
   m_PrefabInstance: {fileID: 1445503242}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1182870220 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+  m_PrefabInstance: {fileID: 1445503242}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182870215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d64f1f0923e7c464da397fce9107de40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1184261937 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8503351685230836092, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
@@ -22100,6 +22111,46 @@ PrefabInstance:
     - target: {fileID: 6890663775397318365, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
+      value: a41261f5-e99e-4049-b78b-a15d1e8e583b
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
+      value: Movement/Throw[/Keyboard/space,/XInputControllerWindows/rightTrigger]
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1182870220}
+    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ThrowAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
