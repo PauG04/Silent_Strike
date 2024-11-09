@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     [Header("Movement")]
     [SerializeField] private float speed;
     private Vector2 inputMovementDirection;
@@ -36,6 +38,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject attackCollider;
     [SerializeField] private float attackDashForceIdle;
     [SerializeField] private float attackDashForceRunning;
+    [SerializeField] private GameObject kunai;
+    private GameObject kunaiTarget;
+    [SerializeField] private float timeToDesappearKunai;
+    [SerializeField] private float kunaiStaminaConsume;
 
     [Header("Material")]
     [SerializeField] private Material materialShader;
@@ -47,8 +53,7 @@ public class PlayerController : MonoBehaviour
     [Header("PostProcessing")]
     [SerializeField] private PostProcessingLerpColor postProcessingLerpColor;
 
-
-    public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING}
+    public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING, THROWING}
 
     private State currentState;
 
@@ -56,6 +61,14 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+
+        instance = this;
+
         rb = GetComponent<Rigidbody>();
         sp = GetComponent<SpriteRenderer>();
         currentHp = hp;
@@ -222,6 +235,16 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    #region Throw
+    private void Throw()
+    {
+        GameObject newKunai = Instantiate(kunai);
+        newKunai.transform.transform.right = new Vector3(lastInputMovementDirection.normalized.x, 0, lastInputMovementDirection.normalized.y);
+
+        ConsumeStamina(kunaiStaminaConsume);
+    }
+    #endregion
+
     #region HP
 
     public void ReceiveDamage(float damage)
@@ -334,6 +357,9 @@ public class PlayerController : MonoBehaviour
             case State.ATTACKING:
                 animator.SetBool("attacking", false);
                 break;
+            case State.THROWING:
+                animator.SetBool("throwing", false);
+                break;
             default:
                 break;
         }
@@ -358,9 +384,12 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("hurt", false);
                 break;
             case State.ATTACKING:
-                
                 animator.SetBool("attacking", true);
                 Attack();
+                break;
+            case State.THROWING:
+                animator.SetBool("throwing", true);
+                Throw();
                 break;
             default:
                 break;
@@ -379,4 +408,13 @@ public class PlayerController : MonoBehaviour
         return currentState;
     }
    
+    public void SetKunaiTarget(GameObject target)
+    {
+        kunaiTarget = target;
+    }
+
+    public float GetTimeToDesappearKunai()
+    {
+        return timeToDesappearKunai;
+    }
 }

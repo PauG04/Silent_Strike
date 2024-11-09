@@ -49,6 +49,8 @@ public class Enemy : Character
     private EnemyHpSlider hpSlider;
     protected SpriteRenderer spriteRenderer;
 
+    [SerializeField] GameObject kunaiIcon;
+
     private void Awake()
     {
         hpSlider = GetComponent<EnemyHpSlider>();
@@ -503,6 +505,11 @@ public class Enemy : Character
         animator.SetBool("Charging", false);
         colliderPosition.SetActive(false);
         damageColliderPosition.SetActive(false);
+    }
+
+    public virtual void ActivateKunai()
+    {
+        kunaiIcon.SetActive(true);
     }
 
     public float GetDamage()
