@@ -442,6 +442,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case State.THROWING:
                 animator.SetBool("throwing", true);
+                Throw();
                 break;
             default:
                 break;
