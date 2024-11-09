@@ -9900,7 +9900,7 @@ Transform:
   - {fileID: 1885866844385187099}
   - {fileID: 7844530883728644202}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1274804365765067904
 SpriteRenderer:
@@ -9978,6 +9978,9 @@ MonoBehaviour:
   attackCollider: {fileID: 8319618179733874039}
   attackDashForceIdle: 7
   attackDashForceRunning: 12
+  kunai: {fileID: 1698020728805350758, guid: 9515b351a1672b14399c33cba767878b, type: 3}
+  timeToDesappearKunai: 2
+  kunaiStaminaConsume: 0
   materialShader: {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
   hpBar: {fileID: 0}
   staminaBar: {fileID: 0}
@@ -10055,6 +10058,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e379bf1a-decb-47ad-b9f1-dd5a7cb1a0a2
     m_ActionName: Movement/Attack[/XInputControllerWindows/buttonWest]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5808209924057310944}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: ThrowAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a41261f5-e99e-4049-b78b-a15d1e8e583b
+    m_ActionName: Movement/Throw[/Keyboard/space,/XInputControllerWindows/rightTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movement

@@ -5,7 +5,6 @@ public class Kunai : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private float speed;
 
-
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -13,6 +12,23 @@ public class Kunai : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = Vector3.right * speed * Time.deltaTime;
+        rb.velocity = transform.right * speed * Time.deltaTime;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            PlayerController.instance.SetKunaiTarget(other.gameObject);
+            other.gameObject.GetComponent<Enemy>().ActivateKunai();
+            Destroy(this.gameObject);
+        }
+
+        if (other.CompareTag("Wall"))
+        {
+            PlayerController.instance.SetHasThrowedKunai(false);
+            Destroy(this.gameObject);
+        }
+
     }
 }

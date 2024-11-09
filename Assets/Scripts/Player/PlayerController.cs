@@ -1,9 +1,12 @@
 using System.Collections;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     [Header("Movement")]
     [SerializeField] private float speed;
     private Vector2 inputMovementDirection;
@@ -36,6 +39,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject attackCollider;
     [SerializeField] private float attackDashForceIdle;
     [SerializeField] private float attackDashForceRunning;
+    [SerializeField] private GameObject kunai;
+    private GameObject kunaiTarget;
+    [SerializeField] private float timeToDesappearKunai;
+    [SerializeField] private float kunaiStaminaConsume;
+    private bool hasThrowedKunai;
 
     [Header("Material")]
     [SerializeField] private Material materialShader;
@@ -47,8 +55,9 @@ public class PlayerController : MonoBehaviour
     [Header("PostProcessing")]
     [SerializeField] private PostProcessingLerpColor postProcessingLerpColor;
 
+    private SpriteRenderer spriteRenderer;
 
-    public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING}
+    public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING, THROWING}
 
     private State currentState;
 
@@ -56,13 +65,22 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+
+        instance = this;
+
         rb = GetComponent<Rigidbody>();
         sp = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         currentHp = hp;
         lastInputMovementDirection = Vector3.right;
         dashDirection = Vector3.right;
         currentStamina = maxStamina;
-
+        hasThrowedKunai = false;
         recoverCoroutineisRunning = false;
 
         hpBar.SetMaxValue(hp);
@@ -222,6 +240,64 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    #region Throw
+    public void ThrowAction(InputAction.CallbackContext obj)
+    {
+        if (!obj.started)
+            return;
+
+        if (currentState == State.ATTACKING || currentState == State.DEATH)
+            return;
+
+        if (!hasThrowedKunai)
+        {
+            if (currentStamina < kunaiStaminaConsume)
+                return;
+
+            ChangeState(State.THROWING);
+        }
+        else if (kunaiTarget != null)
+        {
+            KunaiAttack();
+        }
+    }
+
+    private void KunaiAttack()
+    {
+        //freezear enemy
+        SpriteRenderer enemySpriteRenderer = kunaiTarget.GetComponent<SpriteRenderer>();
+        spriteRenderer.flipX = enemySpriteRenderer.flipX;
+
+        if(enemySpriteRenderer.flipX)
+            transform.position = kunaiTarget.transform.position + new Vector3(.5f,0f,0f);
+        else
+            transform.position = kunaiTarget.transform.position - new Vector3(.5f, 0f, 0f);
+
+        kunaiTarget.GetComponent<Enemy>().ChangeState(Enemy.enemyState.FREEZED);
+        PlayerController.instance.SetHasThrowedKunai(false);
+
+        ChangeState(State.ATTACKING);
+        kunaiTarget = null;
+    }
+
+    private void Throw()
+    {
+        hasThrowedKunai = true;
+        GameObject newKunai = Instantiate(kunai, transform.position, Quaternion.identity);
+        newKunai.transform.transform.right = new Vector3(lastInputMovementDirection.normalized.x, 0, lastInputMovementDirection.normalized.y);
+
+        ConsumeStamina(kunaiStaminaConsume);
+    }
+
+    private void EndThrow()
+    {
+        if (inputMovementDirection != Vector2.zero)
+            ChangeState(State.RUNNING);
+        else
+            ChangeState(State.IDLE);
+    }
+    #endregion
+
     #region HP
 
     public void ReceiveDamage(float damage)
@@ -334,6 +410,9 @@ public class PlayerController : MonoBehaviour
             case State.ATTACKING:
                 animator.SetBool("attacking", false);
                 break;
+            case State.THROWING:
+                animator.SetBool("throwing", false);
+                break;
             default:
                 break;
         }
@@ -358,9 +437,11 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("hurt", false);
                 break;
             case State.ATTACKING:
-                
                 animator.SetBool("attacking", true);
                 Attack();
+                break;
+            case State.THROWING:
+                animator.SetBool("throwing", true);
                 break;
             default:
                 break;
@@ -379,4 +460,18 @@ public class PlayerController : MonoBehaviour
         return currentState;
     }
    
+    public void SetKunaiTarget(GameObject target)
+    {
+        kunaiTarget = target;
+    }
+
+    public float GetTimeToDesappearKunai()
+    {
+        return timeToDesappearKunai;
+    }
+
+    public void SetHasThrowedKunai(bool _hasThrowedKunai)
+    {
+        hasThrowedKunai = _hasThrowedKunai;
+    }
 }

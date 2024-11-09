@@ -6066,7 +6066,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &340471392
 MonoBehaviour:
@@ -10847,7 +10847,7 @@ GameObject:
   - component: {fileID: 594290797}
   m_Layer: 8
   m_Name: ------ WallFar ------
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14249,7 +14249,7 @@ GameObject:
   - component: {fileID: 899883705}
   m_Layer: 8
   m_Name: '------ WallNearUP ------  '
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14915,7 +14915,7 @@ GameObject:
   - component: {fileID: 924853415}
   m_Layer: 8
   m_Name: '------ WallLeft ------ '
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16144,7 +16144,7 @@ GameObject:
   - component: {fileID: 1019568282}
   m_Layer: 8
   m_Name: '------ WallRight ------ '
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21972,6 +21972,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1274804365765067904, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1274804365765067904, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3125886790430822290, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -21990,7 +21998,7 @@ PrefabInstance:
       objectReference: {fileID: 1555119402}
     - target: {fileID: 6890663775397318365, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6890663775397318365, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23248,6 +23256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mininValue: 0.3
   lerpDuration: 2
+  aberrationIntensity: 0
   _volume: {fileID: 1555119401}
 --- !u!1 &1556219369
 GameObject:
