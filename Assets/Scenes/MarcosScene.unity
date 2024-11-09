@@ -22733,7 +22733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lerpMask: {fileID: 1446111439}
   mask: {fileID: 1650659723}
-  lerpDuration: 150
+  lerpDuration: 3
 --- !u!114 &1446111439
 MonoBehaviour:
   m_ObjectHideFlags: 0

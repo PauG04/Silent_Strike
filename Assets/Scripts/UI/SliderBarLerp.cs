@@ -9,7 +9,7 @@ public class SliderBarLerp : MonoBehaviour
 
     private float lerpProgress = 0;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (mask.fillAmount < lerpMask.fillAmount)
         {
@@ -24,8 +24,10 @@ public class SliderBarLerp : MonoBehaviour
     private void LerpFillAmount()
     {
         lerpProgress += Time.deltaTime / lerpDuration;
-        //lerpProgress = Mathf.Clamp01(lerpProgress); 
 
-        lerpMask.fillAmount = Mathf.Lerp(lerpMask.fillAmount, mask.fillAmount, lerpProgress);
+        float currentProgress = Mathf.Lerp(lerpMask.fillAmount, mask.fillAmount, lerpProgress);
+        Debug.Log(currentProgress);
+
+        lerpMask.fillAmount = currentProgress;
     }
 }

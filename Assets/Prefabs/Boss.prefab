@@ -52,7 +52,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.75, y: 0.6, z: 0.3}
+  m_Size: {x: 0.75, y: 0.6, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2243403711017278617
 MonoBehaviour:
@@ -10554,7 +10554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lerpMask: {fileID: 2992296324425909108}
   mask: {fileID: 6792804563928606375}
-  lerpDuration: 150
+  lerpDuration: 3
 --- !u!1 &5020927718237222292
 GameObject:
   m_ObjectHideFlags: 0
