@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Art")]
     [SerializeField] private Animator animator;
-    [SerializeField] private float damage;
     private SpriteRenderer sp;
 
     [Header("Attack")]
@@ -40,9 +39,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackDashForceIdle;
     [SerializeField] private float attackDashForceRunning;
     [SerializeField] private GameObject kunai;
-    private GameObject kunaiTarget;
     [SerializeField] private float timeToDesappearKunai;
     [SerializeField] private float kunaiStaminaConsume;
+    [SerializeField] private float damage;
+    private GameObject kunaiTarget;
     private bool hasThrowedKunai;
 
     [Header("Material")]
@@ -203,7 +203,6 @@ public class PlayerController : MonoBehaviour
 
     private void Attack()
     {
-        attackCollider.gameObject.SetActive(true);
         CheckIfFlipSriteRender();
 
         float _dashForce = 0;
@@ -223,8 +222,6 @@ public class PlayerController : MonoBehaviour
 
     public void EndAttack()
     {
-        attackCollider.gameObject.SetActive(false);
-
         ChangeState(State.IDLE);
     }
 
