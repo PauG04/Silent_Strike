@@ -217,71 +217,63 @@ public class PlayerController : MonoBehaviour
 
     private void Attack()
     {
-
         CheckIfFlipSriteRender();
 
-        switch (attackCount)
-        {
-            case 0:
-                AttackChangeState(AttackState.FIRST_ATTACK);
-                break;
-            case 1:
-                AttackChangeState(AttackState.SECOND_ATTACK);
-                break;
-            case 2:
-                AttackChangeState(AttackState.THIRD_ATTACK);
-                break;
-            case 3:
-                isInCombo = false;
-                EndAttack();
-                break;
-            default:
-                break;
-        }
-
-        attackCount++;
-        ConsumeStamina(attackStaminaConsume);
-    }
-
-    private void FirstAttack()
-    {
         float _dashForce = 0;
 
-        if (currentState == State.IDLE)
+        if (rb.velocity == Vector3.zero)
         {
             _dashForce = attackDashForceIdle;
         }
-        else if (currentState == State.RUNNING)
+        else
         {
             _dashForce = attackDashForceRunning;
         }
+
         Dash(_dashForce);
+
+        ConsumeStamina(attackStaminaConsume);
     }
 
-    private void SecondAttack()
+    private void EndFirstAttack()
     {
-
-    }
-
-    private void ThirdAttack()
-    {
-
-    }
-
-    public void EndAttack()
-    {
-        if (isInCombo && currentAttackState != AttackState.THIRD_ATTACK)
+        if(isInCombo)
         {
-            Attack();
+            isInCombo = false;
+            AttackChangeState(AttackState.SECOND_ATTACK);
             return;
         }
 
-        ChangeState(State.IDLE);
-        AttackChangeState(AttackState.NONE);
-
+        isInCombo = false;
         attackCount = 0;
 
+        ChangeState(State.IDLE);
+        AttackChangeState(AttackState.NONE);
+    }
+
+    private void EndSecondAttack()
+    {
+        if (isInCombo)
+        {
+            isInCombo = false;
+            AttackChangeState(AttackState.THIRD_ATTACK);
+            return;
+        }
+
         isInCombo = false;
+        attackCount = 0;
+
+        ChangeState(State.IDLE);
+        AttackChangeState(AttackState.NONE);
+    }
+
+    private void EndThirdAttack()
+    {
+        attackCount = 0;
+        isInCombo = false;
+
+        ChangeState(State.IDLE);
+        AttackChangeState(AttackState.NONE);
     }
 
     public void AttackAction(InputAction.CallbackContext obj)
@@ -301,7 +293,8 @@ public class PlayerController : MonoBehaviour
         if (currentStamina < attackStaminaConsume)
             return;
 
-        ChangeState(State.ATTACKING); 
+        ChangeState(State.ATTACKING);
+        AttackChangeState(AttackState.FIRST_ATTACK);
     }
     #endregion
 
@@ -503,8 +496,6 @@ public class PlayerController : MonoBehaviour
                 break;
             case State.ATTACKING:
                 animator.SetBool("attacking", true);
-                Debug.Log("AAA");
-                Attack();
                 break;
             case State.THROWING:
                 animator.SetBool("throwing", true);
@@ -522,7 +513,6 @@ public class PlayerController : MonoBehaviour
         switch (currentAttackState)
         {
             case AttackState.NONE:
-
                 break;
             case AttackState.FIRST_ATTACK:
                 animator.SetBool("firstAttack", false);
@@ -540,26 +530,25 @@ public class PlayerController : MonoBehaviour
         switch (_attackState)
         {
             case AttackState.NONE:
-                animator.SetBool("attacking", false);
-                animator.SetBool("firstAttack", false);
-                animator.SetBool("secondAttack", false);
-                animator.SetBool("thirdAttack", false);
+                
                 break;
             case AttackState.FIRST_ATTACK:
                 animator.SetBool("firstAttack", true);
-                FirstAttack();
+                Attack();
                 break;
             case AttackState.SECOND_ATTACK:
                 animator.SetBool("secondAttack", true);
-                SecondAttack();
+                Attack();
                 break;
             case AttackState.THIRD_ATTACK:
                 animator.SetBool("thirdAttack", true);
-                ThirdAttack();
-                break;
+                Attack();
+                break;  
             default:
                 break;
         }
+
+        currentAttackState = _attackState;
     }
 
     public float GetDamage()
