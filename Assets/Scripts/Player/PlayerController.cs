@@ -38,10 +38,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject attackCollider;
     [SerializeField] private float attackDashForceIdle;
     [SerializeField] private float attackDashForceRunning;
+    [SerializeField] private float damage;
+    [SerializeField] private float timeToStopAttackCombo;
+    private AttackState currentAttackState;
+    private float attackCount;
+    private bool isInCombo;
+    private enum AttackState { NONE, FIRST_ATTACK, SECOND_ATTACK, THIRD_ATTACK }
+
+   
+    [Header("Kunai")]
     [SerializeField] private GameObject kunai;
     [SerializeField] private float timeToDesappearKunai;
     [SerializeField] private float kunaiStaminaConsume;
-    [SerializeField] private float damage;
     private GameObject kunaiTarget;
     private bool hasThrowedKunai;
 
@@ -76,17 +84,25 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         sp = GetComponent<SpriteRenderer>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+      
+        // HP & Stamina
         currentHp = hp;
-        lastInputMovementDirection = Vector3.right;
-        dashDirection = Vector3.right;
-        currentStamina = maxStamina;
-        hasThrowedKunai = false;
-        recoverCoroutineisRunning = false;
-
         hpBar.SetMaxValue(hp);
         hpBar.SetCurrentValue(currentHp);
+
+        currentStamina = maxStamina;
         staminaBar.SetMaxValue(maxStamina);
         staminaBar.SetCurrentValue(currentStamina);
+
+        //Attack
+        attackCount = 0;
+        isInCombo = false;
+        hasThrowedKunai = false;
+
+        //Movement
+        lastInputMovementDirection = Vector3.right;
+        dashDirection = Vector3.right;
+        recoverCoroutineisRunning = false;
 
         Material newMaterial = new Material(materialShader);
         GetComponent<SpriteRenderer>().material = newMaterial;
@@ -125,8 +141,6 @@ public class PlayerController : MonoBehaviour
         }
 
         RecoverStamina();
-
-        if(Input.GetKeyDown(KeyCode.L)) { ReceiveDamage(20); }
     }
 
     #region Movement
@@ -203,31 +217,85 @@ public class PlayerController : MonoBehaviour
 
     private void Attack()
     {
+
         CheckIfFlipSriteRender();
 
+        switch (attackCount)
+        {
+            case 0:
+                AttackChangeState(AttackState.FIRST_ATTACK);
+                break;
+            case 1:
+                AttackChangeState(AttackState.SECOND_ATTACK);
+                break;
+            case 2:
+                AttackChangeState(AttackState.THIRD_ATTACK);
+                break;
+            case 3:
+                isInCombo = false;
+                EndAttack();
+                break;
+            default:
+                break;
+        }
+
+        attackCount++;
+        ConsumeStamina(attackStaminaConsume);
+    }
+
+    private void FirstAttack()
+    {
         float _dashForce = 0;
 
-        if(currentState == State.IDLE)
+        if (currentState == State.IDLE)
         {
             _dashForce = attackDashForceIdle;
         }
-        else if(currentState == State.RUNNING)
+        else if (currentState == State.RUNNING)
         {
             _dashForce = attackDashForceRunning;
         }
         Dash(_dashForce);
+    }
 
-        ConsumeStamina(attackStaminaConsume);
+    private void SecondAttack()
+    {
+
+    }
+
+    private void ThirdAttack()
+    {
+
     }
 
     public void EndAttack()
     {
+        if (isInCombo && currentAttackState != AttackState.THIRD_ATTACK)
+        {
+            Attack();
+            return;
+        }
+
         ChangeState(State.IDLE);
+        AttackChangeState(AttackState.NONE);
+
+        attackCount = 0;
+
+        isInCombo = false;
     }
 
     public void AttackAction(InputAction.CallbackContext obj)
     {
-        if (currentState == State.ATTACKING || currentState == State.DEATH)
+        if (!obj.started)
+            return;
+
+        if (currentState == State.ATTACKING)
+        {
+            isInCombo = true;
+            return;
+        }
+                
+        if (currentState == State.DEATH)
             return;
 
         if (currentStamina < attackStaminaConsume)
@@ -435,6 +503,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case State.ATTACKING:
                 animator.SetBool("attacking", true);
+                Debug.Log("AAA");
                 Attack();
                 break;
             case State.THROWING:
@@ -446,6 +515,51 @@ public class PlayerController : MonoBehaviour
         }
 
         currentState = state;
+    }
+
+    private void AttackChangeState(AttackState _attackState)
+    {
+        switch (currentAttackState)
+        {
+            case AttackState.NONE:
+
+                break;
+            case AttackState.FIRST_ATTACK:
+                animator.SetBool("firstAttack", false);
+                break;
+            case AttackState.SECOND_ATTACK:
+                animator.SetBool("secondAttack", false);
+                break;
+            case AttackState.THIRD_ATTACK:
+                animator.SetBool("thirdAttack", false);
+                break;
+            default:
+                break;
+        }
+
+        switch (_attackState)
+        {
+            case AttackState.NONE:
+                animator.SetBool("attacking", false);
+                animator.SetBool("firstAttack", false);
+                animator.SetBool("secondAttack", false);
+                animator.SetBool("thirdAttack", false);
+                break;
+            case AttackState.FIRST_ATTACK:
+                animator.SetBool("firstAttack", true);
+                FirstAttack();
+                break;
+            case AttackState.SECOND_ATTACK:
+                animator.SetBool("secondAttack", true);
+                SecondAttack();
+                break;
+            case AttackState.THIRD_ATTACK:
+                animator.SetBool("thirdAttack", true);
+                ThirdAttack();
+                break;
+            default:
+                break;
+        }
     }
 
     public float GetDamage()
