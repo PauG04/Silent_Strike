@@ -26,7 +26,6 @@ public class SliderBarLerp : MonoBehaviour
         lerpProgress += Time.deltaTime / lerpDuration;
 
         float currentProgress = Mathf.Lerp(lerpMask.fillAmount, mask.fillAmount, lerpProgress);
-        Debug.Log(currentProgress);
 
         lerpMask.fillAmount = currentProgress;
     }
