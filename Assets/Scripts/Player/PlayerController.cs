@@ -288,7 +288,7 @@ public class PlayerController : MonoBehaviour
         if (currentState == State.DEATH)
             return;
 
-        if (!CheckIfCanAct(attackStaminaConsume))
+        if (!CheckIfCanAct(attackStaminaConsume) && !kunaiAttack)
             return;
 
         ChangeState(State.ATTACKING);
