@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] private float timeToStopAttackCombo;
     private AttackState currentAttackState;
-    private float attackCount;
     private bool isInCombo;
     private enum AttackState { NONE, FIRST_ATTACK, SECOND_ATTACK, THIRD_ATTACK,}
 
@@ -96,7 +95,6 @@ public class PlayerController : MonoBehaviour
         staminaBar.SetCurrentValue(currentStamina);
 
         //Attack
-        attackCount = 0;
         isInCombo = false;
         hasThrowedKunai = false;
         kunaiAttack = false;
@@ -164,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
     public void DashAction(InputAction.CallbackContext obj)
     {
-        if (currentState == State.DASHING || currentState == State.DEATH)
+        if (!obj.started || currentState == State.DASHING || currentState == State.DEATH)
             return;
 
         ChangeState(State.DASHING);
@@ -240,7 +238,7 @@ public class PlayerController : MonoBehaviour
 
     private void EndFirstAttack()
     {
-        if(isInCombo)
+        if(isInCombo && CheckIfCanAct(attackStaminaConsume))
         {
             isInCombo = false;
             AttackChangeState(AttackState.SECOND_ATTACK);
@@ -248,7 +246,6 @@ public class PlayerController : MonoBehaviour
         }
 
         isInCombo = false;
-        attackCount = 0;
 
         ChangeState(State.IDLE);
         AttackChangeState(AttackState.NONE);
@@ -256,7 +253,7 @@ public class PlayerController : MonoBehaviour
 
     private void EndSecondAttack()
     {
-        if (isInCombo)
+        if (isInCombo && CheckIfCanAct(attackStaminaConsume))
         {
             isInCombo = false;
             AttackChangeState(AttackState.THIRD_ATTACK);
@@ -264,7 +261,6 @@ public class PlayerController : MonoBehaviour
         }
 
         isInCombo = false;
-        attackCount = 0;
 
         ChangeState(State.IDLE);
         AttackChangeState(AttackState.NONE);
@@ -272,7 +268,6 @@ public class PlayerController : MonoBehaviour
 
     private void EndThirdAttack()
     {
-        attackCount = 0;
         isInCombo = false;
 
         ChangeState(State.IDLE);
@@ -293,12 +288,13 @@ public class PlayerController : MonoBehaviour
         if (currentState == State.DEATH)
             return;
 
-        if (currentStamina < attackStaminaConsume)
+        if (!CheckIfCanAct(attackStaminaConsume))
             return;
 
         ChangeState(State.ATTACKING);
         AttackChangeState(AttackState.FIRST_ATTACK);
     }
+
     #endregion
 
     #region Throw
@@ -463,6 +459,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool CheckIfCanAct(float value)
+    {
+        if (currentStamina < value)
+            return false;
+
+        return true;
+    }
     #endregion
 
     public void ChangeState(State state)
