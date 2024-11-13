@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     private AttackState currentAttackState;
     private float attackCount;
     private bool isInCombo;
-    private enum AttackState { NONE, FIRST_ATTACK, SECOND_ATTACK, THIRD_ATTACK }
+    private enum AttackState { NONE, FIRST_ATTACK, SECOND_ATTACK, THIRD_ATTACK,}
 
    
     [Header("Kunai")]
@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float kunaiStaminaConsume;
     private GameObject kunaiTarget;
     private bool hasThrowedKunai;
+    private bool kunaiAttack;
 
     [Header("Material")]
     [SerializeField] private Material materialShader;
@@ -98,6 +99,7 @@ public class PlayerController : MonoBehaviour
         attackCount = 0;
         isInCombo = false;
         hasThrowedKunai = false;
+        kunaiAttack = false;
 
         //Movement
         lastInputMovementDirection = Vector3.right;
@@ -230,7 +232,8 @@ public class PlayerController : MonoBehaviour
             _dashForce = attackDashForceRunning;
         }
 
-        Dash(_dashForce);
+        if(!kunaiAttack)
+            Dash(_dashForce);
 
         ConsumeStamina(attackStaminaConsume);
     }
@@ -327,14 +330,26 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.flipX = enemySpriteRenderer.flipX;
 
         if(enemySpriteRenderer.flipX)
-            transform.position = kunaiTarget.transform.position + new Vector3(.5f,0f,0f);
+        {
+            transform.position = kunaiTarget.transform.position + new Vector3(kunaiTarget.GetComponent<SpriteRenderer>().bounds.size.x / 2.5f, 0f, 0f);
+            attackCollider.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+        }
         else
-            transform.position = kunaiTarget.transform.position - new Vector3(.5f, 0f, 0f);
+        {
+            transform.position = kunaiTarget.transform.position - new Vector3(kunaiTarget.GetComponent<SpriteRenderer>().bounds.size.x / 2.5f, 0f, 0f);
+            attackCollider.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+        }
+
+        lastInputMovementDirection = (kunaiTarget.transform.position - transform.position).normalized;
 
         kunaiTarget.GetComponent<Enemy>().ChangeState(Enemy.enemyState.FREEZED);
-        PlayerController.instance.SetHasThrowedKunai(false);
+        SetHasThrowedKunai(false);
+
+        kunaiAttack = true;
+        kunaiTarget.GetComponent<Enemy>().DesactivateKunai();
 
         ChangeState(State.ATTACKING);
+        AttackChangeState(AttackState.FIRST_ATTACK);
         kunaiTarget = null;
     }
 
@@ -349,8 +364,12 @@ public class PlayerController : MonoBehaviour
 
     private void EndThrow()
     {
+        kunaiAttack = false; 
         if (inputMovementDirection != Vector2.zero)
+        {
             ChangeState(State.RUNNING);
+        }
+
         else
             ChangeState(State.IDLE);
     }
@@ -467,6 +486,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case State.ATTACKING:
                 animator.SetBool("attacking", false);
+                attackCollider.SetActive(true);
                 break;
             case State.THROWING:
                 animator.SetBool("throwing", false);
@@ -548,6 +568,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
+        kunaiAttack = false;
         currentAttackState = _attackState;
     }
 
