@@ -305,7 +305,7 @@ public class PlayerController : MonoBehaviour
         if (!obj.started)
             return;
 
-        if (currentState == State.ATTACKING || currentState == State.DEATH)
+        if (currentState != State.IDLE && currentState != State.RUNNING)
             return;
 
         if (!hasThrowedKunai)
@@ -602,5 +602,12 @@ public class PlayerController : MonoBehaviour
     public void SetHasThrowedKunai(bool _hasThrowedKunai)
     {
         hasThrowedKunai = _hasThrowedKunai;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Wall") && currentState == State.DASHING)
+            EndDash();
+        
     }
 }
