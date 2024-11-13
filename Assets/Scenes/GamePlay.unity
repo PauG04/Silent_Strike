@@ -22086,6 +22086,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1629947774}
     - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: kunaiStaminaConsume
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: postProcessingLerpColor
       value: 
       objectReference: {fileID: 1555119402}
