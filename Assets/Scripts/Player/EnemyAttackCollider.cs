@@ -21,6 +21,12 @@ public class EnemyAttackCollider : MonoBehaviour
             if (other.GetComponent<Enemy>().GetCurrentState() != Enemy.enemyState.BLOCK)
                 GenerateParticles();
         }
+        else if (other.gameObject.CompareTag("Kanji"))
+        {
+            other.GetComponent<CutKanji>().Cut();
+        }
+
+        
     }
 
     private void GenerateParticles()
