@@ -17,16 +17,9 @@ public class EnemyManager : MonoBehaviour
         instance = this;
     }
 
-    [System.Serializable]
-    public class EnemySpawnData
-    {
-        public GameObject enemyPrefab;     
-        public Transform spawnPosition;
-        public float spawnTime;
-    }
-
-    [Header("EnemiesType")]
-    [SerializeField] private List<EnemySpawnData> enemiesToSpawn = new List<EnemySpawnData>();
+    [Header("EnemiesWave")]
+    [SerializeField] private EnemyWave enemyWave;
+    [SerializeField] private List<Transform> spawnPosition;
     private int index;
 
     [Header("Enemies")]
@@ -46,9 +39,9 @@ public class EnemyManager : MonoBehaviour
     private void Update()
     {
         currentTime += Time.deltaTime;
-        if (index < enemiesToSpawn.Count) 
+        if (index < enemyWave.enemies.Count)
         {
-            if (enemiesToSpawn[index].spawnTime < currentTime || (spawnedEnemies.Count == 0 && index != 0))
+            if (enemyWave.enemies[index].spawnTime < currentTime || (spawnedEnemies.Count == 0 && index != 0))
             {
                 SpawnEnemy();
             }
@@ -61,19 +54,19 @@ public class EnemyManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        GameObject enemy = Instantiate(enemiesToSpawn[index].enemyPrefab);
+        GameObject enemy = Instantiate(enemyWave.enemies[index].enemyPrefab);
 
-        enemy.transform.position = new Vector3(enemiesToSpawn[index].spawnPosition.position.x,
-            enemiesToSpawn[index].spawnPosition.position.y + enemy.GetComponent<SpriteRenderer>().bounds.size.y / 2, 
-            enemiesToSpawn[index].spawnPosition.position.z);
+        enemy.transform.position = new Vector3(spawnPosition[enemyWave.enemies[index].spawnIndex].position.x,
+            spawnPosition[enemyWave.enemies[index].spawnIndex].position.y + enemy.GetComponent<SpriteRenderer>().bounds.size.y / 2,
+            spawnPosition[enemyWave.enemies[index].spawnIndex].position.z);
 
-        enemiesToSpawn[index].spawnPosition.GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
-        enemiesToSpawn[index].spawnPosition.GetChild(0).GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
+        spawnPosition[enemyWave.enemies[index].spawnIndex].GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
+        spawnPosition[enemyWave.enemies[index].spawnIndex].GetChild(0).GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
 
         spawnedEnemies.Add(enemy);
         enemy.GetComponent<Enemy>().SetTarget(target);
         index++;
-        
+
     }
 
     public void SetNullTarget()

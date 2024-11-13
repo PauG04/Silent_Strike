@@ -43,6 +43,7 @@ public class Enemy : Character
     [SerializeField] private string animationName;
     [SerializeField] private GameObject blood;
     [SerializeField] private float dashAttackForce;
+    [SerializeField] private GameObject smoke;
     private bool attackHitted;
     private bool canAttack;
 
@@ -422,6 +423,21 @@ public class Enemy : Character
         }
     }
 
+    public void GenerateSmoke()
+    {
+        smoke.SetActive(true);
+        if (spriteRenderer.flipX)
+        {
+            smoke.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            smoke.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        smoke.transform.SetParent(null);
+    }
+
     public void PrepareReceiveDamage()
     {
         rgbd.velocity = Vector3.zero;
@@ -514,7 +530,8 @@ public class Enemy : Character
 
     public virtual void EndFreeze()
     {
-        ChangeState(enemyState.RUNNING);
+        if(currentState != enemyState.DIE && currentState != enemyState.HURT) 
+            ChangeState(enemyState.RUNNING);
     }
 
     public virtual void ActivateKunai()
