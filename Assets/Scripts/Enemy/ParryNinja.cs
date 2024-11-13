@@ -41,7 +41,6 @@ public class ParryNinja : Enemy
                 break;
         }
         base.UpdateEnemy();
-        if (Input.GetKeyDown(KeyCode.N)) { ReceiveDamageEnemy(1, true); }
     }
 
     //State
@@ -119,9 +118,15 @@ public class ParryNinja : Enemy
         GameObject _sparks = Instantiate(sparks);
         _sparks.transform.SetParent(transform, true);
         if (!GetComponent<SpriteRenderer>().flipX)
+        {
             _sparks.transform.localPosition = new Vector3(0.1f, 0.06f, 0);
+            _sparks.GetComponent<SpriteRenderer>().flipX = true;
+        }
         else
+        {
             _sparks.transform.localPosition = new Vector3(-0.1f, 0.06f, 0);
+            _sparks.GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
 
     public override void PlayerDeath()

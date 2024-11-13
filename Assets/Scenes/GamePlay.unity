@@ -22065,6 +22065,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 337624880846796433, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 337624880846796433, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: InitialModule.startSizeY.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 337624880846796433, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 2.8797932
+      objectReference: {fileID: 0}
     - target: {fileID: 1274804365765067904, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -22072,6 +22084,34 @@ PrefabInstance:
     - target: {fileID: 1274804365765067904, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_FlipY
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885866844385187099, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885866844385187099, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885866844385187099, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885866844385187099, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505963383917942154, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505963383917942154, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: InitialModule.startSizeY.scalar
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505963383917942154, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 1.3089969
       objectReference: {fileID: 0}
     - target: {fileID: 3125886790430822290, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_Name
@@ -22121,6 +22161,18 @@ PrefabInstance:
       propertyPath: postProcessingLerpColor
       value: 
       objectReference: {fileID: 1555119402}
+    - target: {fileID: 6300688421387923077, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300688421387923077, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: InitialModule.startSizeY.scalar
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300688421387923077, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 2.8797932
+      objectReference: {fileID: 0}
     - target: {fileID: 6890663775397318365, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -22164,6 +22216,18 @@ PrefabInstance:
     - target: {fileID: 6890663775397318365, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7678996484910731513, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7678996484910731513, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: InitialModule.startSizeY.scalar
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7678996484910731513, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 1.3089969
       objectReference: {fileID: 0}
     - target: {fileID: 8195186718038667242, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_Size.x
@@ -33664,9 +33728,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1182870215}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: enemyWave
+      value: 
+      objectReference: {fileID: 11400000, guid: 206d640fff936b246a8dd13c19e09718, type: 2}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: spawnPosition.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: spawnPosition.Array.data[0]
+      value: 
+      objectReference: {fileID: 16515033}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: spawnPosition.Array.data[1]
+      value: 
+      objectReference: {fileID: 1690724031}
+    - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
+      propertyPath: spawnPosition.Array.data[2]
+      value: 
+      objectReference: {fileID: 915347641}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].spawnTime
       value: 0
@@ -33694,7 +33778,7 @@ PrefabInstance:
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].enemyPrefab
       value: 
-      objectReference: {fileID: 2561975879969506166, guid: 8d71962c44bd97b418ea72d883d2933e, type: 3}
+      objectReference: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemiesToSpawn.Array.data[1].enemyPrefab
       value: 
