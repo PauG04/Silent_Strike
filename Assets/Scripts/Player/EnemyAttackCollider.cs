@@ -12,7 +12,7 @@ public class EnemyAttackCollider : MonoBehaviour
         playerController = GetComponentInParent<PlayerController>();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
@@ -20,7 +20,6 @@ public class EnemyAttackCollider : MonoBehaviour
             other.GetComponent<Enemy>().ReceiveDamageEnemy(playerController.GetDamage(), spriteRenderer.flipX);
             if (other.GetComponent<Enemy>().GetCurrentState() != Enemy.enemyState.BLOCK)
                 GenerateParticles();
-            gameObject.SetActive(false);
         }
     }
 

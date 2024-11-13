@@ -509,7 +509,7 @@ public class Enemy : Character
 
     public virtual void Freeze()
     {
-        Invoke("EndFreeze", 0.2f);
+        Invoke("EndFreeze", 0.5f);
     }
 
     public virtual void EndFreeze()
@@ -520,6 +520,11 @@ public class Enemy : Character
     public virtual void ActivateKunai()
     {
         kunaiIcon.SetActive(true);
+    }
+
+    public virtual void DesactivateKunai()
+    {
+        kunaiIcon.SetActive(false);
     }
 
     public float GetDamage()
