@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float speed;
+    [SerializeField] private float movementDrag;
     private Vector2 inputMovementDirection;
     private Vector2 lastInputMovementDirection;
     private Vector3 movementDirection;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Dash")]
     [SerializeField] private float dashForce;
+    [SerializeField] private float dashDrag;
     private Vector3 dashDirection;
 
     [Header("Art")]
@@ -39,12 +41,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackDashForceIdle;
     [SerializeField] private float attackDashForceRunning;
     [SerializeField] private float damage;
-    [SerializeField] private float timeToStopAttackCombo;
     private AttackState currentAttackState;
     private bool isInCombo;
-    private enum AttackState { NONE, FIRST_ATTACK, SECOND_ATTACK, THIRD_ATTACK,}
+    private enum AttackState { NONE, FIRST_ATTACK, SECOND_ATTACK, THIRD_ATTACK, }
 
-   
+
     [Header("Kunai")]
     [SerializeField] private GameObject kunai;
     [SerializeField] private float timeToDesappearKunai;
@@ -65,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING, THROWING}
+    public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING, THROWING }
 
     private State currentState;
 
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         sp = GetComponent<SpriteRenderer>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-      
+
         // HP & Stamina
         currentHp = hp;
         hpBar.SetMaxValue(hp);
@@ -103,6 +104,7 @@ public class PlayerController : MonoBehaviour
         lastInputMovementDirection = Vector3.right;
         dashDirection = Vector3.right;
         recoverCoroutineisRunning = false;
+        movementDrag = rb.drag;
 
         Material newMaterial = new Material(materialShader);
         GetComponent<SpriteRenderer>().material = newMaterial;
@@ -148,8 +150,8 @@ public class PlayerController : MonoBehaviour
     public void MovementAction(InputAction.CallbackContext obj)
     {
         inputMovementDirection = obj.action.ReadValue<Vector2>();
-       
-        if(inputMovementDirection != Vector2.zero)
+
+        if (inputMovementDirection != Vector2.zero)
             lastInputMovementDirection = inputMovementDirection;
 
     }
@@ -230,7 +232,7 @@ public class PlayerController : MonoBehaviour
             _dashForce = attackDashForceRunning;
         }
 
-        if(!kunaiAttack)
+        if (!kunaiAttack)
             Dash(_dashForce);
 
         ConsumeStamina(attackStaminaConsume);
@@ -238,7 +240,7 @@ public class PlayerController : MonoBehaviour
 
     private void EndFirstAttack()
     {
-        if(isInCombo && CheckIfCanAct(attackStaminaConsume))
+        if (isInCombo && CheckIfCanAct(attackStaminaConsume))
         {
             isInCombo = false;
             AttackChangeState(AttackState.SECOND_ATTACK);
@@ -284,11 +286,11 @@ public class PlayerController : MonoBehaviour
             isInCombo = true;
             return;
         }
-                
+
         if (currentState == State.DEATH)
             return;
 
-        if (!CheckIfCanAct(attackStaminaConsume) && !kunaiAttack)
+        if (!CheckIfCanAct(attackStaminaConsume))
             return;
 
         ChangeState(State.ATTACKING);
@@ -325,7 +327,7 @@ public class PlayerController : MonoBehaviour
         SpriteRenderer enemySpriteRenderer = kunaiTarget.GetComponent<SpriteRenderer>();
         spriteRenderer.flipX = enemySpriteRenderer.flipX;
 
-        if(enemySpriteRenderer.flipX)
+        if (enemySpriteRenderer.flipX)
         {
             transform.position = kunaiTarget.transform.position + new Vector3(kunaiTarget.GetComponent<SpriteRenderer>().bounds.size.x / 2.5f, 0f, 0f);
             attackCollider.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
@@ -360,7 +362,7 @@ public class PlayerController : MonoBehaviour
 
     private void EndThrow()
     {
-        kunaiAttack = false; 
+        kunaiAttack = false;
         if (inputMovementDirection != Vector2.zero)
         {
             ChangeState(State.RUNNING);
@@ -445,7 +447,7 @@ public class PlayerController : MonoBehaviour
         if (!canRecoverStamina)
             return;
 
-        if(currentStamina <= maxStamina)
+        if (currentStamina <= maxStamina)
         {
             currentStamina += staminaRecoverValue;
 
@@ -473,7 +475,7 @@ public class PlayerController : MonoBehaviour
         switch (currentState)
         {
             case State.IDLE:
-               
+
                 break;
             case State.RUNNING:
                 animator.SetBool("running", false);
@@ -481,6 +483,7 @@ public class PlayerController : MonoBehaviour
             case State.DASHING:
                 animator.SetBool("dashing", false);
                 rb.velocity = Vector3.zero;
+                rb.drag = movementDrag;
                 break;
             case State.HURT:
                 animator.SetBool("hurt", false);
@@ -508,7 +511,8 @@ public class PlayerController : MonoBehaviour
                 break;
             case State.DASHING:
                 animator.SetBool("dashing", true);
-                rb.velocity = Vector3.zero;
+                //rb.velocity = Vector3.zero;
+                rb.drag = dashDrag;
                 Dash(dashForce);
                 break;
             case State.HURT:
@@ -553,7 +557,7 @@ public class PlayerController : MonoBehaviour
         switch (_attackState)
         {
             case AttackState.NONE:
-                
+
                 break;
             case AttackState.FIRST_ATTACK:
                 animator.SetBool("firstAttack", true);
@@ -566,7 +570,7 @@ public class PlayerController : MonoBehaviour
             case AttackState.THIRD_ATTACK:
                 animator.SetBool("thirdAttack", true);
                 Attack();
-                break;  
+                break;
             default:
                 break;
         }
@@ -584,7 +588,7 @@ public class PlayerController : MonoBehaviour
     {
         return currentState;
     }
-   
+
     public void SetKunaiTarget(GameObject target)
     {
         kunaiTarget = target;
