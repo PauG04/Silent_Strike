@@ -23,8 +23,6 @@ public class Boss : Enemy
     private bool secondPhaseActive;
     private int randomValue;
 
-    private MaterialPropertyBlock mpb;
-
 
     private void Start()
     {
@@ -33,10 +31,6 @@ public class Boss : Enemy
         randomValue = 0;
         normalAttacksDone = 0;
         secondPhaseActive = false;
-
-        mpb = new MaterialPropertyBlock();
-        mpb.SetFloat("_OutlineThickness", 0.001f);
-        GetComponent<SpriteRenderer>().SetPropertyBlock(mpb);
     }
 
     private void Update()
@@ -82,8 +76,6 @@ public class Boss : Enemy
         GetComponent<BoxCollider>().enabled = false;
         ChangeState(enemyState.IDLE);
         secondPhaseActive = true;
-        mpb.SetFloat("_OutlineThickness", 0.0003f);
-        GetComponent<SpriteRenderer>().SetPropertyBlock(mpb);
     }
 
     //State
@@ -135,7 +127,7 @@ public class Boss : Enemy
         for(int i = 0; i< chargeAnimation.Length; i++)
         {
             if (animator.GetCurrentAnimatorStateInfo(0).IsName(chargeAnimation[i]))
-                GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.Lerp(GetComponent<SpriteRenderer>().color, Color.red, animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1));
+                GetComponent<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1);
         }
         
     }
@@ -177,8 +169,6 @@ public class Boss : Enemy
         colliderPosition.SetActive(true);
         damageColliderPosition.SetActive(true);
         GetComponent<BoxCollider>().enabled = true;
-        mpb.SetFloat("_OutlineThickness", 0.001f);
-        GetComponent<SpriteRenderer>().SetPropertyBlock(mpb);
         ChangeBossState(attackState.NOATTACK);
         ChangeState(enemyState.RUNNING);
         speed = secondPhaseVelocity;

@@ -36,9 +36,6 @@ public class Enemy : Character
     private bool orbiteLeft;
     private float current_angle;
 
-    [Header("Material")]
-    [SerializeField] private Material materialShader;
-
     [Header("Attack")]
     [SerializeField] private string animationName;
     [SerializeField] private GameObject blood;
@@ -63,7 +60,6 @@ public class Enemy : Character
         base.InitializeCharacter();
         InitVariables();
         InitRotation();
-        //CreateMaterial();
     }
 
     private void InitVariables()
@@ -92,11 +88,6 @@ public class Enemy : Character
             colliderPosition.transform.localPosition = new Vector3(colliderPosition.transform.localPosition.x, 0, 0);
             damageColliderPosition.transform.localPosition = new Vector3(damageColliderPosition.transform.localPosition.x, 0, 0);
         }
-    }
-    private void CreateMaterial()
-    {
-        Material newMaterial = new Material(materialShader);
-        spriteRenderer.material = newMaterial;
     }
 
     protected void UpdateEnemy()
@@ -349,9 +340,7 @@ public class Enemy : Character
 
     protected virtual void ChangeToAttackColor()
     {
-        //if(animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
-            //GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.Lerp(GetComponent<SpriteRenderer>().color, Color.red, animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1));
-
+        GetComponent<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1);
     }
 
     protected void Recovery()
@@ -441,7 +430,7 @@ public class Enemy : Character
     public void PrepareReceiveDamage()
     {
         rgbd.velocity = Vector3.zero;
-        //GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.white);
+        GetComponent<SpriteRenderer>().color = Color.white;
         hpSlider.UpdateSlider();
 
     }
@@ -569,7 +558,7 @@ public class Enemy : Character
         canAttack = true;
         SetAttackHitted(false);
         DashAttack();
-        //GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.white);
+        GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public bool GetAttackHitted()
