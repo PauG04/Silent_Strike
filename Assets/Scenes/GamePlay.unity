@@ -22685,6 +22685,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: hp
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: hpBar
       value: 
       objectReference: {fileID: 1033367066}
@@ -24160,7 +24164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mininValue: 0.3
   lerpDuration: 2
-  aberrationIntensity: 0
+  aberrationIntensity: 0.6
   _volume: {fileID: 1555119401}
 --- !u!1 &1556219369
 GameObject:
@@ -34786,22 +34790,6 @@ PrefabInstance:
     - target: {fileID: 1324152099509960299, guid: 8b21f916de898204cbc4146d1e71de5d, type: 3}
       propertyPath: m_Name
       value: Candle
-      objectReference: {fileID: 0}
-    - target: {fileID: 3744896778985496418, guid: 8b21f916de898204cbc4146d1e71de5d, type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3744896778985496418, guid: 8b21f916de898204cbc4146d1e71de5d, type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[1]
-      value: -1231886165
-      objectReference: {fileID: 0}
-    - target: {fileID: 3744896778985496418, guid: 8b21f916de898204cbc4146d1e71de5d, type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[2]
-      value: -2106190887
-      objectReference: {fileID: 0}
-    - target: {fileID: 3744896778985496418, guid: 8b21f916de898204cbc4146d1e71de5d, type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[3]
-      value: 1348642567
       objectReference: {fileID: 0}
     - target: {fileID: 8848523290385686876, guid: 8b21f916de898204cbc4146d1e71de5d, type: 3}
       propertyPath: m_RootOrder
