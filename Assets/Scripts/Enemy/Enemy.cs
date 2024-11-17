@@ -63,7 +63,7 @@ public class Enemy : Character
         base.InitializeCharacter();
         InitVariables();
         InitRotation();
-        CreateMaterial();
+        //CreateMaterial();
     }
 
     private void InitVariables()
@@ -349,8 +349,8 @@ public class Enemy : Character
 
     protected virtual void ChangeToAttackColor()
     {
-        if(animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
-            GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.Lerp(GetComponent<SpriteRenderer>().color, Color.red, animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1));
+        //if(animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
+            //GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.Lerp(GetComponent<SpriteRenderer>().color, Color.red, animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1));
 
     }
 
@@ -441,7 +441,7 @@ public class Enemy : Character
     public void PrepareReceiveDamage()
     {
         rgbd.velocity = Vector3.zero;
-        GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.white);
+        //GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.white);
         hpSlider.UpdateSlider();
 
     }
@@ -569,7 +569,7 @@ public class Enemy : Character
         canAttack = true;
         SetAttackHitted(false);
         DashAttack();
-        GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.white);
+        //GetComponent<SpriteRenderer>().material.SetColor("_SpriteColor", Color.white);
     }
 
     public bool GetAttackHitted()

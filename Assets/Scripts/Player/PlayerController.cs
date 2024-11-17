@@ -106,8 +106,8 @@ public class PlayerController : MonoBehaviour
         recoverCoroutineisRunning = false;
         movementDrag = rb.drag;
 
-        Material newMaterial = new Material(materialShader);
-        GetComponent<SpriteRenderer>().material = newMaterial;
+        //Material newMaterial = new Material(materialShader);
+        //GetComponent<SpriteRenderer>().material = newMaterial;
     }
 
 
