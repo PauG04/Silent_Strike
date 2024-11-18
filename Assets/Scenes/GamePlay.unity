@@ -15111,22 +15111,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Candle (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 3744896778985496418, guid: 8b21f916de898204cbc4146d1e71de5d, type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3744896778985496418, guid: 8b21f916de898204cbc4146d1e71de5d, type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[1]
-      value: -1231886165
-      objectReference: {fileID: 0}
-    - target: {fileID: 3744896778985496418, guid: 8b21f916de898204cbc4146d1e71de5d, type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[2]
-      value: -2106190887
-      objectReference: {fileID: 0}
-    - target: {fileID: 3744896778985496418, guid: 8b21f916de898204cbc4146d1e71de5d, type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[3]
-      value: 1348642567
-      objectReference: {fileID: 0}
     - target: {fileID: 8848523290385686876, guid: 8b21f916de898204cbc4146d1e71de5d, type: 3}
       propertyPath: m_RootOrder
       value: -1
