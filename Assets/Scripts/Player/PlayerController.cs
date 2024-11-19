@@ -64,6 +64,14 @@ public class PlayerController : MonoBehaviour
     [Header("PostProcessing")]
     [SerializeField] private PostProcessingLerpColor postProcessingLerpColor;
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip attack01Sound;
+    [SerializeField] private AudioClip attack02Sound;
+    [SerializeField] private AudioClip receiveDamageSound;
+    [SerializeField] private AudioClip throwKunaiSound;
+    [SerializeField] private AudioClip dashSound;
+    [SerializeField] private AudioClip fallSound;
+
     private SpriteRenderer spriteRenderer;
 
     public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING, THROWING }
@@ -105,9 +113,6 @@ public class PlayerController : MonoBehaviour
         dashDirection = Vector3.right;
         recoverCoroutineisRunning = false;
         movementDrag = rb.drag;
-
-        //Material newMaterial = new Material(materialShader);
-        //GetComponent<SpriteRenderer>().material = newMaterial;
     }
 
 
@@ -177,6 +182,8 @@ public class PlayerController : MonoBehaviour
         dashDirection = new Vector3(lastInputMovementDirection.normalized.x, 0, lastInputMovementDirection.normalized.y);
 
         rb.AddForce(dashDirection * _dashForce, ForceMode.Impulse);
+
+        AudioManager.instance.Play2dOneShotSound(dashSound, "Sfx");
     }
 
     public void EndDash()
@@ -357,6 +364,7 @@ public class PlayerController : MonoBehaviour
         GameObject newKunai = Instantiate(kunai, transform.position, Quaternion.identity);
         newKunai.transform.transform.right = new Vector3(lastInputMovementDirection.normalized.x, 0, lastInputMovementDirection.normalized.y);
 
+        AudioManager.instance.Play2dOneShotSound(throwKunaiSound, "Sfx");
         ConsumeStamina(kunaiStaminaConsume);
     }
 
@@ -381,6 +389,8 @@ public class PlayerController : MonoBehaviour
         ChangeState(State.HURT);
         hpBar.SetCurrentValue(currentHp);
         postProcessingLerpColor.ChangeVignetteColor(currentHp / hp);
+
+        AudioManager.instance.Play2dOneShotSound(receiveDamageSound, "Sfx");
     }
 
     public void HurtFinished()
@@ -562,14 +572,17 @@ public class PlayerController : MonoBehaviour
             case AttackState.FIRST_ATTACK:
                 animator.SetBool("firstAttack", true);
                 Attack();
+                AudioManager.instance.Play2dOneShotSound(attack01Sound, "Sfx", 0.8f);
                 break;
             case AttackState.SECOND_ATTACK:
                 animator.SetBool("secondAttack", true);
                 Attack();
+                AudioManager.instance.Play2dOneShotSound(attack02Sound, "Sfx", 0.9f);
                 break;
             case AttackState.THIRD_ATTACK:
                 animator.SetBool("thirdAttack", true);
                 Attack();
+                AudioManager.instance.Play2dOneShotSound(attack01Sound, "Sfx", 0.8f);
                 break;
             default:
                 break;
@@ -577,6 +590,11 @@ public class PlayerController : MonoBehaviour
 
         kunaiAttack = false;
         currentAttackState = _attackState;
+    }
+
+    private void ActiveFallSound()
+    {
+        AudioManager.instance.Play2dOneShotSound(fallSound, "Sfx", 1.3f);
     }
 
     public float GetDamage()

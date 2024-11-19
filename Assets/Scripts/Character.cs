@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Character : MonoBehaviour
@@ -16,6 +13,12 @@ public abstract class Character : MonoBehaviour
 
     [Header("Animation")]
     protected Animator animator;
+
+    [Header("Sounds")]
+    [SerializeField] protected AudioClip receiveDamageSound;
+    [SerializeField] protected AudioClip attackSound;
+    [SerializeField] protected AudioClip fallSound;
+
 
     protected void InitializeCharacter()
     {
@@ -33,6 +36,7 @@ public abstract class Character : MonoBehaviour
     protected virtual void ReceiveDamage(float amount)
     {
         currentHP -= amount;
+        AudioManager.instance.Play2dOneShotSound(receiveDamageSound, "Sfx");
     }
 
     public virtual float GetMaxHp()

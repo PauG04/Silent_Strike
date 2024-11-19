@@ -423,7 +423,7 @@ public class Enemy : Character
         {
             smoke.GetComponent<SpriteRenderer>().flipX = false;
         }
-
+        AudioManager.instance.Play2dOneShotSound(fallSound, "Sfx", 1.3f);
         smoke.transform.SetParent(null);
     }
 
@@ -483,6 +483,7 @@ public class Enemy : Character
                 break;
             case enemyState.ATTACK:
                 animator.SetBool("Attack", true);
+                AudioManager.instance.Play2dOneShotSound(attackSound, "Sfx", 0.8f);
                 break;
             case enemyState.RECOVERY:
                 animator.SetBool("Running", true);

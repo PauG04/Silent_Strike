@@ -31,6 +31,9 @@ public class EnemyManager : MonoBehaviour
     [Header("Time")]
     private float currentTime;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip smokeBombSound;
+
     private void Start()
     {
         index = 0;
@@ -60,6 +63,7 @@ public class EnemyManager : MonoBehaviour
             spawnPosition[enemyWave.enemies[index].spawnIndex].position.y + enemy.GetComponent<SpriteRenderer>().bounds.size.y / 2,
             spawnPosition[enemyWave.enemies[index].spawnIndex].position.z);
 
+        AudioManager.instance.Play2dOneShotSound(smokeBombSound, "Sfx");
         spawnPosition[enemyWave.enemies[index].spawnIndex].GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
         spawnPosition[enemyWave.enemies[index].spawnIndex].GetChild(0).GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
 

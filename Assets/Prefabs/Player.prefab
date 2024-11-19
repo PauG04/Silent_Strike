@@ -5218,7 +5218,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.8
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5271,7 +5271,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5483,7 +5483,7 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.87266463
+      scalar: 1.3089969
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -9877,6 +9877,7 @@ GameObject:
   - component: {fileID: 4478490217455750707}
   - component: {fileID: 4229395855105591255}
   - component: {fileID: 4658023590269298289}
+  - component: {fileID: 4320910752149164290}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -9922,7 +9923,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ccdc1b3f692066940b3687821ca3e618, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9987,6 +9988,11 @@ MonoBehaviour:
   hpBar: {fileID: 0}
   staminaBar: {fileID: 0}
   postProcessingLerpColor: {fileID: 0}
+  attack01Sound: {fileID: 8300000, guid: 4e803ad368f7827408668a3d25328425, type: 3}
+  attack02Sound: {fileID: 8300000, guid: cc46ee3e1819f9f4ab632885b5ef187c, type: 3}
+  receiveDamageSound: {fileID: 8300000, guid: 797bddd88ac174a42aa31233cfd1362c, type: 3}
+  throwKunaiSound: {fileID: 8300000, guid: 419ea400af335094587e59eb70593be6, type: 3}
+  dashSound: {fileID: 8300000, guid: 96003e1d73f3fd1458a17c5423ebc525, type: 3}
 --- !u!114 &9054938213390167179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10150,6 +10156,14 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!81 &4320910752149164290
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3125886790430822290}
+  m_Enabled: 1
 --- !u!1 &3599207860561160962
 GameObject:
   m_ObjectHideFlags: 0
@@ -10437,7 +10451,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.8
+      scalar: 1.2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -10490,7 +10504,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 12
+      scalar: 30
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -10702,7 +10716,7 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.87266463
+      scalar: 1.3089969
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -20037,8 +20051,8 @@ Transform:
   m_GameObject: {fileID: 4162820710469918322}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1634830991686448416}
   - {fileID: 5492482497900301432}
@@ -20336,7 +20350,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.8
+      scalar: 1.2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -20389,7 +20403,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 12
+      scalar: 15
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -20601,7 +20615,7 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -0.87266463
+      scalar: 2.8797932
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -25267,7 +25281,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.8
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -25532,7 +25546,7 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -0.87266463
+      scalar: 2.8797932
       minScalar: 0
       maxCurve:
         serializedVersion: 2

@@ -6,6 +6,8 @@ public class ParryNinja : Enemy
     [Header("ParryForce")]
     [SerializeField] private float parryForce;
 
+    [SerializeField] private AudioClip parrySound;
+
     private void Start()
     {
         base.InitializeEnemy();
@@ -110,6 +112,7 @@ public class ParryNinja : Enemy
         animator.Play(animator.GetCurrentAnimatorStateInfo(0).fullPathHash, -1, 0f);
         target.GetComponent<Rigidbody>().velocity = Vector3.zero;
         target.GetComponent<Rigidbody>().AddForce((target.transform.position - transform.position).normalized * parryForce, ForceMode.Impulse);
+        AudioManager.instance.Play2dOneShotSound(parrySound, "Sfx");
         CreateSpark();
     }
 

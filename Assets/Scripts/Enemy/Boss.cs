@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss : Enemy
@@ -23,6 +21,8 @@ public class Boss : Enemy
     private bool secondPhaseActive;
     private int randomValue;
 
+    [SerializeField] private AudioClip screamSound;
+    [SerializeField] private AudioClip attack02Sound;
 
     private void Start()
     {
@@ -78,6 +78,11 @@ public class Boss : Enemy
         secondPhaseActive = true;
     }
 
+    private void ScreamSound()
+    {
+        AudioManager.instance.Play2dOneShotSound(screamSound, "Sfx");
+    }
+
     //State
     #region
 
@@ -129,7 +134,6 @@ public class Boss : Enemy
             if (animator.GetCurrentAnimatorStateInfo(0).IsName(chargeAnimation[i]))
                 GetComponent<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1);
         }
-        
     }
 
     protected override void Attack()
@@ -150,11 +154,13 @@ public class Boss : Enemy
     public void ActiveSecondAttack()
     {
         ChangeBossState(attackState.ATTACK2);
+        AudioManager.instance.Play2dOneShotSound(attack02Sound, "Sfx", 0.9f);
     }
 
     public void ActiveThirdAttack()
     {
         ChangeBossState(attackState.ATTACK3);
+        AudioManager.instance.Play2dOneShotSound(attackSound, "Sfx", 0.8f);
     }
 
     public override void ReceiveDamageEnemy(float amount, bool isFlipped)
