@@ -5280,6 +5280,8 @@ MonoBehaviour:
   speed: 400
   maxHP: 15
   damage: 4
+  receiveDamageSound: {fileID: 8300000, guid: 797bddd88ac174a42aa31233cfd1362c, type: 3}
+  attackSound: {fileID: 8300000, guid: 4e803ad368f7827408668a3d25328425, type: 3}
   currentState: 0
   hurtLastState: 0
   separationDistance: {x: 0.1, y: 0.1, z: 0.1}

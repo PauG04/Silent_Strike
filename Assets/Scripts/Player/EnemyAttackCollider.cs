@@ -14,7 +14,7 @@ public class EnemyAttackCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") && other.GetComponent<Enemy>().GetCurrentState() != Enemy.enemyState.DIE)
         {
             slashParticles[0].gameObject.transform.parent.transform.position = other.transform.position;
             other.GetComponent<Enemy>().ReceiveDamageEnemy(playerController.GetDamage(), spriteRenderer.flipX);

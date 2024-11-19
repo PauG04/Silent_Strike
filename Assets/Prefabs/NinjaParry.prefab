@@ -10287,6 +10287,8 @@ MonoBehaviour:
   speed: 350
   maxHP: 30
   damage: 2
+  receiveDamageSound: {fileID: 8300000, guid: 797bddd88ac174a42aa31233cfd1362c, type: 3}
+  attackSound: {fileID: 8300000, guid: 4e803ad368f7827408668a3d25328425, type: 3}
   currentState: 0
   hurtLastState: 0
   separationDistance: {x: 1, y: 1, z: 1}
@@ -10300,7 +10302,6 @@ MonoBehaviour:
   colliderPosition: {fileID: 9259915653349204}
   damageColliderPosition: {fileID: 1669257261796109920}
   generateTime: 0.25
-  materialShader: {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
   animationName: ParryNinjaPrepareAttack
   blood: {fileID: 2038348839721942047, guid: 2b94ed9d5af15b54c8b15e8a3a00acb3, type: 3}
   dashAttackForce: 0.5
@@ -10308,6 +10309,7 @@ MonoBehaviour:
   kunaiIcon: {fileID: 4071544810753771074}
   sparks: {fileID: 2038348839721942047, guid: 2a722a1fa7347984180e8ccf21ee0ecf, type: 3}
   parryForce: 2
+  parrySound: {fileID: 8300000, guid: edb40f5fd7dd217469949f4500567c8c, type: 3}
 --- !u!114 &1639261319252328643
 MonoBehaviour:
   m_ObjectHideFlags: 0

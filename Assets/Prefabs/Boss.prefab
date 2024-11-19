@@ -354,6 +354,8 @@ MonoBehaviour:
   speed: 400
   maxHP: 10
   damage: 2
+  receiveDamageSound: {fileID: 8300000, guid: 797bddd88ac174a42aa31233cfd1362c, type: 3}
+  attackSound: {fileID: 8300000, guid: 4e803ad368f7827408668a3d25328425, type: 3}
   currentState: 0
   hurtLastState: 0
   separationDistance: {x: 1, y: 1, z: 1}
@@ -385,6 +387,8 @@ MonoBehaviour:
   damageJumpWhioutFlame: 7
   damageMultiplier: 2
   secondPhaseVelocity: 600
+  screamSound: {fileID: 8300000, guid: effa94f735bb15447aa72411eeb94ee8, type: 3}
+  attack02Sound: {fileID: 8300000, guid: cc46ee3e1819f9f4ab632885b5ef187c, type: 3}
 --- !u!114 &1639261319252328643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10521,7 +10525,7 @@ GameObject:
   - component: {fileID: 8651291561875463541}
   - component: {fileID: 8509818848952817525}
   m_Layer: 0
-  m_Name: WallCollisionm
+  m_Name: WallCollision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

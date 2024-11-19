@@ -483,6 +483,7 @@ public class Enemy : Character
                 break;
             case enemyState.ATTACK:
                 animator.SetBool("Attack", true);
+                AudioManager.instance.Play2dOneShotSound(attackSound, "Sfx", 0.8f);
                 break;
             case enemyState.RECOVERY:
                 animator.SetBool("Running", true);
