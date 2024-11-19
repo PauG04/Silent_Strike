@@ -20,6 +20,7 @@ public class Boss : Enemy
     private int normalAttacksDone;
     private bool secondPhaseActive;
     private int randomValue;
+    private float initDashAttackForce;
 
     [SerializeField] private AudioClip screamSound;
     [SerializeField] private AudioClip attack02Sound;
@@ -31,6 +32,7 @@ public class Boss : Enemy
         randomValue = 0;
         normalAttacksDone = 0;
         secondPhaseActive = false;
+        initDashAttackForce = dashAttackForce;
     }
 
     private void Update()
@@ -75,6 +77,7 @@ public class Boss : Enemy
         damageColliderPosition.SetActive(false);
         GetComponent<BoxCollider>().enabled = false;
         ChangeState(enemyState.IDLE);
+        rgbd.velocity = Vector3.zero;
         secondPhaseActive = true;
     }
 
@@ -187,11 +190,13 @@ public class Boss : Enemy
         {
             case attackState.ATTACK1:
                 animator.SetBool("AttackNormal", false);
+                dashAttackForce = 0;
                 break;
             case attackState.ATTACK2:
                 break;
             case attackState.ATTACK3:
                 animator.SetBool("AttackNormal3", false);
+                dashAttackForce = initDashAttackForce;
                 break;
             case attackState.CHARGING1:
                 animator.SetBool("ChargingJump", false);
@@ -220,7 +225,7 @@ public class Boss : Enemy
                 animator.SetBool("AttackNormal2", false);
                 animator.SetBool("AttackNormal3", false);
                 break;
-            case attackState.ATTACK1:
+            case attackState.ATTACK1:         
                 animator.SetBool("AttackNormal", true);
                 if(!secondPhaseActive)
                     damage = damage1WhioutFlame;
