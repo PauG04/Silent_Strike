@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip receiveDamageSound;
     [SerializeField] private AudioClip throwKunaiSound;
     [SerializeField] private AudioClip dashSound;
+    [SerializeField] private AudioClip fallSound;
 
     private SpriteRenderer spriteRenderer;
 
@@ -589,6 +590,11 @@ public class PlayerController : MonoBehaviour
 
         kunaiAttack = false;
         currentAttackState = _attackState;
+    }
+
+    private void ActiveFallSound()
+    {
+        AudioManager.instance.Play2dOneShotSound(fallSound, "Sfx", 1.3f);
     }
 
     public float GetDamage()

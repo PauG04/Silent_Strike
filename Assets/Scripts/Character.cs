@@ -17,6 +17,7 @@ public abstract class Character : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] protected AudioClip receiveDamageSound;
     [SerializeField] protected AudioClip attackSound;
+    [SerializeField] protected AudioClip fallSound;
 
 
     protected void InitializeCharacter()

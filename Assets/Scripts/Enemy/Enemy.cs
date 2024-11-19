@@ -423,7 +423,7 @@ public class Enemy : Character
         {
             smoke.GetComponent<SpriteRenderer>().flipX = false;
         }
-
+        AudioManager.instance.Play2dOneShotSound(fallSound, "Sfx", 1.3f);
         smoke.transform.SetParent(null);
     }
 

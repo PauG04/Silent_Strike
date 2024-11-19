@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FirstRoomEnemies
   m_EditorClassIdentifier: 
   enemies:
-  - enemyPrefab: {fileID: 2561975879969506166, guid: c234ab5927d172f4e898a952712aab74, type: 3}
+  - enemyPrefab: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
     spawnIndex: 0
     spawnTime: 0

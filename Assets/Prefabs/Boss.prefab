@@ -356,6 +356,7 @@ MonoBehaviour:
   damage: 2
   receiveDamageSound: {fileID: 8300000, guid: 797bddd88ac174a42aa31233cfd1362c, type: 3}
   attackSound: {fileID: 8300000, guid: 4e803ad368f7827408668a3d25328425, type: 3}
+  fallSound: {fileID: 8300000, guid: 0b1fbb278992f9844914b4529a21204c, type: 3}
   currentState: 0
   hurtLastState: 0
   separationDistance: {x: 1, y: 1, z: 1}
