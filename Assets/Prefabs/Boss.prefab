@@ -52,7 +52,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.75, y: 0.6, z: 0.2}
+  m_Size: {x: 2.5, y: 2.5, z: 2.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2243403711017278617
 MonoBehaviour:
@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c268900cc53380140a31d0e83f409da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 400
+  speed: 2250
   maxHP: 10
   damage: 2
   receiveDamageSound: {fileID: 8300000, guid: 797bddd88ac174a42aa31233cfd1362c, type: 3}
@@ -366,13 +366,13 @@ MonoBehaviour:
   separationWeight: 1
   alligmentWeight: 1
   knockBackForce: 2
-  recoveryTime: 3
+  recoveryTime: 2
   colliderPosition: {fileID: 9259915653349204}
   damageColliderPosition: {fileID: 1669257261796109920}
   generateTime: 0.25
   animationName: 
   blood: {fileID: 2038348839721942047, guid: 2b94ed9d5af15b54c8b15e8a3a00acb3, type: 3}
-  dashAttackForce: 0.5
+  dashAttackForce: 60
   smoke: {fileID: 7680781238586787199}
   kunaiIcon: {fileID: 1081608306281458641}
   currentAttackState: 0
@@ -387,7 +387,7 @@ MonoBehaviour:
   damage3WhioutFlame: 5
   damageJumpWhioutFlame: 7
   damageMultiplier: 2
-  secondPhaseVelocity: 600
+  secondPhaseVelocity: 3000
   screamSound: {fileID: 8300000, guid: effa94f735bb15447aa72411eeb94ee8, type: 3}
   attack02Sound: {fileID: 8300000, guid: cc46ee3e1819f9f4ab632885b5ef187c, type: 3}
 --- !u!114 &1639261319252328643
@@ -435,7 +435,7 @@ Rigidbody:
   m_GameObject: {fileID: 2561975879969506166}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 5
+  m_Drag: 20
   m_AngularDrag: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

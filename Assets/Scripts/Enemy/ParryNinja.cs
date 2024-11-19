@@ -93,7 +93,10 @@ public class ParryNinja : Enemy
 
     public void EndBlock()
     {
-        ChangeState(enemyState.RUNNING);
+        if(hurtLastState == enemyState.RUNNING)
+            ChangeState(enemyState.RUNNING);
+        else
+            ChangeState(enemyState.RECOVERY);
     }
 
     public override void ReceiveDamageEnemy(float amount, bool isFlipped)
@@ -113,6 +116,7 @@ public class ParryNinja : Enemy
         target.GetComponent<Rigidbody>().velocity = Vector3.zero;
         target.GetComponent<Rigidbody>().AddForce((target.transform.position - transform.position).normalized * parryForce, ForceMode.Impulse);
         AudioManager.instance.Play2dOneShotSound(parrySound, "Sfx");
+        hurtLastState = currentState;
         CreateSpark();
     }
 
