@@ -166,9 +166,33 @@ public class Boss : Enemy
 
     public override void ReceiveDamageEnemy(float amount, bool isFlipped)
     {
-        base.PrepareReceiveDamage();
-        base.ReceiveDamageEnemy(amount, isFlipped);
-        ChangeBossState(attackState.NOATTACK);
+        if (currentState != enemyState.CHARGING && currentState != enemyState.ATTACK)
+        {
+            base.PrepareReceiveDamage();
+            base.ReceiveDamageEnemy(amount, isFlipped);
+            ChangeBossState(attackState.NOATTACK);
+        }
+        else
+        {
+            hpSlider.UpdateSlider();
+
+            float damageReceived = amount;
+
+            if (isFlipped == spriteRenderer.flipX)
+                damageReceived = amount * 2;
+            else
+                damageReceived = amount;
+
+            base.ReceiveDamage(damageReceived);
+
+            GenerateBlood();
+            if (currentHP < 1)
+            {
+                ChangeState(enemyState.DIE);
+                EnemyManager.instance.DeleteEnemy(this.gameObject);
+            }
+        }
+
     }
 
     public void InitSecondPhse()

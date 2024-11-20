@@ -45,7 +45,7 @@ public class Enemy : Character
     private bool attackHitted;
     private bool canAttack;
 
-    private EnemyHpSlider hpSlider;
+    protected EnemyHpSlider hpSlider;
     protected SpriteRenderer spriteRenderer;
 
     [SerializeField] GameObject kunaiIcon;
@@ -324,7 +324,7 @@ public class Enemy : Character
 
     }
 
-    private void GenerateBlood()
+    public void GenerateBlood()
     {
         GameObject _blood = Instantiate(blood);
         _blood.transform.position = transform.position;
