@@ -10,10 +10,10 @@ public class Boss : Enemy
     [SerializeField] private RuntimeAnimatorController secondPhaseAnimator;
 
     [Header("BossStats")]
-    [SerializeField] private float damage1WhioutFlame;
-    [SerializeField] private float damage2WhioutFlame;
-    [SerializeField] private float damage3WhioutFlame;
-    [SerializeField] private float damageJumpWhioutFlame;
+    [SerializeField] private float damage1WithoutFlame;
+    [SerializeField] private float damage2WithoutFlame;
+    [SerializeField] private float damage3WithoutFlame;
+    [SerializeField] private float damageJumpWithoutFlame;
     [SerializeField] private float damageMultiplier;
     [SerializeField] private float secondPhaseVelocity;
 
@@ -228,23 +228,23 @@ public class Boss : Enemy
             case attackState.ATTACK1:         
                 animator.SetBool("AttackNormal", true);
                 if(!secondPhaseActive)
-                    damage = damage1WhioutFlame;
+                    damage = damage1WithoutFlame;
                 else
-                    damage = damage1WhioutFlame * damageMultiplier;
+                    damage = damage1WithoutFlame * damageMultiplier;
                 break;
             case attackState.ATTACK2:
                 animator.SetBool("AttackNormal2", true);
                 if (!secondPhaseActive)
-                    damage = damage2WhioutFlame;
+                    damage = damage2WithoutFlame;
                 else
-                    damage = damage2WhioutFlame * damageMultiplier;
+                    damage = damage2WithoutFlame * damageMultiplier;
                 break;
             case attackState.ATTACK3:
                 animator.SetBool("AttackNormal3", true);
                 if (!secondPhaseActive)
-                    damage = damage3WhioutFlame;
+                    damage = damage3WithoutFlame;
                 else
-                    damage = damage3WhioutFlame * damageMultiplier;
+                    damage = damage3WithoutFlame * damageMultiplier;
                 break;
             case attackState.CHARGING1:
                 animator.SetBool("ChargingJump", true);
@@ -257,9 +257,9 @@ public class Boss : Enemy
             case attackState.JUMPATTACK:
                 animator.SetBool("AttackJump", true);
                 if (!secondPhaseActive)
-                    damage = damageJumpWhioutFlame;
+                    damage = damageJumpWithoutFlame;
                 else
-                    damage = damageJumpWhioutFlame * damageMultiplier;
+                    damage = damageJumpWithoutFlame * damageMultiplier;
                 break;
             case attackState.SHOUT:
                 animator.SetBool("Shout", true);

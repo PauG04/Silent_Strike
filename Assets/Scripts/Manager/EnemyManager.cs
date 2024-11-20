@@ -47,6 +47,7 @@ public class EnemyManager : MonoBehaviour
             if (enemyWave.enemies[index].spawnTime < currentTime || (spawnedEnemies.Count == 0 && index != 0))
             {
                 SpawnEnemy();
+                currentTime = 0f;
             }
         }
         else
@@ -59,13 +60,15 @@ public class EnemyManager : MonoBehaviour
     {
         GameObject enemy = Instantiate(enemyWave.enemies[index].enemyPrefab);
 
-        enemy.transform.position = new Vector3(spawnPosition[enemyWave.enemies[index].spawnIndex].position.x,
-            spawnPosition[enemyWave.enemies[index].spawnIndex].position.y + enemy.GetComponent<SpriteRenderer>().bounds.size.y / 2,
-            spawnPosition[enemyWave.enemies[index].spawnIndex].position.z);
+        int randomSpawnPoint = Random.Range(0, spawnPosition.Count);
+
+        enemy.transform.position = new Vector3(spawnPosition[randomSpawnPoint].position.x,
+            spawnPosition[randomSpawnPoint].position.y + enemy.GetComponent<SpriteRenderer>().bounds.size.y / 2,
+            spawnPosition[randomSpawnPoint].position.z);
 
         AudioManager.instance.Play2dOneShotSound(smokeBombSound, "Sfx");
-        spawnPosition[enemyWave.enemies[index].spawnIndex].GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
-        spawnPosition[enemyWave.enemies[index].spawnIndex].GetChild(0).GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
+        spawnPosition[randomSpawnPoint].GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
+        spawnPosition[randomSpawnPoint].GetChild(0).GetChild(0).GetChild(0).GetComponent<ParticleSystem>().Play();
 
         spawnedEnemies.Add(enemy);
         enemy.GetComponent<Enemy>().SetTarget(target);

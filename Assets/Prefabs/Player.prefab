@@ -9901,7 +9901,7 @@ Transform:
   - {fileID: 1885866844385187099}
   - {fileID: 7844530883728644202}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1274804365765067904
 SpriteRenderer:
@@ -9969,21 +9969,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5500
   movementDrag: 20
-  hp: 30
+  hp: 50
   maxStamina: 100
   attackStaminaConsume: 20
   timeToRecoverStamina: 1
-  staminaRecoverValue: 0.5
+  staminaRecoverValue: 1
   dashForce: 15
   dashDrag: 8
   animator: {fileID: 4658023590269298289}
   attackCollider: {fileID: 8319618179733874039}
   attackDashForceIdle: 7
   attackDashForceRunning: 12
-  damage: 5
+  damage: 2
   kunai: {fileID: 1698020728805350758, guid: 9515b351a1672b14399c33cba767878b, type: 3}
   timeToDesappearKunai: 2
-  kunaiStaminaConsume: 0
+  kunaiStaminaConsume: 30
   materialShader: {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
   hpBar: {fileID: 0}
   staminaBar: {fileID: 0}
@@ -9993,6 +9993,7 @@ MonoBehaviour:
   receiveDamageSound: {fileID: 8300000, guid: 797bddd88ac174a42aa31233cfd1362c, type: 3}
   throwKunaiSound: {fileID: 8300000, guid: 419ea400af335094587e59eb70593be6, type: 3}
   dashSound: {fileID: 8300000, guid: 96003e1d73f3fd1458a17c5423ebc525, type: 3}
+  fallSound: {fileID: 0}
 --- !u!114 &9054938213390167179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30004,7 +30005,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8319618179733874039}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -119,7 +118,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        attackCollider.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+        //attackCollider.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
     }
 
     // Update is called once per frame
@@ -211,12 +210,12 @@ public class PlayerController : MonoBehaviour
         if (inputMovementDirection.x < 0 && !sp.flipX)
         {
             sp.flipX = true;
-            attackCollider.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            attackCollider.transform.localPosition = new Vector3(attackCollider.transform.localPosition.x * -1, 0, 0);
         }
         else if (inputMovementDirection.x > 0 && sp.flipX)
         {
             sp.flipX = false;
-            attackCollider.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            attackCollider.transform.localPosition = new Vector3(attackCollider.transform.localPosition.x * -1, 0, 0);
         }
     }
 

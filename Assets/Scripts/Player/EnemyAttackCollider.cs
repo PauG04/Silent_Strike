@@ -25,8 +25,6 @@ public class EnemyAttackCollider : MonoBehaviour
         {
             other.GetComponent<CutKanji>().Cut();
         }
-
-        
     }
 
     private void GenerateParticles()
