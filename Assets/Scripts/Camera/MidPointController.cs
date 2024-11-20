@@ -6,11 +6,9 @@ public class MidPointController : MonoBehaviour
 {
     [SerializeField] private float speed;
 
-    private Vector3 posToGo;
-
     private void Awake()
     {
-        posToGo = Vector3.zero;
+        
     }
 
     void Update()

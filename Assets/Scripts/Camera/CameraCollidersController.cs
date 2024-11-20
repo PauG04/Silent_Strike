@@ -4,27 +4,39 @@ using UnityEngine;
 
 public class CameraCollidersController : MonoBehaviour
 {
+
     [Header("Position References")]
-    [SerializeField] private GameObject front;
-    [SerializeField] private GameObject right;
-    [SerializeField] private GameObject left;
-    [SerializeField] private GameObject back;
+    [SerializeField] private GameObject frontCollider;
+    [SerializeField] private GameObject backCollider;
 
-    //Control
+    [Header("Camera")]
+    [SerializeField] private CameraController cameraController;
 
-    // Start is called before the first frame update
-    void Start()
+    private void CheckPlayerZone(Vector3 _playerPosition)
     {
-        
+        if (_playerPosition.z > backCollider.transform.position.z)
+        {
+            cameraController.ChangeState(CameraController.CameraState.BACK);
+
+        }
+        else if (_playerPosition.z < backCollider.transform.position.z
+              && _playerPosition.z > frontCollider.transform.position.z)
+        {
+            cameraController.ChangeState(CameraController.CameraState.MID);
+
+
+        }
+        else if (_playerPosition.z < frontCollider.transform.position.z)
+        {
+            cameraController.ChangeState(CameraController.CameraState.FRONT);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-
-    }
-
-    private void CheckZones()
-    {
+        if (other.CompareTag("Player"))
+        {
+            CheckPlayerZone(other.transform.position);
+        }
     }
 }
