@@ -49,7 +49,7 @@ public class EnemyManager : MonoBehaviour
         {
             if (enemyWave.enemies[index].spawnTime < currentTime || (spawnedEnemies.Count == 0 && index != 0))
             {
-                SpawnEnemy(enemyWave);
+                SpawnEnemy(enemyWave.enemies[index].enemyPrefab);
                 currentTime = 0f;
             }
         }
@@ -64,14 +64,14 @@ public class EnemyManager : MonoBehaviour
                 Destroy(spawnedEnemies[i]);
 
             index = 0;
-            SpawnEnemy(bossWave);
+            SpawnEnemy(bossWave.enemies[index].enemyPrefab);
             bossActive = true;
         }
     }
 
-    private void SpawnEnemy(EnemyWave enemyWave)
+    public void SpawnEnemy(GameObject _enemy)
     {
-        GameObject enemy = Instantiate(enemyWave.enemies[index].enemyPrefab);
+        GameObject enemy = Instantiate(_enemy);
 
         int randomSpawnPoint = Random.Range(0, spawnPosition.Count);
 
@@ -101,6 +101,11 @@ public class EnemyManager : MonoBehaviour
     public List<GameObject> GetSpawnedEnemies()
     {
         return spawnedEnemies;
+    }
+
+    public GameObject GetLastEnemy()
+    {
+        return spawnedEnemies[spawnedEnemies.Count - 1];
     }
 
     public void DeleteEnemy(GameObject enemy)

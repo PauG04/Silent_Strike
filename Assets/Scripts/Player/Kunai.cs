@@ -4,6 +4,7 @@ public class Kunai : MonoBehaviour
 {
     private Rigidbody rb;
     [SerializeField] private float speed;
+    [SerializeField] private float damage;
 
     void Awake()
     {
@@ -20,6 +21,7 @@ public class Kunai : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             PlayerController.instance.SetKunaiTarget(other.gameObject);
+            other.GetComponent<Enemy>().ReceiveDamageEnemy(damage, false);
             other.gameObject.GetComponent<Enemy>().ActivateKunai();
             Destroy(this.gameObject);
         }

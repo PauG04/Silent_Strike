@@ -15401,6 +15401,11 @@ MonoBehaviour:
   secondPhaseVelocity: 3000
   screamSound: {fileID: 8300000, guid: effa94f735bb15447aa72411eeb94ee8, type: 3}
   attack02Sound: {fileID: 8300000, guid: cc46ee3e1819f9f4ab632885b5ef187c, type: 3}
+  bossDie: {fileID: 8300000, guid: 191b366b1cd5e1941ae2f98bad5d383a, type: 3}
+  allies:
+  - {fileID: 2453928364416220734, guid: 41fd54d79c626264bb0593baeb379bbb, type: 3}
+  - {fileID: 8665630603848611371, guid: bc430d3774aee474e91a884229fd5557, type: 3}
+  spawnAllieTime: 5
 --- !u!114 &7101791976843587601
 MonoBehaviour:
   m_ObjectHideFlags: 0

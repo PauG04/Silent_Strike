@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92645c322cf919546aaf7b434837c034, type: 3}
   m_Name: Boss
   m_EditorClassIdentifier: 
-  enemies: []
+  enemies:
+  - enemyPrefab: {fileID: 5662646624354983107, guid: c234ab5927d172f4e898a952712aab74, type: 3}
+    spawnTime: 0

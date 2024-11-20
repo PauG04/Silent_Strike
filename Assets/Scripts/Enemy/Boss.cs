@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss : Enemy
@@ -23,6 +24,12 @@ public class Boss : Enemy
 
     [SerializeField] private AudioClip screamSound;
     [SerializeField] private AudioClip attack02Sound;
+    [SerializeField] private AudioClip bossDie;
+
+    [SerializeField] private List<GameObject> allies;
+    [SerializeField] private float spawnAllieTime;
+    private float currentSpawnAllieTime;
+    private List<Enemy> enemies;
 
     private void Start()
     {
@@ -31,6 +38,8 @@ public class Boss : Enemy
         randomValue = 0;
         normalAttacksDone = 0;
         secondPhaseActive = false;
+        currentSpawnAllieTime = 0;
+        enemies = new List<Enemy>();
     }
 
     private void Update()
@@ -66,6 +75,19 @@ public class Boss : Enemy
         {
             PrepareInitSecondPhase();
         }
+
+        currentSpawnAllieTime += Time.deltaTime;
+        if(currentSpawnAllieTime > spawnAllieTime && currentState != enemyState.DIE)
+        {
+            if (!secondPhaseActive)
+                EnemyManager.instance.SpawnEnemy(allies[0]);
+            else
+                EnemyManager.instance.SpawnEnemy(allies[1]);
+
+            enemies.Add(EnemyManager.instance.GetLastEnemy().GetComponent<Enemy>());
+            currentSpawnAllieTime = 0;
+        }
+
     }
 
     private void PrepareInitSecondPhase()
@@ -82,6 +104,17 @@ public class Boss : Enemy
     private void ScreamSound()
     {
         AudioManager.instance.Play2dOneShotSound(screamSound, "Sfx");
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (enemies[i] != null)
+                enemies[i].ReceiveDamageEnemy(100000, true);
+        }
+
+    }
+
+    private void DieSound()
+    {
+        AudioManager.instance.Play2dOneShotSound(bossDie, "Sfx", 1.5f);
     }
 
     //State
@@ -166,33 +199,23 @@ public class Boss : Enemy
 
     public override void ReceiveDamageEnemy(float amount, bool isFlipped)
     {
-        if (currentState != enemyState.CHARGING && currentState != enemyState.ATTACK)
+        hpSlider.UpdateSlider();
+
+        float damageReceived = CalculateDamage(amount, isFlipped);
+
+        base.ReceiveDamage(damageReceived);
+
+        GenerateBlood();
+        if (currentHP < 1)
         {
-            base.PrepareReceiveDamage();
-            base.ReceiveDamageEnemy(amount, isFlipped);
-            ChangeBossState(attackState.NOATTACK);
-        }
-        else
-        {
-            hpSlider.UpdateSlider();
-
-            float damageReceived = amount;
-
-            if (isFlipped == spriteRenderer.flipX)
-                damageReceived = amount * 2;
-            else
-                damageReceived = amount;
-
-            base.ReceiveDamage(damageReceived);
-
-            GenerateBlood();
-            if (currentHP < 1)
+            for (int i = 0; i < enemies.Count; i++)
             {
-                ChangeState(enemyState.DIE);
-                EnemyManager.instance.DeleteEnemy(this.gameObject);
+                if (enemies[i] != null)
+                    enemies[i].ReceiveDamageEnemy(100000, true);
             }
+            ChangeState(enemyState.DIE);
+            EnemyManager.instance.DeleteEnemy(this.gameObject);
         }
-
     }
 
     public void InitSecondPhse()
