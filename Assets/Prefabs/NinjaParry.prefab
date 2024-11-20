@@ -129,7 +129,7 @@ MonoBehaviour:
   generateTime: 0.75
   animationName: ParryNinjaPrepareAttack
   blood: {fileID: 2038348839721942047, guid: 2b94ed9d5af15b54c8b15e8a3a00acb3, type: 3}
-  dashAttackForce: 60
+  maxDashAttackForce: 60
   smoke: {fileID: 784721616858920805}
   kunaiIcon: {fileID: 2597239806507746534}
   sparks: {fileID: 2038348839721942047, guid: 2a722a1fa7347984180e8ccf21ee0ecf, type: 3}

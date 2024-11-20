@@ -25445,7 +25445,7 @@ MonoBehaviour:
   generateTime: 0.75
   animationName: NinjaPrepareAttack
   blood: {fileID: 2038348839721942047, guid: 2b94ed9d5af15b54c8b15e8a3a00acb3, type: 3}
-  dashAttackForce: 60
+  maxDashAttackForce: 60
   smoke: {fileID: 8311867483397929591}
   kunaiIcon: {fileID: 3142796528265018703}
 --- !u!114 &5651414618851097401

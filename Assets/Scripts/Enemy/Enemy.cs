@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Enemy : Character
@@ -39,12 +40,13 @@ public class Enemy : Character
     [Header("Attack")]
     [SerializeField] private string animationName;
     [SerializeField] private GameObject blood;
-    [SerializeField] protected float dashAttackForce;
+    [SerializeField] protected float maxDashAttackForce;
+    protected float maxDistance;
     [SerializeField] private GameObject smoke;
     private bool attackHitted;
     private bool canAttack;
 
-    private EnemyHpSlider hpSlider;
+    protected EnemyHpSlider hpSlider;
     protected SpriteRenderer spriteRenderer;
 
     [SerializeField] GameObject kunaiIcon;
@@ -70,6 +72,8 @@ public class Enemy : Character
 
         attackHitted = false;
         canAttack = false;
+
+        maxDistance = colliderPosition.GetComponent<BoxCollider>().bounds.extents.magnitude;
 
         animator.SetBool("Idle", true);
         currentState = enemyState.GENERATING;
@@ -240,7 +244,11 @@ public class Enemy : Character
 
     private void DashAttack()
     {
-        rgbd.AddForce(direction.normalized * dashAttackForce, ForceMode.Impulse);
+        float distance = Vector2.Distance(transform.position, target.transform.position);
+
+        float dashForce = Mathf.Lerp(0, maxDashAttackForce, distance / maxDistance);
+
+        rgbd.AddForce(direction.normalized * dashForce, ForceMode.Impulse);
     }
     #endregion
 
@@ -268,12 +276,7 @@ public class Enemy : Character
 
     public virtual void ReceiveDamageEnemy(float amount, bool isFlipped)
     {
-        float damageReceived = amount;
-
-        if(isFlipped == spriteRenderer.flipX)
-            damageReceived = amount * 2;
-        else
-            damageReceived = amount;
+        float damageReceived = CalculateDamage(amount, isFlipped);
 
         base.ReceiveDamage(damageReceived);
 
@@ -292,6 +295,28 @@ public class Enemy : Character
             rgbd.AddForce(-(target.transform.position - transform.position).normalized * knockBackForce, ForceMode.Impulse);
             animator.Play(animator.GetCurrentAnimatorStateInfo(0).fullPathHash, -1, 0f);
         }
+    }
+
+    public float CalculateDamage(float amount, bool isFlipped)
+    {
+        float damageReceived;
+
+        if (!spriteRenderer.flipX)
+        {
+            if (transform.position.x > target.transform.position.x && !isFlipped)
+                damageReceived = amount * 2;
+            else
+                damageReceived = amount;
+        }
+        else
+        {
+            if (transform.position.x < target.transform.position.x && isFlipped)
+                damageReceived = amount * 2;
+            else
+                damageReceived = amount;
+        }
+
+        return damageReceived;
     }
 
     public void GenerateSmoke()
@@ -317,7 +342,7 @@ public class Enemy : Character
 
     }
 
-    private void GenerateBlood()
+    public void GenerateBlood()
     {
         GameObject _blood = Instantiate(blood);
         _blood.transform.position = transform.position;
@@ -335,8 +360,7 @@ public class Enemy : Character
                 break;
             case enemyState.CHARGING:
                 animator.SetBool("Charging", false);
-                //WanderRotation();
-                direction = target.transform.position - transform.position;
+                //direction = target.transform.position - transform.position;
                 break;
             case enemyState.ATTACK:
                 animator.SetBool("Attack", false);
@@ -367,7 +391,7 @@ public class Enemy : Character
                 break;
             case enemyState.ATTACK:
                 animator.SetBool("Attack", true);
-                WanderRotation();
+                //WanderRotation();
                 AudioManager.instance.Play2dOneShotSound(attackSound, "Sfx", 0.8f); 
                 break;
             case enemyState.RECOVERY:

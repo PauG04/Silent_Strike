@@ -15132,7 +15132,7 @@ MonoBehaviour:
   generateTime: 0.75
   animationName: WolfPrepareAttack
   blood: {fileID: 2038348839721942047, guid: 2b94ed9d5af15b54c8b15e8a3a00acb3, type: 3}
-  dashAttackForce: 70
+  maxDashAttackForce: 60
   smoke: {fileID: 8192936959831228628}
   kunaiIcon: {fileID: 405369492196895504}
 --- !u!65 &5632206300863365271
