@@ -39,7 +39,8 @@ public class Enemy : Character
     [Header("Attack")]
     [SerializeField] private string animationName;
     [SerializeField] private GameObject blood;
-    [SerializeField] protected float dashAttackForce;
+    [SerializeField] protected float maxDashAttackForce;
+    protected float maxDistance;
     [SerializeField] private GameObject smoke;
     private bool attackHitted;
     private bool canAttack;
@@ -70,6 +71,8 @@ public class Enemy : Character
 
         attackHitted = false;
         canAttack = false;
+
+        maxDistance = colliderPosition.GetComponent<BoxCollider>().bounds.extents.magnitude;
 
         animator.SetBool("Idle", true);
         currentState = enemyState.GENERATING;
@@ -240,7 +243,11 @@ public class Enemy : Character
 
     private void DashAttack()
     {
-        rgbd.AddForce(direction.normalized * dashAttackForce, ForceMode.Impulse);
+        float distance = Vector2.Distance(transform.position, target.transform.position);
+
+        float dashForce = Mathf.Lerp(0, maxDashAttackForce, distance / maxDistance);
+
+        rgbd.AddForce(direction.normalized * dashForce, ForceMode.Impulse);
     }
     #endregion
 

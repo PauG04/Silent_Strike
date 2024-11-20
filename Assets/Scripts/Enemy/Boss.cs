@@ -20,7 +20,6 @@ public class Boss : Enemy
     private int normalAttacksDone;
     private bool secondPhaseActive;
     private int randomValue;
-    private float initDashAttackForce;
 
     [SerializeField] private AudioClip screamSound;
     [SerializeField] private AudioClip attack02Sound;
@@ -32,7 +31,6 @@ public class Boss : Enemy
         randomValue = 0;
         normalAttacksDone = 0;
         secondPhaseActive = false;
-        initDashAttackForce = dashAttackForce;
     }
 
     private void Update()
@@ -190,13 +188,11 @@ public class Boss : Enemy
         {
             case attackState.ATTACK1:
                 animator.SetBool("AttackNormal", false);
-                dashAttackForce = 0;
                 break;
             case attackState.ATTACK2:
                 break;
             case attackState.ATTACK3:
                 animator.SetBool("AttackNormal3", false);
-                dashAttackForce = initDashAttackForce;
                 break;
             case attackState.CHARGING1:
                 animator.SetBool("ChargingJump", false);
