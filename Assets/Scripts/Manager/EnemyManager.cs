@@ -19,8 +19,10 @@ public class EnemyManager : MonoBehaviour
 
     [Header("EnemiesWave")]
     [SerializeField] private EnemyWave enemyWave;
+    [SerializeField] private EnemyWave bossWave;
     [SerializeField] private List<Transform> spawnPosition;
     private int index;
+    private bool bossActive;
 
     [Header("Enemies")]
     private List<GameObject> spawnedEnemies;
@@ -38,15 +40,16 @@ public class EnemyManager : MonoBehaviour
     {
         index = 0;
         spawnedEnemies = new List<GameObject>();
+        bossActive = false;
     }
     private void Update()
     {
         currentTime += Time.deltaTime;
-        if (index < enemyWave.enemies.Count)
+        if (index < enemyWave.enemies.Count && !bossActive)
         {
             if (enemyWave.enemies[index].spawnTime < currentTime || (spawnedEnemies.Count == 0 && index != 0))
             {
-                SpawnEnemy();
+                SpawnEnemy(enemyWave);
                 currentTime = 0f;
             }
         }
@@ -54,9 +57,19 @@ public class EnemyManager : MonoBehaviour
         {
             LevelManager.instance.SetCanCangeLevel(true);
         }
+
+        if (Input.GetKeyDown(KeyCode.B) && !bossActive)
+        {
+            for(int i = 0; i<spawnedEnemies.Count; i++)
+                Destroy(spawnedEnemies[i]);
+
+            index = 0;
+            SpawnEnemy(bossWave);
+            bossActive = true;
+        }
     }
 
-    private void SpawnEnemy()
+    private void SpawnEnemy(EnemyWave enemyWave)
     {
         GameObject enemy = Instantiate(enemyWave.enemies[index].enemyPrefab);
 
