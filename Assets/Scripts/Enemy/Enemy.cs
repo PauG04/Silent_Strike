@@ -123,7 +123,7 @@ public class Enemy : Character
         if (target != null)
         {
             Seek();
-            CalculateForces();
+            //CalculateForces();
             Rotate();
             MoveEnemy();
         }
@@ -136,7 +136,7 @@ public class Enemy : Character
         {
             Seek();
             WanderRotation();
-            CalculateForces();
+            //CalculateForces();
             MoveEnemy();
         }
     }
@@ -206,74 +206,6 @@ public class Enemy : Character
     }
 
 
-    #endregion
-
-    //Forces
-    #region 
-    private void CalculateForces()
-    {
-        separationForce = Vector3.zero;
-        Collider[] neighbours = GetNeighbours();
-
-        if (neighbours.Length - 1 > 0)
-        {
-            CalculateSeparationFoce(neighbours);
-            ApplyAlligment(neighbours);
-            ApplyCohesion(neighbours);
-        }
-    }
-
-    private void CalculateSeparationFoce(Collider[] neighbours)
-    {
-        foreach (var neighbour in neighbours)
-        {
-            Vector3 direction = neighbour.transform.position - transform.position;
-            float distance = direction.magnitude;
-            Vector3 away = -direction.normalized;
-
-            if (distance > 0)
-            {
-                separationForce += away / distance * separationWeight;
-            }
-        }
-    }
-
-    private void ApplyAlligment(Collider[] neighbours)
-    {
-        Vector3 neighboursForward = Vector3.zero;
-
-        foreach (var neighbour in neighbours)
-        {
-            neighboursForward += neighbour.transform.forward;
-        }
-
-        if (neighboursForward != Vector3.zero)
-        {
-            neighboursForward.Normalize();
-        }
-
-        separationForce += neighboursForward * alligmentWeight;
-    }
-    private void ApplyCohesion(Collider[] neighbours)
-    {
-        Vector3 avaragePosition = Vector3.zero;
-
-        foreach (var neighbour in neighbours)
-        {
-            avaragePosition += neighbour.transform.position;
-        }
-
-        avaragePosition /= neighbours.Length;
-        Vector3 cohesionDirection = (avaragePosition - transform.position).normalized;
-        separationForce += cohesionDirection * cohesionWeight;
-    }
-
-
-    private Collider[] GetNeighbours()
-    {
-        LayerMask enemyMask = LayerMask.GetMask("Enemy");
-        return Physics.OverlapBox(transform.position, separationDistance, Quaternion.identity, enemyMask);
-    }
     #endregion
 
     //Attack
@@ -348,7 +280,7 @@ public class Enemy : Character
         PrepareReceiveDamage();
         GenerateBlood();
 
-        if (currentHP <= 0)
+        if (currentHP < 1)
         {
             ChangeState(enemyState.DIE);
             EnemyManager.instance.DeleteEnemy(this.gameObject);
@@ -389,7 +321,7 @@ public class Enemy : Character
     {
         GameObject _blood = Instantiate(blood);
         _blood.transform.position = transform.position;
-        _blood.GetComponent<Rigidbody>().AddForce(-(target.transform.position - transform.position).normalized * knockBackForce * 6, ForceMode.Impulse);
+        _blood.GetComponent<Rigidbody>().AddForce(-(target.transform.position - transform.position).normalized * knockBackForce, ForceMode.Impulse);
     }
 
     public void ChangeState(enemyState state)
@@ -403,7 +335,7 @@ public class Enemy : Character
                 break;
             case enemyState.CHARGING:
                 animator.SetBool("Charging", false);
-                WanderRotation();
+                //WanderRotation();
                 direction = target.transform.position - transform.position;
                 break;
             case enemyState.ATTACK:
@@ -432,11 +364,11 @@ public class Enemy : Character
             case enemyState.CHARGING:
                 animator.SetBool("Charging", true);
                 rgbd.velocity = Vector3.zero;
-                WanderRotation();
                 break;
             case enemyState.ATTACK:
                 animator.SetBool("Attack", true);
-                AudioManager.instance.Play2dOneShotSound(attackSound, "Sfx", 0.8f);
+                WanderRotation();
+                AudioManager.instance.Play2dOneShotSound(attackSound, "Sfx", 0.8f); 
                 break;
             case enemyState.RECOVERY:
                 animator.SetBool("Running", true);

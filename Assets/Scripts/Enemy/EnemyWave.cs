@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,6 @@ public class EnemyWave : ScriptableObject
     public class EnemySpawnData
     {
         public GameObject enemyPrefab;
-        public int spawnIndex;
         public float spawnTime;
     }
 
