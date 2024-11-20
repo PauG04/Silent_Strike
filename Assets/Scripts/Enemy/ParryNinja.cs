@@ -118,6 +118,7 @@ public class ParryNinja : Enemy
         AudioManager.instance.Play2dOneShotSound(parrySound, "Sfx");
         hurtLastState = currentState;
         CreateSpark();
+        CameraShaker.instance.MediumShake(0.2f);
     }
 
     private void CreateSpark()

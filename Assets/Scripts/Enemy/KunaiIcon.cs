@@ -27,12 +27,14 @@ public class KunaiIcon : MonoBehaviour
         spriteRenderer.color = new Color(255, 255, 255, currentAlpha);
 
         if (currentAlpha <= 0f)
-        {
-            this.gameObject.SetActive(false);
-            PlayerController.instance.SetKunaiTarget(null);
-            PlayerController.instance.SetHasThrowedKunai(false);
-        }
+            EndKunai();
+    }
 
+    public void EndKunai()
+    {
+        this.gameObject.SetActive(false);
+        PlayerController.instance.SetKunaiTarget(null);
+        PlayerController.instance.SetHasThrowedKunai(false);
     }
 
 }
