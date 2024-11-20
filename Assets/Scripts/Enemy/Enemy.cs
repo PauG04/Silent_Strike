@@ -349,7 +349,7 @@ public class Enemy : Character
         _blood.GetComponent<Rigidbody>().AddForce(-(target.transform.position - transform.position).normalized * knockBackForce, ForceMode.Impulse);
     }
 
-    public void ChangeState(enemyState state)
+    public virtual void ChangeState(enemyState state)
     {
         switch (currentState)
         {

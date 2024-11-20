@@ -211,23 +211,98 @@ public class Boss : Enemy
 
     public override void ReceiveDamageEnemy(float amount, bool isFlipped)
     {
-        hpSlider.UpdateSlider();
-
-        float damageReceived = CalculateDamage(amount, isFlipped);
-
-        base.ReceiveDamage(damageReceived);
-
-        GenerateBlood();
-        if (currentHP < 1)
+        if(currentState != enemyState.CHARGING && currentState  != enemyState.ATTACK)
         {
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                if (enemies[i] != null)
-                    enemies[i].ReceiveDamageEnemy(100000, true);
-            }
-            ChangeState(enemyState.DIE);
-            EnemyManager.instance.DeleteEnemy(this.gameObject);
+            base.PrepareReceiveDamage();
+            base.ReceiveDamageEnemy(amount, isFlipped);
         }
+        else
+        {
+            hpSlider.UpdateSlider();
+
+            float damageReceived = CalculateDamage(amount, isFlipped);
+
+            base.ReceiveDamage(damageReceived);
+
+            GenerateBlood();
+            if (currentHP < 1)
+            {
+                ChangeState(enemyState.DIE);
+                EnemyManager.instance.DeleteEnemy(this.gameObject);
+            }
+        }
+    }
+
+    public override void ChangeState(enemyState state)
+    {
+        switch (currentState)
+        {
+            case enemyState.GENERATING:
+                break;
+            case enemyState.RUNNING:
+                animator.SetBool("Running", false);
+                break;
+            case enemyState.CHARGING:
+                animator.SetBool("Charging", false);
+                //direction = target.transform.position - transform.position;
+                break;
+            case enemyState.ATTACK:
+                animator.SetBool("Attack", false);
+                break;
+            case enemyState.RECOVERY:
+                animator.SetBool("Running", false);
+                break;
+            case enemyState.HURT:
+                animator.SetBool("Hurt", false);
+                break;
+            case enemyState.DIE:
+                break;
+            case enemyState.PARRIED:
+                animator.SetBool("Parried", false);
+                break;
+            case enemyState.BLOCK:
+                animator.SetBool("Parry", false);
+                break;
+        }
+
+        switch (state)
+        {
+            case enemyState.GENERATING:
+                break;
+            case enemyState.RUNNING:
+                animator.SetBool("Running", true);
+                break;
+            case enemyState.CHARGING:
+                animator.SetBool("Charging", true);
+                rgbd.velocity = Vector3.zero;
+                break;
+            case enemyState.ATTACK:
+                animator.SetBool("Attack", true);
+                //WanderRotation();
+                AudioManager.instance.Play2dOneShotSound(attackSound, "Sfx", 0.8f);
+                break;
+            case enemyState.RECOVERY:
+                animator.SetBool("Running", true);
+                break;
+            case enemyState.HURT:
+                animator.SetBool("Hurt", true);
+                break;
+            case enemyState.DIE:
+                animator.SetBool("Die", true);
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    if (enemies[i] != null)
+                        enemies[i].ReceiveDamageEnemy(100000, true);
+                }
+                break;
+            case enemyState.PARRIED:
+                animator.SetBool("Parried", true);
+                break;
+            case enemyState.BLOCK:
+                animator.SetBool("Parry", true);
+                break;
+        }
+        currentState = state;
     }
 
     public void InitSecondPhse()

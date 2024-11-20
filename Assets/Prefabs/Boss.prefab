@@ -15406,7 +15406,7 @@ MonoBehaviour:
   allies:
   - {fileID: 2453928364416220734, guid: 41fd54d79c626264bb0593baeb379bbb, type: 3}
   - {fileID: 8665630603848611371, guid: bc430d3774aee474e91a884229fd5557, type: 3}
-  spawnAllieTime: 5
+  spawnAllieTime: 8
 --- !u!114 &7101791976843587601
 MonoBehaviour:
   m_ObjectHideFlags: 0

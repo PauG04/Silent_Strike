@@ -20065,7 +20065,7 @@ PrefabInstance:
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemyWave
       value: 
-      objectReference: {fileID: 11400000, guid: 206d640fff936b246a8dd13c19e09718, type: 2}
+      objectReference: {fileID: 11400000, guid: 53f8e566638b45b4a978d41ad794943c, type: 2}
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: smokeBombSound
       value: 
