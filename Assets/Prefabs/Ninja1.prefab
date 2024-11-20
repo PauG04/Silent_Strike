@@ -19870,6 +19870,7 @@ MonoBehaviour:
   lowFrequency: 2
   highFrequency: 2.5
   duration: 0.1
+  sparks: {fileID: 2038348839721942047, guid: 2a722a1fa7347984180e8ccf21ee0ecf, type: 3}
 --- !u!1 &3089197864329082200
 GameObject:
   m_ObjectHideFlags: 0
@@ -25430,6 +25431,7 @@ MonoBehaviour:
   receiveDamageSound: {fileID: 8300000, guid: 797bddd88ac174a42aa31233cfd1362c, type: 3}
   attackSound: {fileID: 8300000, guid: 4e803ad368f7827408668a3d25328425, type: 3}
   fallSound: {fileID: 8300000, guid: 0b1fbb278992f9844914b4529a21204c, type: 3}
+  parriedSound: {fileID: 8300000, guid: edb40f5fd7dd217469949f4500567c8c, type: 3}
   currentState: 0
   hurtLastState: 0
   separationDistance: {x: 0.1, y: 0.1, z: 0.1}

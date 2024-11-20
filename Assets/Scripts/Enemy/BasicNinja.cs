@@ -36,7 +36,6 @@ public class BasicNinja : Enemy
                 break;
         }
         base.UpdateEnemy();
-        if (Input.GetKeyDown(KeyCode.N)) { ReceiveDamageEnemy(1, true); }
     }
 
     //State

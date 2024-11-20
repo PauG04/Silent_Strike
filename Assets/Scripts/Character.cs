@@ -18,6 +18,7 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected AudioClip receiveDamageSound;
     [SerializeField] protected AudioClip attackSound;
     [SerializeField] protected AudioClip fallSound;
+    [SerializeField] protected AudioClip parriedSound;
 
 
     protected void InitializeCharacter()
@@ -48,4 +49,5 @@ public abstract class Character : MonoBehaviour
     {
         return currentHP;
     }
+
 }

@@ -176,6 +176,18 @@ public class Boss : Enemy
         ChangeBossState(attackState.NOATTACK);
     }
 
+    public override void Block()
+    {
+        base.Block();
+        ChangeBossState(attackState.NOATTACK);
+    }
+
+    public override void Parry()
+    {
+        base.Parry();
+        ChangeBossState(attackState.NOATTACK);
+    }
+
     protected override void AttackReady()
     {
         base.AttackReady();

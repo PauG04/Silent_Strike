@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -45,7 +46,6 @@ public class PlayerController : MonoBehaviour
     private bool isInCombo;
     private enum AttackState { NONE, FIRST_ATTACK, SECOND_ATTACK, THIRD_ATTACK, }
 
-
     [Header("Kunai")]
     [SerializeField] private GameObject kunai;
     [SerializeField] private float timeToDesappearKunai;
@@ -53,6 +53,15 @@ public class PlayerController : MonoBehaviour
     private GameObject kunaiTarget;
     private bool hasThrowedKunai;
     private bool kunaiAttack;
+
+    [Header("Parry")]
+    [SerializeField] private float blockSpeed;
+    [SerializeField] private float parryStaminaConsume;
+    [SerializeField] private float stopParryTime;
+    private bool canParry;
+    private bool blocking;
+    private bool startConsume;
+    private float initSpeed;
 
     [Header("Material")]
     [SerializeField] private Material materialShader;
@@ -74,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING, THROWING }
+    public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING, THROWING, PARRY, STUNNED }
 
     private State currentState;
 
@@ -115,6 +124,9 @@ public class PlayerController : MonoBehaviour
         movementDrag = rb.drag;
 
         invencibility = false;
+        initSpeed = speed;
+        canParry = false;
+        blocking = false;
     }
 
 
@@ -125,7 +137,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         switch (currentState)
         {
@@ -144,6 +156,11 @@ public class PlayerController : MonoBehaviour
             case State.DEATH:
                 break;
             case State.ATTACKING:
+                break;
+            case State.PARRY:
+                Move();
+                CheckIfFlipSriteRender();
+                ConsumeStaminaParry();
                 break;
             default:
                 break;
@@ -387,6 +404,72 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    #region Parry
+    public void ParryAction(InputAction.CallbackContext obj)
+    {
+        if (obj.started)
+        {
+            ChangeState(State.PARRY);
+            speed = blockSpeed;
+        }
+        else if (obj.canceled)
+        {
+            startConsume = false;
+            ActiveStopParry();
+        }
+
+    }
+
+    public void ActiveStopParry()
+    {
+        Invoke("StopParry", stopParryTime);
+    }
+
+    private void StopParry()
+    {
+        speed = initSpeed;
+        canParry = false;
+        blocking = false;
+        if (inputMovementDirection != Vector2.zero)
+            ChangeState(State.RUNNING);
+        else
+            ChangeState(State.IDLE);
+    }
+
+    private void ConsumeStaminaParry()
+    {
+        if(startConsume)
+        {
+            ConsumeStamina(parryStaminaConsume);
+            if (currentStamina <= 0)
+                StopParry();
+        }
+    }
+
+    private void ActiveParry()
+    {
+        canParry = true;
+    }
+
+    private void DesactiveParry()
+    {
+        canParry = false;
+        blocking = true;
+        startConsume = true;
+    }
+
+    private void StartStuned()
+    {
+        Invoke("StopStuned", 1f);
+    }
+
+    private void StopStuned()
+    {
+        ChangeState(State.IDLE);
+    }
+    #endregion
+
+
     #region HP
 
     public void ReceiveDamage(float damage)
@@ -436,7 +519,7 @@ public class PlayerController : MonoBehaviour
 
     #region Stamina
 
-    private void ConsumeStamina(float staminaConsumeValue)
+    public void ConsumeStamina(float staminaConsumeValue)
     {
         canRecoverStamina = false;
         currentStamina -= staminaConsumeValue;
@@ -516,6 +599,13 @@ public class PlayerController : MonoBehaviour
             case State.THROWING:
                 animator.SetBool("throwing", false);
                 break;
+            case State.PARRY:
+                animator.SetBool("parry", false);
+                break;
+            case State.STUNNED:
+                animator.SetBool("stunned", false);
+                StartStuned();
+                break;
             default:
                 break;
         }
@@ -546,6 +636,12 @@ public class PlayerController : MonoBehaviour
             case State.THROWING:
                 animator.SetBool("throwing", true);
                 Throw();
+                break;
+            case State.PARRY:
+                animator.SetBool("parry", true);
+                break;
+            case State.STUNNED:
+                animator.SetBool("stunned", true);
                 break;
             default:
                 break;
@@ -624,6 +720,21 @@ public class PlayerController : MonoBehaviour
     public float GetTimeToDesappearKunai()
     {
         return timeToDesappearKunai;
+    }
+
+    public bool GetCanParry()
+    {
+        return canParry;
+    }
+
+    public float GetCurrentStamina()
+    {
+        return currentStamina;
+    }
+
+    public void SetCurrentStamina(float _stamina)
+    {
+        currentStamina = _stamina;
     }
 
     public void SetHasThrowedKunai(bool _hasThrowedKunai)
