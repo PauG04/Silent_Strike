@@ -268,7 +268,7 @@ public class Enemy : Character
         Destroy(GetComponent<BoxCollider2D>());
     }
 
-    private void DestroyEnemy()
+    protected virtual void DestroyEnemy()
     {
         Destroy(gameObject);
     }
@@ -282,10 +282,12 @@ public class Enemy : Character
 
         PrepareReceiveDamage();
         GenerateBlood();
+        CameraShaker.instance.WeakShake(0.2f);
 
         if (currentHP < 1)
         {
             ChangeState(enemyState.DIE);
+            kunaiIcon.GetComponent<KunaiIcon>().EndKunai();
             EnemyManager.instance.DeleteEnemy(this.gameObject);
         }
         else
@@ -339,7 +341,6 @@ public class Enemy : Character
         rgbd.velocity = Vector3.zero;
         GetComponent<SpriteRenderer>().color = Color.white;
         hpSlider.UpdateSlider();
-
     }
 
     public void GenerateBlood()

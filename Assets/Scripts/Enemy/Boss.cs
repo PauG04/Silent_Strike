@@ -110,6 +110,7 @@ public class Boss : Enemy
                 enemies[i].ReceiveDamageEnemy(100000, true);
         }
 
+        CameraShaker.instance.StrongShake(1f);
     }
 
     private void DieSound()
@@ -320,5 +321,11 @@ public class Boss : Enemy
         animator.SetBool("AttackNormal2", false);
         animator.SetBool("AttackNormal3", false);
         base.PlayerDeath();
+    }
+
+    protected override void DestroyEnemy() 
+    {
+        SceneLoader.instance.ChangeScene("MainMenu");
+        base.DestroyEnemy();
     }
 }

@@ -5,6 +5,10 @@ public class CameraShaker : MonoBehaviour
 {
     public static CameraShaker instance;
 
+    [SerializeField] private float weakStrength;
+    [SerializeField] private float mediumStrength;
+    [SerializeField] private float strongStrength;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -14,6 +18,24 @@ public class CameraShaker : MonoBehaviour
         }
 
         instance = this;
+    }
+
+    public void WeakShake(float duration)
+    {
+        StopAllCoroutines();
+        StartCoroutine(CameraShakeCoroutine(duration, weakStrength));
+    }
+
+    public void MediumShake(float duration)
+    {
+        StopAllCoroutines();
+        StartCoroutine(CameraShakeCoroutine(duration, mediumStrength));
+    }
+
+    public void StrongShake(float duration)
+    {
+        StopAllCoroutines();
+        StartCoroutine(CameraShakeCoroutine(duration, strongStrength));
     }
 
     public void Shake(float duration, float positionOffsetStrength)

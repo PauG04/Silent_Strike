@@ -117,14 +117,6 @@ public class PlayerController : MonoBehaviour
         invencibility = false;
     }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //attackCollider.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
-    }
-
-    // Update is called once per frame
     void Update()
     {
         switch (currentState)
@@ -330,25 +322,26 @@ public class PlayerController : MonoBehaviour
         }
         else if (kunaiTarget != null)
         {
-            KunaiAttack();
+            StartCoroutine(KunaiAttack());
         }
     }
 
-    private void KunaiAttack()
+    private IEnumerator KunaiAttack()
     {
+        yield return new WaitForEndOfFrame();
+
         //freezear enemy
         SpriteRenderer enemySpriteRenderer = kunaiTarget.GetComponent<SpriteRenderer>();
-        spriteRenderer.flipX = enemySpriteRenderer.flipX;
 
         if (enemySpriteRenderer.flipX)
         {
-            transform.position = kunaiTarget.transform.position + new Vector3(kunaiTarget.GetComponent<SpriteRenderer>().bounds.size.x / 2.5f, 0f, 0f);
-            attackCollider.transform.localPosition = new Vector3(-GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            transform.position = kunaiTarget.transform.position + new Vector3(enemySpriteRenderer.bounds.size.x / 2.5f, 0f, 0f);
+            attackCollider.transform.localPosition = new Vector3(-enemySpriteRenderer.bounds.size.x / 2, 0, 0);
         }
         else
         {
-            transform.position = kunaiTarget.transform.position - new Vector3(kunaiTarget.GetComponent<SpriteRenderer>().bounds.size.x / 2.5f, 0f, 0f);
-            attackCollider.transform.localPosition = new Vector3(GetComponent<SpriteRenderer>().bounds.size.x / 2, 0, 0);
+            transform.position = kunaiTarget.transform.position - new Vector3(enemySpriteRenderer.bounds.size.x / 2.5f, 0f, 0f);
+            attackCollider.transform.localPosition = new Vector3(enemySpriteRenderer.bounds.size.x / 2, 0, 0);
         }
 
         lastInputMovementDirection = (kunaiTarget.transform.position - transform.position).normalized;
@@ -362,16 +355,42 @@ public class PlayerController : MonoBehaviour
         ChangeState(State.ATTACKING);
         AttackChangeState(AttackState.FIRST_ATTACK);
         kunaiTarget = null;
+
+        spriteRenderer.flipX = enemySpriteRenderer.flipX;
+        CameraShaker.instance.WeakShake(0.2f);
     }
 
     private void Throw()
     {
         hasThrowedKunai = true;
         GameObject newKunai = Instantiate(kunai, transform.position, Quaternion.identity);
-        newKunai.transform.transform.right = new Vector3(lastInputMovementDirection.normalized.x, 0, lastInputMovementDirection.normalized.y);
+        //newKunai.transform.transform.right = new Vector3(lastInputMovementDirection.normalized.x, 0, lastInputMovementDirection.normalized.y);
+        newKunai.transform.transform.right = AutoAimKunai();
 
         AudioManager.instance.Play2dOneShotSound(throwKunaiSound, "Sfx");
         ConsumeStamina(kunaiStaminaConsume);
+    }
+
+    private Vector3 AutoAimKunai()
+    {
+        float minDistance = 10000f;
+        Vector3 inputDirection = new Vector3(lastInputMovementDirection.normalized.x, 0, lastInputMovementDirection.normalized.y);
+        Vector3 resultDirection = Vector3.zero;
+        
+        foreach (GameObject enemy in EnemyManager.instance.GetSpawnedEnemies())
+        {
+            Vector3 distanceToEnemy = enemy.transform.position - transform.position;
+            float projection = Vector3.Dot(distanceToEnemy, inputDirection);
+
+            if (projection > 0f && projection < minDistance)
+            {
+                minDistance = projection;
+                resultDirection = distanceToEnemy.normalized;
+
+            }
+        }
+
+        return resultDirection;
     }
 
     private void EndThrow()
@@ -391,14 +410,15 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveDamage(float damage)
     {
-        if(!invencibility)
-        {
-            currentHp -= damage;
-            ChangeState(State.HURT);
-            hpBar.SetCurrentValue(currentHp);
-            postProcessingLerpColor.ChangeVignetteColor(currentHp / hp);
-        }
+        if (invencibility)
+            return;
 
+        currentHp -= damage;
+        ChangeState(State.HURT);
+        hpBar.SetCurrentValue(currentHp);
+        postProcessingLerpColor.ChangeVignetteColor(currentHp / hp);
+
+        //rumble
         AudioManager.instance.Play2dOneShotSound(receiveDamageSound, "Sfx");
     }
 
