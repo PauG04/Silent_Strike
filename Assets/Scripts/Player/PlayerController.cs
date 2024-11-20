@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [Header("HP")]
     [SerializeField] private float hp;
     private float currentHp;
+    private bool invencibility;
 
     [Header("Stamina")]
     [SerializeField] private float maxStamina;
@@ -112,6 +113,8 @@ public class PlayerController : MonoBehaviour
         dashDirection = Vector3.right;
         recoverCoroutineisRunning = false;
         movementDrag = rb.drag;
+
+        invencibility = false;
     }
 
 
@@ -147,6 +150,10 @@ public class PlayerController : MonoBehaviour
         }
 
         RecoverStamina();
+
+        if (Input.GetKeyDown(KeyCode.G))
+            invencibility = !invencibility;
+
     }
 
     #region Movement
@@ -384,10 +391,13 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveDamage(float damage)
     {
-        currentHp -= damage;
-        ChangeState(State.HURT);
-        hpBar.SetCurrentValue(currentHp);
-        postProcessingLerpColor.ChangeVignetteColor(currentHp / hp);
+        if(!invencibility)
+        {
+            currentHp -= damage;
+            ChangeState(State.HURT);
+            hpBar.SetCurrentValue(currentHp);
+            postProcessingLerpColor.ChangeVignetteColor(currentHp / hp);
+        }
 
         AudioManager.instance.Play2dOneShotSound(receiveDamageSound, "Sfx");
     }
