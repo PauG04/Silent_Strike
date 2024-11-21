@@ -21,7 +21,7 @@ public class Kunai : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             PlayerController.instance.SetKunaiTarget(other.gameObject);
-            other.GetComponent<Enemy>().ReceiveDamageEnemy(damage, false);
+            other.GetComponent<Enemy>().ReceiveDamageEnemy(damage, false, true);
             other.gameObject.GetComponent<Enemy>().ActivateKunai();
             Destroy(this.gameObject);
         }

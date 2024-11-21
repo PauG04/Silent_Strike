@@ -99,10 +99,10 @@ public class ParryNinja : Enemy
             ChangeState(enemyState.RECOVERY);
     }
 
-    public override void ReceiveDamageEnemy(float amount, bool isFlipped)
+    public override void ReceiveDamageEnemy(float amount, bool isFlipped, bool isKunai = false)
     {
         base.PrepareReceiveDamage();
-        if (isFlipped != spriteRenderer.flipX)
+        if (isFlipped != spriteRenderer.flipX && isKunai == false)
             ParryPlayer();
         else
             base.ReceiveDamageEnemy(amount, isFlipped);
@@ -118,7 +118,8 @@ public class ParryNinja : Enemy
         AudioManager.instance.Play2dOneShotSound(parrySound, "Sfx");
         hurtLastState = currentState;
         CreateSpark();
-        CameraShaker.instance.MediumShake(0.2f);
+        GamepadManager.instance.Rumble(0.8f, 0.8f, 0.2f);
+        CameraShaker.instance.WeakShake(0.2f);
     }
 
     private void CreateSpark()

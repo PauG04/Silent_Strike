@@ -128,11 +128,9 @@ public class Enemy : Character
         if (target != null)
         {
             Seek();
-            //CalculateForces();
             Rotate();
             MoveEnemy();
         }
-
     }
 
     protected void WanderTarget()
@@ -141,7 +139,6 @@ public class Enemy : Character
         {
             Seek();
             WanderRotation();
-            //CalculateForces();
             MoveEnemy();
         }
     }
@@ -168,6 +165,12 @@ public class Enemy : Character
         {
             direction = target.transform.position - transform.position;
         }
+    }
+
+    protected void RecalculateAttackDirection()
+    {
+        direction = target.transform.position - transform.position;
+        WanderRotation();
     }
 
     private void WanderRotation()
@@ -245,7 +248,7 @@ public class Enemy : Character
 
     private void DashAttack()
     {
-        float distance = Vector2.Distance(transform.position, target.transform.position);
+        float distance = Vector3.Distance(transform.position, target.transform.position);
 
         float dashForce = Mathf.Lerp(0, maxDashAttackForce, distance / maxDistance);
 
@@ -275,7 +278,7 @@ public class Enemy : Character
     }
     #endregion
 
-    public virtual void ReceiveDamageEnemy(float amount, bool isFlipped)
+    public virtual void ReceiveDamageEnemy(float amount, bool isFlipped, bool isKunai = false)
     {
         float damageReceived = CalculateDamage(amount, isFlipped);
 
@@ -362,7 +365,6 @@ public class Enemy : Character
                 break;
             case enemyState.CHARGING:
                 animator.SetBool("Charging", false);
-                //direction = target.transform.position - transform.position;
                 break;
             case enemyState.ATTACK:
                 animator.SetBool("Attack", false);
@@ -396,7 +398,6 @@ public class Enemy : Character
                 break;
             case enemyState.ATTACK:
                 animator.SetBool("Attack", true);
-                //WanderRotation();
                 AudioManager.instance.Play2dOneShotSound(attackSound, "Sfx", 0.8f); 
                 break;
             case enemyState.RECOVERY:
@@ -439,12 +440,16 @@ public class Enemy : Character
     {      
         AudioManager.instance.Play2dOneShotSound(blockSound, "Sfx", 1.3f);
         Invoke("EndParry", 0.25f);
+        GamepadManager.instance.Rumble(0.5f, 0.5f, 0.1f);
+        CameraShaker.instance.WeakShake(0.2f);
     }
 
     public virtual void Parry()
     {
         AudioManager.instance.Play2dOneShotSound(parriedSound, "Sfx", 1.3f);
         Invoke("EndParry", 0.75f);
+        GamepadManager.instance.Rumble(0.8f, 0.8f, 0.2f);
+        CameraShaker.instance.MediumShake(0.2f);
     }
 
     public virtual void EndParry()

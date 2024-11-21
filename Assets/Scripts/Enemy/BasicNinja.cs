@@ -82,7 +82,7 @@ public class BasicNinja : Enemy
         base.AttackReady();
     }
 
-    public override void ReceiveDamageEnemy(float amount, bool isFlipped)
+    public override void ReceiveDamageEnemy(float amount, bool isFlipped, bool isKunai = false)
     {
         base.PrepareReceiveDamage();
         base.ReceiveDamageEnemy(amount, isFlipped);

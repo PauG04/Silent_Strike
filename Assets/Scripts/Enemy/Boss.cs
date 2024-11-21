@@ -110,7 +110,8 @@ public class Boss : Enemy
                 enemies[i].ReceiveDamageEnemy(100000, true);
         }
 
-        CameraShaker.instance.StrongShake(1f);
+        GamepadManager.instance.Rumble(1f, 1f, 0.5f);
+        CameraShaker.instance.StrongShake(0.5f);
     }
 
     private void DieSound()
@@ -210,7 +211,7 @@ public class Boss : Enemy
         AudioManager.instance.Play2dOneShotSound(attackSound, "Sfx", 0.8f);
     }
 
-    public override void ReceiveDamageEnemy(float amount, bool isFlipped)
+    public override void ReceiveDamageEnemy(float amount, bool isFlipped, bool isKunai = false)
     {
         if(currentState != enemyState.CHARGING && currentState  != enemyState.ATTACK)
         {
@@ -323,8 +324,10 @@ public class Boss : Enemy
         {
             case attackState.ATTACK1:
                 animator.SetBool("AttackNormal", false);
+                RecalculateAttackDirection();
                 break;
             case attackState.ATTACK2:
+                RecalculateAttackDirection();
                 break;
             case attackState.ATTACK3:
                 animator.SetBool("AttackNormal3", false);
