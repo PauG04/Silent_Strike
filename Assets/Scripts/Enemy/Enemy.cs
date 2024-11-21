@@ -1,5 +1,3 @@
-using System;
-using System.Threading;
 using UnityEngine;
 
 public class Enemy : Character
@@ -447,7 +445,7 @@ public class Enemy : Character
     public virtual void Parry()
     {
         AudioManager.instance.Play2dOneShotSound(parriedSound, "Sfx", 1.3f);
-        Invoke("EndParry", 0.75f);
+        Invoke("EndParry", 1.5f);
         GamepadManager.instance.Rumble(0.8f, 0.8f, 0.2f);
         CameraShaker.instance.MediumShake(0.2f);
     }

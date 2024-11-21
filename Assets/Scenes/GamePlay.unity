@@ -16744,7 +16744,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxValue: 100
   minValue: 0
-  currentValue: 65.5
+  currentValue: 100
   mask: {fileID: 1650659723}
   color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1035334019
@@ -25634,7 +25634,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.655
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -34512,7 +34512,7 @@ PrefabInstance:
     - target: {fileID: 1277107145044980674, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: enemyWave
       value: 
-      objectReference: {fileID: 11400000, guid: 2c8464f80836e5240b220daaf181fc13, type: 2}
+      objectReference: {fileID: 11400000, guid: 206d640fff936b246a8dd13c19e09718, type: 2}
     - target: {fileID: 6214193118656894105, guid: 160cfa119569bcc44badd299cfffa3f9, type: 3}
       propertyPath: m_Name
       value: EnemyManager

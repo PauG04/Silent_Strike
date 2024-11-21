@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class ParryNinja : Enemy
 {
     [SerializeField] private GameObject sparks;
@@ -102,7 +101,7 @@ public class ParryNinja : Enemy
     public override void ReceiveDamageEnemy(float amount, bool isFlipped, bool isKunai = false)
     {
         base.PrepareReceiveDamage();
-        if (isFlipped != spriteRenderer.flipX && isKunai == false)
+        if (isFlipped != spriteRenderer.flipX && isKunai == false && currentState != enemyState.PARRIED)
             ParryPlayer();
         else
             base.ReceiveDamageEnemy(amount, isFlipped);

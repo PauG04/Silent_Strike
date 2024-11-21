@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: ParryTest
   m_EditorClassIdentifier: 
   enemies:
-  - enemyPrefab: {fileID: 448999472673854875, guid: 8d71962c44bd97b418ea72d883d2933e, type: 3}
+  - enemyPrefab: {fileID: 141739360181971235, guid: 8d71962c44bd97b418ea72d883d2933e, type: 3}
     spawnTime: 0
-  - enemyPrefab: {fileID: 448999472673854875, guid: 8d71962c44bd97b418ea72d883d2933e, type: 3}
+  - enemyPrefab: {fileID: 141739360181971235, guid: 8d71962c44bd97b418ea72d883d2933e, type: 3}
     spawnTime: 999
-  - enemyPrefab: {fileID: 448999472673854875, guid: 8d71962c44bd97b418ea72d883d2933e, type: 3}
+  - enemyPrefab: {fileID: 141739360181971235, guid: 8d71962c44bd97b418ea72d883d2933e, type: 3}
     spawnTime: 9999
-  - enemyPrefab: {fileID: 448999472673854875, guid: 8d71962c44bd97b418ea72d883d2933e, type: 3}
+  - enemyPrefab: {fileID: 141739360181971235, guid: 8d71962c44bd97b418ea72d883d2933e, type: 3}
     spawnTime: 999999
-  - enemyPrefab: {fileID: 448999472673854875, guid: 8d71962c44bd97b418ea72d883d2933e, type: 3}
+  - enemyPrefab: {fileID: 141739360181971235, guid: 8d71962c44bd97b418ea72d883d2933e, type: 3}
     spawnTime: 999999

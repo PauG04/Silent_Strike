@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: NinjaTest
   m_EditorClassIdentifier: 
   enemies:
-  - enemyPrefab: {fileID: 8665630603848611371, guid: bc430d3774aee474e91a884229fd5557, type: 3}
+  - enemyPrefab: {fileID: 1341279358875527669, guid: bc430d3774aee474e91a884229fd5557, type: 3}
     spawnTime: 0
-  - enemyPrefab: {fileID: 8665630603848611371, guid: bc430d3774aee474e91a884229fd5557, type: 3}
+  - enemyPrefab: {fileID: 1341279358875527669, guid: bc430d3774aee474e91a884229fd5557, type: 3}
     spawnTime: 999
-  - enemyPrefab: {fileID: 8665630603848611371, guid: bc430d3774aee474e91a884229fd5557, type: 3}
+  - enemyPrefab: {fileID: 1341279358875527669, guid: bc430d3774aee474e91a884229fd5557, type: 3}
     spawnTime: 9999
-  - enemyPrefab: {fileID: 8665630603848611371, guid: bc430d3774aee474e91a884229fd5557, type: 3}
+  - enemyPrefab: {fileID: 1341279358875527669, guid: bc430d3774aee474e91a884229fd5557, type: 3}
     spawnTime: 99999
-  - enemyPrefab: {fileID: 8665630603848611371, guid: bc430d3774aee474e91a884229fd5557, type: 3}
+  - enemyPrefab: {fileID: 1341279358875527669, guid: bc430d3774aee474e91a884229fd5557, type: 3}
     spawnTime: 999999
