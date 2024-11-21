@@ -28,6 +28,11 @@ public class PlayerController : MonoBehaviour
     private bool canRecoverStamina;
     private bool recoverCoroutineisRunning;
 
+    [Header("Healing")]
+    [SerializeField] private float healingPerUse;
+    [SerializeField] private int initialHealings;
+    public int currentHealings;
+
     [Header("Dash")]
     [SerializeField] private float dashForce;
     [SerializeField] private float dashDrag;
@@ -111,6 +116,9 @@ public class PlayerController : MonoBehaviour
         currentStamina = maxStamina;
         staminaBar.SetMaxValue(maxStamina);
         staminaBar.SetCurrentValue(currentStamina);
+
+        // Healings
+        currentHealings = initialHealings;
 
         //Attack
         isInCombo = false;
@@ -534,6 +542,19 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("dead", true);
     }
 
+    public void Heal()
+    {
+        if(currentHealings > 0 && currentHp < hp)
+        {
+            currentHealings--;
+            currentHp += healingPerUse;
+            if (currentHp > hp)
+                currentHp = hp;
+
+            hpBar.SetCurrentValue(currentHp);
+        }
+    }
+
     #endregion
 
     #region Stamina
@@ -765,6 +786,11 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Wall") && currentState == State.DASHING)
             EndDash();
+    }
+
+    public float GetCurrentHealings()
+    {
+        return currentHealings;
     }
 
     private void ReturnToMainMenu()
