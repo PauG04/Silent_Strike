@@ -436,7 +436,8 @@ public class Enemy : Character
     }
 
     public virtual void Block()
-    {
+    {      
+        AudioManager.instance.Play2dOneShotSound(blockSound, "Sfx", 1.3f);
         Invoke("EndParry", 0.25f);
     }
 

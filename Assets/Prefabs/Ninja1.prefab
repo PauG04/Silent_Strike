@@ -25435,6 +25435,7 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 4e803ad368f7827408668a3d25328425, type: 3}
   fallSound: {fileID: 8300000, guid: 0b1fbb278992f9844914b4529a21204c, type: 3}
   parriedSound: {fileID: 8300000, guid: edb40f5fd7dd217469949f4500567c8c, type: 3}
+  blockSound: {fileID: 8300000, guid: 8faba7fbb78526945942d780db9e694c, type: 3}
   currentState: 0
   hurtLastState: 0
   separationDistance: {x: 0.1, y: 0.1, z: 0.1}
