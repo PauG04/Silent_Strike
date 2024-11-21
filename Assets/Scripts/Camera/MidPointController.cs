@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MidPointController : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    private PlayerController playerController;
 
-    private void Awake()
+    private void Start()
     {
-        
+        playerController = PlayerManager.instance.GetPlayer();
     }
 
     void Update()
@@ -16,13 +16,13 @@ public class MidPointController : MonoBehaviour
         Move();
     }
 
- 
-
     private void Move()
     {
-        if (PlayerManager.instance.GetPlayer() == null)
+        if (playerController == null)
             return;
 
-         transform.position = Vector3.Lerp(transform.position, PlayerManager.instance.GetPlayer().transform.position, Time.deltaTime * speed);
+         transform.position = playerController.transform.position;
     }
+
+
 }

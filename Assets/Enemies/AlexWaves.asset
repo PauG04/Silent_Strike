@@ -12,13 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92645c322cf919546aaf7b434837c034, type: 3}
   m_Name: AlexWaves
   m_EditorClassIdentifier: 
-  enemies:
-  - enemyPrefab: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
-    spawnIndex: 0
-    spawnTime: 0
-  - enemyPrefab: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
-    spawnIndex: 0
-    spawnTime: 0
-  - enemyPrefab: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
-    spawnIndex: 0
-    spawnTime: 0
+  enemies: []

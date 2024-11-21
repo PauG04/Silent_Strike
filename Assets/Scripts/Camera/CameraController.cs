@@ -7,26 +7,66 @@ public class CameraController : MonoBehaviour
     public enum CameraState { FRONT, MID, BACK, ACTION }
 
     [SerializeField] private CameraState currentState;
-    [SerializeField] MidPointController midPointController;
 
-    private float heightReference;
+    [Header("MidPoint")]
+    [SerializeField] MidPointController midPointController;
+    private Vector3 midPointPos;
 
     private Vector3 newPos;
+
+    [Header("Lerp Speeds")]
+    [SerializeField] private float widthLerpSpeed;
+    [SerializeField] private float heightLerpSpeed;
+    [SerializeField] private float depthLerpSpeed;
+
+    [Header("Height References")]
+    [SerializeField] private float heightOffsetBetweenZones;
+    private float backHeight;
+    private float midHeight;
+    private float frontHeight;
+    private float currentHeight;
+
+    [Header("Depth References")]
+    [SerializeField] private float depthOffsetBetweenZones;
+    private float backDepth;
+    private float midDepth;
+    private float frontDepth;
+    private float currentDepth;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        heightReference = transform.position.y;
         newPos = transform.position;
+
+        //Height
+        frontHeight = transform.position.y - heightOffsetBetweenZones;
+        midHeight = transform.position.y;
+        backHeight = transform.position.y + heightOffsetBetweenZones;
+
+        //Depth
+        frontDepth = transform.position.z + depthOffsetBetweenZones;
+        midDepth = transform.position.z;
+        backDepth = transform.position.z - depthOffsetBetweenZones;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime * 5.0f);
+        CalculateNextPos();
     }
 
+    private void CalculateNextPos()
+    {
+        midPointPos = midPointController.transform.position;
+        
+
+        transform.position = new Vector3(
+            Mathf.Lerp(transform.position.x, midPointPos.x,Time.deltaTime * widthLerpSpeed),
+            Mathf.Lerp(transform.position.y, currentHeight, Time.deltaTime * heightLerpSpeed),
+            Mathf.Lerp(transform.position.z, currentDepth, Time.deltaTime * depthLerpSpeed)); 
+    }
     public void ChangeState(CameraState _newState)
     {
         switch (currentState)
@@ -47,13 +87,16 @@ public class CameraController : MonoBehaviour
         switch (_newState)
         {
             case CameraState.FRONT:
-                newPos = new Vector3(transform.position.x, heightReference - 1.0f, transform.position.z);
+                currentHeight = frontHeight;
+                currentDepth = frontDepth;
                 break;
             case CameraState.MID:
-                newPos = new Vector3(transform.position.x, heightReference, transform.position.z);
+                currentHeight = midHeight; 
+                currentDepth = midDepth;
                 break;
             case CameraState.BACK:
-                newPos = new Vector3(transform.position.x, heightReference + 1.0f, transform.position.z);
+                currentHeight = backHeight;
+                currentDepth = midDepth;
                 break;
             case CameraState.ACTION:
                 break;
@@ -62,5 +105,10 @@ public class CameraController : MonoBehaviour
         }
 
         currentState = _newState;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(midPointPos, 1);
     }
 }
