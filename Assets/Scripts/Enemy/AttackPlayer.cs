@@ -6,6 +6,9 @@ public class AttackPlayer : MonoBehaviour
     [SerializeField] private Enemy enemy;
     [SerializeField] private ParticleSystem[] slashParticles;
     [SerializeField] private float knockBackForce;
+    [SerializeField] private float enemyParryKnockBackForce;
+    [SerializeField] private float enemyBlockKnockBackForce;
+    [SerializeField] private float playerBlockKnockBackForce;
     [SerializeField] private GameObject blood;
     [SerializeField] private float lowFrequency;
     [SerializeField] private float highFrequency;
@@ -89,7 +92,7 @@ public class AttackPlayer : MonoBehaviour
     private void Parry(PlayerController player, Collider other)
     {
         player.ActiveStopParry();
-        GetComponentInParent<Rigidbody>().AddForce((gameObject.transform.parent.transform.position - other.transform.position).normalized * knockBackForce * 3, ForceMode.Impulse);
+        GetComponentInParent<Rigidbody>().AddForce((gameObject.transform.parent.transform.position - other.transform.position).normalized * enemyParryKnockBackForce, ForceMode.Impulse);
         GetComponentInParent<Enemy>().ChangeState(Enemy.enemyState.PARRIED);
         enemy.Parry();
         CreateSpark(player, 1);
@@ -99,8 +102,8 @@ public class AttackPlayer : MonoBehaviour
     private void Block(PlayerController player, Collider other)
     {
         player.ActiveStopParry();
-        player.gameObject.GetComponent<Rigidbody>().AddForce((other.transform.position - gameObject.transform.parent.transform.position).normalized * knockBackForce, ForceMode.Impulse);
-        GetComponentInParent<Rigidbody>().AddForce((gameObject.transform.parent.transform.position - other.transform.position).normalized * knockBackForce / 2, ForceMode.Impulse);
+        player.gameObject.GetComponent<Rigidbody>().AddForce((other.transform.position - gameObject.transform.parent.transform.position).normalized * playerBlockKnockBackForce, ForceMode.Impulse);
+        GetComponentInParent<Rigidbody>().AddForce((gameObject.transform.parent.transform.position - other.transform.position).normalized * enemyBlockKnockBackForce, ForceMode.Impulse);
         GetComponentInParent<Enemy>().ChangeState(Enemy.enemyState.PARRIED);
         enemy.Block();
         CreateSpark(player, 0.5f);

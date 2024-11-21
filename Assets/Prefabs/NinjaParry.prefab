@@ -10291,6 +10291,9 @@ MonoBehaviour:
   - {fileID: 9071107412590222732}
   - {fileID: 4110733902627732020}
   knockBackForce: 10
+  enemyParryKnockBackForce: 30
+  enemyBlockKnockBackForce: 7
+  playerBlockKnockBackForce: 25
   blood: {fileID: 2038348839721942047, guid: 2b94ed9d5af15b54c8b15e8a3a00acb3, type: 3}
   lowFrequency: 2
   highFrequency: 2.5
