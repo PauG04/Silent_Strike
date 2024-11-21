@@ -9901,7 +9901,7 @@ Transform:
   - {fileID: 1885866844385187099}
   - {fileID: 7844530883728644202}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1274804365765067904
 SpriteRenderer:
@@ -9973,7 +9973,7 @@ MonoBehaviour:
   maxStamina: 100
   attackStaminaConsume: 20
   timeToRecoverStamina: 1
-  staminaRecoverValue: 1
+  staminaRecoverValue: 0.75
   dashForce: 15
   dashDrag: 8
   animator: {fileID: 4658023590269298289}
@@ -9983,7 +9983,10 @@ MonoBehaviour:
   damage: 2
   kunai: {fileID: 1698020728805350758, guid: 9515b351a1672b14399c33cba767878b, type: 3}
   timeToDesappearKunai: 2
-  kunaiStaminaConsume: 30
+  kunaiStaminaConsume: 40
+  blockSpeed: 1500
+  parryStaminaConsume: 0.5
+  stopParryTime: 0.25
   materialShader: {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
   hpBar: {fileID: 0}
   staminaBar: {fileID: 0}
@@ -9993,7 +9996,7 @@ MonoBehaviour:
   receiveDamageSound: {fileID: 8300000, guid: 797bddd88ac174a42aa31233cfd1362c, type: 3}
   throwKunaiSound: {fileID: 8300000, guid: 419ea400af335094587e59eb70593be6, type: 3}
   dashSound: {fileID: 8300000, guid: 96003e1d73f3fd1458a17c5423ebc525, type: 3}
-  fallSound: {fileID: 0}
+  fallSound: {fileID: 8300000, guid: 0b1fbb278992f9844914b4529a21204c, type: 3}
 --- !u!114 &9054938213390167179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10083,6 +10086,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a41261f5-e99e-4049-b78b-a15d1e8e583b
     m_ActionName: Movement/Throw[/Keyboard/space,/XInputControllerWindows/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5808209924057310944}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: ParryAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d8e64df5-2bd4-47f5-bfff-a1177abe3900
+    m_ActionName: Movement/Parry[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movement
@@ -30005,7 +30024,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8319618179733874039}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 0, z: 0}
+  m_LocalPosition: {x: 0.27, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

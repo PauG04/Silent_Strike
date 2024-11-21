@@ -13,18 +13,11 @@ MonoBehaviour:
   m_Name: WolfTest
   m_EditorClassIdentifier: 
   enemies:
-  - enemyPrefab: {fileID: 2561975879969506166, guid: 41fd54d79c626264bb0593baeb379bbb, type: 3}
-    spawnIndex: 1
+  - enemyPrefab: {fileID: 2453928364416220734, guid: 41fd54d79c626264bb0593baeb379bbb, type: 3}
     spawnTime: 0
-  - enemyPrefab: {fileID: 2561975879969506166, guid: 41fd54d79c626264bb0593baeb379bbb, type: 3}
-    spawnIndex: 1
+  - enemyPrefab: {fileID: 2453928364416220734, guid: 41fd54d79c626264bb0593baeb379bbb, type: 3}
     spawnTime: 999
-  - enemyPrefab: {fileID: 2561975879969506166, guid: 41fd54d79c626264bb0593baeb379bbb, type: 3}
-    spawnIndex: 1
-    spawnTime: 9999
-  - enemyPrefab: {fileID: 2561975879969506166, guid: 41fd54d79c626264bb0593baeb379bbb, type: 3}
-    spawnIndex: 1
-    spawnTime: 99999
-  - enemyPrefab: {fileID: 2561975879969506166, guid: 41fd54d79c626264bb0593baeb379bbb, type: 3}
-    spawnIndex: 1
-    spawnTime: 999999
+  - enemyPrefab: {fileID: 2453928364416220734, guid: 41fd54d79c626264bb0593baeb379bbb, type: 3}
+    spawnTime: 999
+  - enemyPrefab: {fileID: 2453928364416220734, guid: 41fd54d79c626264bb0593baeb379bbb, type: 3}
+    spawnTime: 999

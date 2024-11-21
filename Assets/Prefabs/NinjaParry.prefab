@@ -114,6 +114,7 @@ MonoBehaviour:
   receiveDamageSound: {fileID: 8300000, guid: 797bddd88ac174a42aa31233cfd1362c, type: 3}
   attackSound: {fileID: 8300000, guid: 4e803ad368f7827408668a3d25328425, type: 3}
   fallSound: {fileID: 8300000, guid: 0b1fbb278992f9844914b4529a21204c, type: 3}
+  parriedSound: {fileID: 8300000, guid: edb40f5fd7dd217469949f4500567c8c, type: 3}
   currentState: 0
   hurtLastState: 0
   separationDistance: {x: 1, y: 1, z: 1}
@@ -10290,10 +10291,14 @@ MonoBehaviour:
   - {fileID: 9071107412590222732}
   - {fileID: 4110733902627732020}
   knockBackForce: 10
+  enemyParryKnockBackForce: 30
+  enemyBlockKnockBackForce: 7
+  playerBlockKnockBackForce: 25
   blood: {fileID: 2038348839721942047, guid: 2b94ed9d5af15b54c8b15e8a3a00acb3, type: 3}
   lowFrequency: 2
   highFrequency: 2.5
   duration: 0.1
+  sparks: {fileID: 2038348839721942047, guid: 2a722a1fa7347984180e8ccf21ee0ecf, type: 3}
 --- !u!1 &3753991820270418651
 GameObject:
   m_ObjectHideFlags: 0

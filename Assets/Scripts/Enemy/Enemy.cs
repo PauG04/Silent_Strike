@@ -1,9 +1,10 @@
 using System;
+using System.Threading;
 using UnityEngine;
 
 public class Enemy : Character
 {
-    public enum enemyState { GENERATING, RUNNING, CHARGING, ATTACK, RECOVERY, HURT, DIE, BLOCK, IDLE, FREEZED };
+    public enum enemyState { GENERATING, RUNNING, CHARGING, ATTACK, RECOVERY, HURT, DIE, BLOCK, IDLE, FREEZED, PARRIED };
     public enemyState currentState;
     public enemyState hurtLastState;
 
@@ -350,7 +351,7 @@ public class Enemy : Character
         _blood.GetComponent<Rigidbody>().AddForce(-(target.transform.position - transform.position).normalized * knockBackForce, ForceMode.Impulse);
     }
 
-    public void ChangeState(enemyState state)
+    public virtual void ChangeState(enemyState state)
     {
         switch (currentState)
         {
@@ -373,6 +374,9 @@ public class Enemy : Character
                 animator.SetBool("Hurt", false);
                 break;
             case enemyState.DIE:
+                break;
+            case enemyState.PARRIED:
+                animator.SetBool("Parried", false); 
                 break;
             case enemyState.BLOCK:
                 animator.SetBool("Parry", false);
@@ -404,6 +408,9 @@ public class Enemy : Character
             case enemyState.DIE:
                 animator.SetBool("Die", true);
                 break;
+            case enemyState.PARRIED:
+                animator.SetBool("Parried", true);
+                break;
             case enemyState.BLOCK:
                 animator.SetBool("Parry", true);
                 break;
@@ -426,6 +433,23 @@ public class Enemy : Character
     public virtual void Freeze()
     {
         Invoke("EndFreeze", 0.5f);
+    }
+
+    public virtual void Block()
+    {
+        Invoke("EndParry", 0.25f);
+    }
+
+    public virtual void Parry()
+    {
+        AudioManager.instance.Play2dOneShotSound(parriedSound, "Sfx", 1.3f);
+        Invoke("EndParry", 0.75f);
+    }
+
+    public virtual void EndParry()
+    {
+        if (currentState != enemyState.DIE && currentState != enemyState.HURT)
+            ChangeState(enemyState.RECOVERY);
     }
 
     public virtual void EndFreeze()
