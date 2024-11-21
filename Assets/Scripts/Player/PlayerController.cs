@@ -374,6 +374,7 @@ public class PlayerController : MonoBehaviour
         kunaiTarget = null;
 
         spriteRenderer.flipX = enemySpriteRenderer.flipX;
+        GamepadManager.instance.Rumble(0.5f, 0.5f, 0.1f);
         CameraShaker.instance.WeakShake(0.2f);
     }
 
@@ -488,9 +489,7 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-
     #region HP
-
     public void ReceiveDamage(float damage)
     {
         if (invencibility)
@@ -501,7 +500,7 @@ public class PlayerController : MonoBehaviour
         hpBar.SetCurrentValue(currentHp);
         postProcessingLerpColor.ChangeVignetteColor(currentHp / hp);
 
-        //rumble
+        GamepadManager.instance.Rumble(0.5f, 0.5f, 0.1f);
         AudioManager.instance.Play2dOneShotSound(receiveDamageSound, "Sfx");
     }
 
@@ -766,6 +765,10 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Wall") && currentState == State.DASHING)
             EndDash();
-        
+    }
+
+    private void ReturnToMainMenu()
+    {
+        SceneLoader.instance.ChangeScene("MainMenu");
     }
 }
