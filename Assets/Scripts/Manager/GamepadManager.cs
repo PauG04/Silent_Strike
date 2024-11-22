@@ -22,6 +22,9 @@ public class GamepadManager : MonoBehaviour
 
     public void Rumble(float lowFreq, float highFreq, float duration)
     {
+        if (gamepad == null)
+            return;
+
         gamepad.SetMotorSpeeds(lowFreq, highFreq);
         Invoke("StopRumble", duration);
     }

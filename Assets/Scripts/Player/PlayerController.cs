@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip throwKunaiSound;
     [SerializeField] private AudioClip dashSound;
     [SerializeField] private AudioClip fallSound;
+    [SerializeField] private AudioClip healSound;
 
     private SpriteRenderer spriteRenderer;
 
@@ -567,6 +568,7 @@ public class PlayerController : MonoBehaviour
             currentHp = hp;
 
         hpBar.SetCurrentValue(currentHp);
+        AudioManager.instance.Play2dOneShotSound(healSound, "Sfx");
     }
 
     #endregion
@@ -660,7 +662,7 @@ public class PlayerController : MonoBehaviour
                 StartStuned();
                 break;
             case State.HEALING:
-                animator.SetBool("heal", false);
+                animator.SetBool("healing", false);
                 break;
             default:
                 break;
@@ -700,7 +702,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("stunned", true);
                 break;
             case State.HEALING:
-                animator.SetBool("heal", true);
+                animator.SetBool("healing", true);
                 Heal();
                 break;
             default:

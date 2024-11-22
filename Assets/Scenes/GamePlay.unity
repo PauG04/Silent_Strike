@@ -22818,6 +22818,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 0b1fbb278992f9844914b4529a21204c, type: 3}
     - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: healSound
+      value: 
+      objectReference: {fileID: 8300000, guid: eaf46a93f00d5834baa8bcf138dbbfd0, type: 3}
+    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: staminaBar
       value: 
       objectReference: {fileID: 1629947774}
@@ -28489,8 +28493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cc2ee3c7a408b4685e61a736b79633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weakStrength: 0.2
-  mediumStrength: 0.4
+  weakStrength: 0.4
+  mediumStrength: 0.7
   strongStrength: 1
 --- !u!1 &1888560710
 GameObject:
