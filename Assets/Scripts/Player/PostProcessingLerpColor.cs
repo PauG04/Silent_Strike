@@ -16,6 +16,8 @@ public class PostProcessingLerpColor : MonoBehaviour
     private bool startInterpolate;
     private float lerpProgress;
 
+    private float initIntensity;
+
     void Start()
     {
         if (_volume != null && _volume.profile != null)
@@ -37,6 +39,8 @@ public class PostProcessingLerpColor : MonoBehaviour
             {
                 _aberration.active = true;
             }
+
+            initIntensity = _aberration.intensity.value;
         }
     }
 
@@ -56,6 +60,17 @@ public class PostProcessingLerpColor : MonoBehaviour
             startInterpolate = true;
             _aberration.intensity.value = aberrationIntensity;
             _filmGrain.type.value = FilmGrainLookup.Large02;
+        }
+    }
+
+    public void ResetPostPorcessing()
+    {
+        if (startInterpolate)
+        {
+            startInterpolate = false;
+            _aberration.intensity.value = initIntensity;
+            _filmGrain.type.value = FilmGrainLookup.Thin2;
+            _vignette.color.value = Color.black;
         }
 
     }

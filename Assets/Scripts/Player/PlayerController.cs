@@ -556,6 +556,7 @@ public class PlayerController : MonoBehaviour
         if (currentHealings < 1 || currentHp >= hp)
             return;
 
+        postProcessingLerpColor.ResetPostPorcessing();
         ChangeState(State.HEALING);
     }
 
