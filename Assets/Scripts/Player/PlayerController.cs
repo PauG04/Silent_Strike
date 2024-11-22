@@ -28,6 +28,11 @@ public class PlayerController : MonoBehaviour
     private bool canRecoverStamina;
     private bool recoverCoroutineisRunning;
 
+    [Header("Healing")]
+    [SerializeField] private float healingPerUse;
+    [SerializeField] private int initialHealings;
+    public int currentHealings;
+
     [Header("Dash")]
     [SerializeField] private float dashForce;
     [SerializeField] private float dashDrag;
@@ -80,10 +85,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip throwKunaiSound;
     [SerializeField] private AudioClip dashSound;
     [SerializeField] private AudioClip fallSound;
+    [SerializeField] private AudioClip healSound;
 
     private SpriteRenderer spriteRenderer;
 
-    public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING, THROWING, PARRY, STUNNED }
+    public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING, THROWING, PARRY, STUNNED, HEALING }
 
     private State currentState;
 
@@ -111,6 +117,9 @@ public class PlayerController : MonoBehaviour
         currentStamina = maxStamina;
         staminaBar.SetMaxValue(maxStamina);
         staminaBar.SetCurrentValue(currentStamina);
+
+        // Healings
+        currentHealings = initialHealings;
 
         //Attack
         isInCombo = false;
@@ -153,6 +162,8 @@ public class PlayerController : MonoBehaviour
                 Move();
                 CheckIfFlipSriteRender();
                 ConsumeStaminaParry();
+                break;
+            case State.HEALING:
                 break;
             default:
                 break;
@@ -534,6 +545,32 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("dead", true);
     }
 
+    public void HealAction(InputAction.CallbackContext obj)
+    {
+        if (!obj.started)
+            return;
+
+        if (currentState == State.DEATH || currentState == State.HURT || currentState == State.STUNNED)
+            return;
+
+        if (currentHealings < 1 || currentHp >= hp)
+            return;
+
+        ChangeState(State.HEALING);
+    }
+
+    private void Heal()
+    {
+        currentHealings--;
+
+        currentHp += healingPerUse;
+        if (currentHp > hp)
+            currentHp = hp;
+
+        hpBar.SetCurrentValue(currentHp);
+        AudioManager.instance.Play2dOneShotSound(healSound, "Sfx");
+    }
+
     #endregion
 
     #region Stamina
@@ -596,7 +633,6 @@ public class PlayerController : MonoBehaviour
         switch (currentState)
         {
             case State.IDLE:
-
                 break;
             case State.RUNNING:
                 animator.SetBool("running", false);
@@ -624,6 +660,9 @@ public class PlayerController : MonoBehaviour
             case State.STUNNED:
                 animator.SetBool("stunned", false);
                 StartStuned();
+                break;
+            case State.HEALING:
+                animator.SetBool("healing", false);
                 break;
             default:
                 break;
@@ -661,6 +700,10 @@ public class PlayerController : MonoBehaviour
                 break;
             case State.STUNNED:
                 animator.SetBool("stunned", true);
+                break;
+            case State.HEALING:
+                animator.SetBool("healing", true);
+                Heal();
                 break;
             default:
                 break;
@@ -765,6 +808,11 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Wall") && currentState == State.DASHING)
             EndDash();
+    }
+
+    public float GetCurrentHealings()
+    {
+        return currentHealings;
     }
 
     private void ReturnToMainMenu()
