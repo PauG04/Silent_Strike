@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING, THROWING, PARRY, STUNNED }
+    public enum State { IDLE, RUNNING, DASHING, HURT, DEATH, ATTACKING, THROWING, PARRY, STUNNED, HEALING }
 
     private State currentState;
 
@@ -161,6 +161,8 @@ public class PlayerController : MonoBehaviour
                 Move();
                 CheckIfFlipSriteRender();
                 ConsumeStaminaParry();
+                break;
+            case State.HEALING:
                 break;
             default:
                 break;
@@ -542,17 +544,29 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("dead", true);
     }
 
-    public void Heal()
+    public void HealAction(InputAction.CallbackContext obj)
     {
-        if(currentHealings > 0 && currentHp < hp)
-        {
-            currentHealings--;
-            currentHp += healingPerUse;
-            if (currentHp > hp)
-                currentHp = hp;
+        if (!obj.started)
+            return;
 
-            hpBar.SetCurrentValue(currentHp);
-        }
+        if (currentState == State.DEATH || currentState == State.HURT || currentState == State.STUNNED)
+            return;
+
+        if (currentHealings < 1 || currentHp >= hp)
+            return;
+
+        ChangeState(State.HEALING);
+    }
+
+    private void Heal()
+    {
+        currentHealings--;
+
+        currentHp += healingPerUse;
+        if (currentHp > hp)
+            currentHp = hp;
+
+        hpBar.SetCurrentValue(currentHp);
     }
 
     #endregion
@@ -617,7 +631,6 @@ public class PlayerController : MonoBehaviour
         switch (currentState)
         {
             case State.IDLE:
-
                 break;
             case State.RUNNING:
                 animator.SetBool("running", false);
@@ -645,6 +658,9 @@ public class PlayerController : MonoBehaviour
             case State.STUNNED:
                 animator.SetBool("stunned", false);
                 StartStuned();
+                break;
+            case State.HEALING:
+                animator.SetBool("heal", false);
                 break;
             default:
                 break;
@@ -682,6 +698,10 @@ public class PlayerController : MonoBehaviour
                 break;
             case State.STUNNED:
                 animator.SetBool("stunned", true);
+                break;
+            case State.HEALING:
+                animator.SetBool("heal", true);
+                Heal();
                 break;
             default:
                 break;
