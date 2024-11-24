@@ -25669,8 +25669,14 @@ MonoBehaviour:
   widthLerpSpeed: 3
   heightLerpSpeed: 1
   depthLerpSpeed: 1
+  rotationLerpSpeed: 0.02
   heightOffsetBetweenZones: 1
-  depthOffsetBetweenZones: 0.5
+  depthOffsetFront: 0.5
+  depthOffsetMid: 2
+  depthOffsetBack: 5.5
+  XRotationFront: -8
+  XRotationMid: 0
+  XRotationBack: 8
 --- !u!1 &1629947772
 GameObject:
   m_ObjectHideFlags: 0
