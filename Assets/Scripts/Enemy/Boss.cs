@@ -68,6 +68,9 @@ public class Boss : Enemy
             case enemyState.FREEZED:
                 Freeze();
                 break;
+            case enemyState.IDLE:
+                rgbd.velocity = Vector3.zero;
+                break;
         }
         base.UpdateEnemy();
 
