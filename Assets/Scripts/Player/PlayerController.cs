@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackDashForceRunning;
     [SerializeField] private float damage;
     private AttackState currentAttackState;
+    private bool canCombo;
     private bool isInCombo;
     private enum AttackState { NONE, FIRST_ATTACK, SECOND_ATTACK, THIRD_ATTACK, }
 
@@ -79,6 +80,14 @@ public class PlayerController : MonoBehaviour
     [Header("PostProcessing")]
     [SerializeField] private PostProcessingLerpColor postProcessingLerpColor;
 
+    [Header("Animations")]
+    [SerializeField] private AnimationClip firstAttackAnim;
+    [SerializeField] private AnimationClip secondAttackAnim;
+    [SerializeField] private AnimationClip thirdAttackAnim;
+    private float firstAttackAnimationDuration;
+    private float secondAttackAnimationDuration;
+    private float thirdAttackAnimationDuration;
+
     [Header("SFX")]
     [SerializeField] private AudioClip attack01Sound;
     [SerializeField] private AudioClip attack02Sound;
@@ -87,6 +96,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip dashSound;
     [SerializeField] private AudioClip fallSound;
     [SerializeField] private AudioClip healSound;
+
+    
 
     private SpriteRenderer spriteRenderer;
 
@@ -124,6 +135,7 @@ public class PlayerController : MonoBehaviour
 
         //Attack
         isInCombo = false;
+        canCombo = false;
         hasThrowedKunai = false;
         kunaiAttack = false;
 
@@ -132,6 +144,11 @@ public class PlayerController : MonoBehaviour
         dashDirection = Vector3.right;
         recoverCoroutineisRunning = false;
         movementDrag = rb.drag;
+
+        //Animation Duration
+        firstAttackAnimationDuration = firstAttackAnim.length;
+        secondAttackAnimationDuration = secondAttackAnim.length;
+        thirdAttackAnimationDuration = thirdAttackAnim.length;
 
         invencibility = false;
         infinityStamina = false;
@@ -303,6 +320,7 @@ public class PlayerController : MonoBehaviour
         }
 
         isInCombo = false;
+        canCombo = false;
 
         ChangeState(State.IDLE);
         AttackChangeState(AttackState.NONE);
@@ -318,6 +336,7 @@ public class PlayerController : MonoBehaviour
         }
 
         isInCombo = false;
+        canCombo = false;
 
         ChangeState(State.IDLE);
         AttackChangeState(AttackState.NONE);
@@ -326,6 +345,7 @@ public class PlayerController : MonoBehaviour
     private void EndThirdAttack()
     {
         isInCombo = false;
+        canCombo = false;
 
         ChangeState(State.IDLE);
         AttackChangeState(AttackState.NONE);
@@ -336,7 +356,7 @@ public class PlayerController : MonoBehaviour
         if (!obj.started)
             return;
 
-        if (currentState == State.ATTACKING)
+        if (currentState == State.ATTACKING && canCombo)
         {
             isInCombo = true;
             return;
@@ -350,6 +370,13 @@ public class PlayerController : MonoBehaviour
 
         ChangeState(State.ATTACKING);
         AttackChangeState(AttackState.FIRST_ATTACK);
+    }
+
+    private IEnumerator CanCombo(float attackDuration)
+    {
+        yield return new WaitForSeconds(attackDuration);
+
+        canCombo = true;
     }
 
     #endregion
@@ -765,16 +792,22 @@ public class PlayerController : MonoBehaviour
                 break;
             case AttackState.FIRST_ATTACK:
                 animator.SetBool("firstAttack", true);
+                damage = 2;
+                StartCoroutine(CanCombo(firstAttackAnimationDuration * 0.5f));
                 Attack();
                 AudioManager.instance.Play2dOneShotSound(attack01Sound, "Sfx", 0.8f);
                 break;
             case AttackState.SECOND_ATTACK:
                 animator.SetBool("secondAttack", true);
+                damage = 1.5f;
+                StartCoroutine(CanCombo(secondAttackAnimationDuration * 0.5f));
                 Attack();
                 AudioManager.instance.Play2dOneShotSound(attack02Sound, "Sfx", 0.9f);
                 break;
             case AttackState.THIRD_ATTACK:
                 animator.SetBool("thirdAttack", true);
+                damage = 3;
+                StartCoroutine(CanCombo(thirdAttackAnimationDuration * 0.5f));
                 Attack();
                 AudioManager.instance.Play2dOneShotSound(attack01Sound, "Sfx", 0.8f);
                 break;
