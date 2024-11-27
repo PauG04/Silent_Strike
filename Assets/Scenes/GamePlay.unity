@@ -17134,7 +17134,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxValue: 100
-  minValue: 0
   currentValue: 100
   mask: {fileID: 1650659723}
   color: {r: 1, g: 1, b: 1, a: 1}
@@ -23164,6 +23163,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1629947774}
     - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: firstAttackAnim
+      value: 
+      objectReference: {fileID: 7400000, guid: 6bc932acec3ddd047a082d3e2e3e343e, type: 2}
+    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: thirdAttackAnim
+      value: 
+      objectReference: {fileID: 7400000, guid: 460052b5fc35ab84599bd8ed3d7a866e, type: 2}
+    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
+      propertyPath: secondAttackAnim
+      value: 
+      objectReference: {fileID: 7400000, guid: 00859b23ccdbf8b4abd517c37d2886e7, type: 2}
+    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: postProcessingLerpColor
       value: 
       objectReference: {fileID: 1555119402}
@@ -25994,7 +26005,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxValue: 100
-  minValue: 0
   currentValue: 73.6
   mask: {fileID: 1355393058}
   color: {r: 1, g: 1, b: 1, a: 1}
