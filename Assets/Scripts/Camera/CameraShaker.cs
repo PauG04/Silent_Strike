@@ -9,6 +9,8 @@ public class CameraShaker : MonoBehaviour
     [SerializeField] private float mediumStrength;
     [SerializeField] private float strongStrength;
 
+    private Vector3 initialPosition;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -18,6 +20,7 @@ public class CameraShaker : MonoBehaviour
         }
 
         instance = this;
+        initialPosition = transform.localPosition;
     }
 
     public void WeakShake(float duration)
@@ -54,7 +57,7 @@ public class CameraShaker : MonoBehaviour
             float x = (Random.value - 0.5f) * currentMagnitude * positionOffsetStrength;
             float y = (Random.value - 0.5f) * currentMagnitude * positionOffsetStrength;
 
-            transform.localPosition = new Vector3(x, y, 0);
+            transform.localPosition = new Vector3(x, y, 0) + initialPosition;
 
             elapsed += Time.deltaTime;
             currentMagnitude = (1 - (elapsed / duration)) * (1 - (elapsed / duration));
@@ -62,6 +65,6 @@ public class CameraShaker : MonoBehaviour
             yield return null;
         }
 
-        transform.localPosition = Vector3.zero;
+        transform.localPosition = initialPosition;
     }
 }
