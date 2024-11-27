@@ -121,7 +121,7 @@ public class CameraController : MonoBehaviour
     public void EndZoom()
     {
 
-        _cameraCollidersController.CheckPlayerZone(PlayerManager.instance.transform.position);
+        _cameraCollidersController.CheckPlayerZone(PlayerManager.instance.GetPlayer().transform.position);
     }
 
     public void ChangeState(CameraState _newState)
