@@ -124,7 +124,7 @@ public class Boss : Enemy
         }
 
         GamepadManager.instance.Rumble(1f, 1f, 0.5f);
-        //CameraShaker.instance.StrongShake(0.5f);
+        CameraShaker.instance.StrongShake(0.5f);
     }
 
     private void DieSound()

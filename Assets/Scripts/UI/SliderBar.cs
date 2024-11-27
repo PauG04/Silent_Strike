@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class SliderBar : MonoBehaviour
 {
     [SerializeField] private float maxValue;
-    [SerializeField] private float minValue = 0;
     [SerializeField] private float currentValue;
     [SerializeField] private Image mask;
     [SerializeField] private Color color;
@@ -17,9 +16,7 @@ public class SliderBar : MonoBehaviour
 
     public void GetCurrentFill()
     {
-        float currentOffset = currentValue - minValue;
-        float maxOffset = maxValue - minValue;
-        float fillAmount = currentOffset / maxOffset;
+        float fillAmount = currentValue / maxValue;
         mask.fillAmount = fillAmount;
 
         mask.color = color;
@@ -31,7 +28,7 @@ public class SliderBar : MonoBehaviour
     }
     public void SetCurrentValue(float value)
     {
-        currentValue = Mathf.Clamp(value, minValue, maxValue);
+        currentValue = value;
     }
 
     public float GetCurrentValue()
