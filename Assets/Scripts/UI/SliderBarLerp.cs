@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class SliderBarLerp : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class SliderBarLerp : MonoBehaviour
         if (mask.fillAmount < lerpMask.fillAmount)
         {
             LerpFillAmount();
+        }
+        else if(mask.fillAmount > lerpMask.fillAmount)
+        {
+            lerpMask.fillAmount = mask.fillAmount;
         }
         else
         {

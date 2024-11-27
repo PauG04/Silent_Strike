@@ -23176,18 +23176,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1274804365765067904, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1274804365765067904, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_FlipY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2717652413021962834, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.27
-      objectReference: {fileID: 0}
     - target: {fileID: 3125886790430822290, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -23197,33 +23185,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1033367066}
     - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: fallSound
+      propertyPath: lerpBar
       value: 
-      objectReference: {fileID: 8300000, guid: 0b1fbb278992f9844914b4529a21204c, type: 3}
-    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: healSound
-      value: 
-      objectReference: {fileID: 8300000, guid: eaf46a93f00d5834baa8bcf138dbbfd0, type: 3}
+      objectReference: {fileID: 359929645}
     - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: staminaBar
       value: 
       objectReference: {fileID: 1629947774}
-    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: healingPerUse
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: initialHealings
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: kunaiStaminaConsume
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: staminaRecoverValue
-      value: 0.75
-      objectReference: {fileID: 0}
     - target: {fileID: 5808209924057310944, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: postProcessingLerpColor
       value: 
@@ -23271,98 +23239,6 @@ PrefabInstance:
     - target: {fileID: 6890663775397318365, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
-      value: d8e64df5-2bd4-47f5-bfff-a1177abe3900
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
-      value: d36d81cb-80db-4aae-b3db-5013b78c9397
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
-      value: Movement/Parry[/Mouse/rightButton]
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
-      value: Movement/Heal[/Keyboard/r]
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1182870221}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1182870221}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ParryAction
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HealAction
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 9054938213390167179, guid: 4f4a9801929fe944ebe2d9a1b4292c0d, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
