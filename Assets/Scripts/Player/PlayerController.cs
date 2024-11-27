@@ -402,7 +402,7 @@ public class PlayerController : MonoBehaviour
 
         spriteRenderer.flipX = enemySpriteRenderer.flipX;
         GamepadManager.instance.Rumble(0.5f, 0.5f, 0.1f);
-        //CameraShaker.instance.WeakShake(0.2f);
+        CameraShaker.instance.WeakShake(0.2f);
     }
 
     private void Throw()
