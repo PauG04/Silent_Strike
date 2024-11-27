@@ -142,7 +142,8 @@ public class Boss : Enemy
 
     private void RunningState()
     {
-        SeekTarget();
+        if(currentAttackState != attackState.SHOUT)
+            SeekTarget();
     }
 
     private void ChargingState()
