@@ -13,11 +13,5 @@ MonoBehaviour:
   m_Name: Boss
   m_EditorClassIdentifier: 
   enemies:
-  - enemyPrefab: {fileID: 3438248111852062539, guid: c234ab5927d172f4e898a952712aab74, type: 3}
-    spawnTime: 0
-  - enemyPrefab: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
-    spawnIndex: 0
-    spawnTime: 0
-  - enemyPrefab: {fileID: 2561975879969506166, guid: bc430d3774aee474e91a884229fd5557, type: 3}
-    spawnIndex: 0
+  - enemyPrefab: {fileID: 8004416498838474839, guid: c234ab5927d172f4e898a952712aab74, type: 3}
     spawnTime: 0
