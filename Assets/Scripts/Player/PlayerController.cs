@@ -508,6 +508,7 @@ public class PlayerController : MonoBehaviour
 
         currentHp -= damage;
         ChangeState(State.HURT);
+
         hpBar.SetCurrentValue(currentHp);
         postProcessingLerpColor.ChangeVignetteColor(currentHp / hp);
 

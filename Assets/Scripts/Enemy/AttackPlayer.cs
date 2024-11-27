@@ -66,7 +66,7 @@ public class AttackPlayer : MonoBehaviour
         {
             PlayerController player = other.GetComponent<PlayerController>();
 
-            if (player.GetState() == PlayerController.State.DASHING)
+            if (player.GetState() == PlayerController.State.DASHING || player.GetState() == PlayerController.State.DEATH)
                 return;
             if (player.GetState() == PlayerController.State.PARRY && 
                 player.gameObject.GetComponent<SpriteRenderer>().flipX != enemy.gameObject.GetComponent<SpriteRenderer>().flipX)
