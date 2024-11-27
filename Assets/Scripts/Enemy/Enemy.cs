@@ -135,7 +135,15 @@ public class Enemy : Character
     {
         if (target != null)
         {
-            Seek();
+            StartOrbitate();
+            if (orbitate)
+            {
+                Orbite();
+            }
+            else
+            {
+                Seek();
+            }
             WanderRotation();
             MoveEnemy();
         }
@@ -163,6 +171,47 @@ public class Enemy : Character
         {
             direction = target.transform.position - transform.position;
         }
+    }
+
+    private void StartOrbitate()
+    {
+        if (Vector3.Distance(target.transform.position, transform.position) > 1.2)
+        {
+            current_speed = speed;
+            orbitate = false;
+        }
+        else if (Vector3.Distance(target.transform.position, transform.position) > 0.6)
+        {
+            if (orbitate)
+                return;
+            current_speed = speed / speedDivider;
+        }
+        else
+        {
+            if (orbitate)
+                return;
+            Vector3 relativePos = transform.position - target.transform.position;
+            current_angle = Mathf.Atan2(relativePos.z, relativePos.x);
+            orbitate = true;
+
+            if (Random.Range(1, 3) == 1)
+                orbiteLeft = true;
+            else
+                orbiteLeft = false;
+        }
+    }
+
+    private void Orbite()
+    {
+        if (orbiteLeft)
+            current_angle -= Time.deltaTime / 2.5f;
+        else
+            current_angle += Time.deltaTime / 2.5f;
+
+        float xPosition = target.transform.position.x + 0.6f * Mathf.Cos(current_angle);
+        float zPosition = target.transform.position.z + 0.6f * Mathf.Sin(current_angle);
+        Vector3 orbitePosition = new Vector3(xPosition, 0, zPosition);
+        direction = orbitePosition - transform.position;
     }
 
     protected void RecalculateAttackDirection()

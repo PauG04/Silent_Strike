@@ -9974,6 +9974,9 @@ MonoBehaviour:
   attackStaminaConsume: 20
   timeToRecoverStamina: 1
   staminaRecoverValue: 0.75
+  healingPerUse: 25
+  initialHealings: 3
+  currentHealings: 0
   dashForce: 15
   dashDrag: 8
   animator: {fileID: 4658023590269298289}
@@ -9989,6 +9992,7 @@ MonoBehaviour:
   stopParryTime: 0.25
   materialShader: {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
   hpBar: {fileID: 0}
+  lerpBar: {fileID: 0}
   staminaBar: {fileID: 0}
   postProcessingLerpColor: {fileID: 0}
   attack01Sound: {fileID: 8300000, guid: 4e803ad368f7827408668a3d25328425, type: 3}
@@ -9997,6 +10001,7 @@ MonoBehaviour:
   throwKunaiSound: {fileID: 8300000, guid: 419ea400af335094587e59eb70593be6, type: 3}
   dashSound: {fileID: 8300000, guid: 96003e1d73f3fd1458a17c5423ebc525, type: 3}
   fallSound: {fileID: 8300000, guid: 0b1fbb278992f9844914b4529a21204c, type: 3}
+  healSound: {fileID: 8300000, guid: eaf46a93f00d5834baa8bcf138dbbfd0, type: 3}
 --- !u!114 &9054938213390167179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10102,6 +10107,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d8e64df5-2bd4-47f5-bfff-a1177abe3900
     m_ActionName: Movement/Parry[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5808209924057310944}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: HealAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d36d81cb-80db-4aae-b3db-5013b78c9397
+    m_ActionName: Movement/Heal[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movement
