@@ -41,6 +41,8 @@ public class CameraController : MonoBehaviour
     private Quaternion startRotation;
     private Quaternion endRotation;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -91,6 +93,16 @@ public class CameraController : MonoBehaviour
         // Lerp Rotation
         startRotation = transform.rotation;
         transform.rotation = Quaternion.Lerp(startRotation, endRotation, rotationLerpSpeed);
+    }
+
+    private void ZoomIn()
+    {
+
+    }
+
+    private void ZoomOut()
+    {
+
     }
     public void ChangeState(CameraState _newState)
     {
