@@ -118,7 +118,7 @@ public class ParryNinja : Enemy
         hurtLastState = currentState;
         CreateSpark();
         GamepadManager.instance.Rumble(0.8f, 0.8f, 0.2f);
-        CameraShaker.instance.WeakShake(0.2f);
+        //CameraShaker.instance.WeakShake(0.2f);
     }
 
     private void CreateSpark()

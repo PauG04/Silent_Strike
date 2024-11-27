@@ -16,7 +16,7 @@ public class SceneLoader : MonoBehaviour
         instance = this;
     }
 
-    public void ChangeScene(string sceneName)
+    public void ChangeScene(string sceneName) 
     {
         SceneManager.LoadScene(sceneName);
     }

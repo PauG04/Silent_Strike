@@ -333,7 +333,7 @@ public class Enemy : Character
 
         PrepareReceiveDamage();
         GenerateBlood();
-        CameraShaker.instance.WeakShake(0.2f);
+        //CameraShaker.instance.WeakShake(0.2f);
 
         if (currentHP < 1)
         {
@@ -488,7 +488,7 @@ public class Enemy : Character
         AudioManager.instance.Play2dOneShotSound(blockSound, "Sfx", 1.3f);
         Invoke("EndParry", 0.25f);
         GamepadManager.instance.Rumble(0.5f, 0.5f, 0.1f);
-        CameraShaker.instance.WeakShake(0.2f);
+        //CameraShaker.instance.WeakShake(0.2f);
     }
 
     public virtual void Parry()
@@ -496,7 +496,7 @@ public class Enemy : Character
         AudioManager.instance.Play2dOneShotSound(parriedSound, "Sfx", 1.3f);
         Invoke("EndParry", 1.5f);
         GamepadManager.instance.Rumble(0.8f, 0.8f, 0.2f);
-        CameraShaker.instance.MediumShake(0.2f);
+        //CameraShaker.instance.MediumShake(0.2f);
     }
 
     public virtual void EndParry()

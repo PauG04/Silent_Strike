@@ -12,7 +12,7 @@ public class CameraCollidersController : MonoBehaviour
     [Header("Camera")]
     [SerializeField] private CameraController cameraController;
 
-    private void CheckPlayerZone(Vector3 _playerPosition)
+    public void CheckPlayerZone(Vector3 _playerPosition)
     {
         if (_playerPosition.z > backCollider.transform.position.z)
         {

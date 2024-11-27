@@ -31,6 +31,8 @@ public class Boss : Enemy
     private float currentSpawnAllieTime;
     private List<Enemy> enemies;
 
+    private CameraController cameraController;
+
     private void Start()
     {
         base.InitializeEnemy();
@@ -40,6 +42,7 @@ public class Boss : Enemy
         secondPhaseActive = false;
         currentSpawnAllieTime = 0;
         enemies = new List<Enemy>();
+        cameraController = FindObjectOfType<CameraController>();
     }
 
     private void Update()
@@ -102,6 +105,13 @@ public class Boss : Enemy
         ChangeState(enemyState.IDLE);
         rgbd.velocity = Vector3.zero;
         secondPhaseActive = true;
+
+        cameraController.ZoomToGameObject(gameObject, 5.0f);
+    }
+
+    private void StopZoomInScream()
+    {
+        cameraController.EndZoom();
     }
 
     private void ScreamSound()
@@ -114,7 +124,7 @@ public class Boss : Enemy
         }
 
         GamepadManager.instance.Rumble(1f, 1f, 0.5f);
-        CameraShaker.instance.StrongShake(0.5f);
+        //CameraShaker.instance.StrongShake(0.5f);
     }
 
     private void DieSound()

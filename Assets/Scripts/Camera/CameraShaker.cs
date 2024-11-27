@@ -62,6 +62,6 @@ public class CameraShaker : MonoBehaviour
             yield return null;
         }
 
-        transform.localPosition = Vector3.zero;
+        //transform.localPosition = Vector3.zero;
     }
 }

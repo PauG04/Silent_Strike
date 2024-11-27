@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.Examples;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -7,6 +8,7 @@ public class CameraController : MonoBehaviour
     public enum CameraState { FRONT, MID, BACK, ACTION }
 
     [SerializeField] private CameraState currentState;
+    private CameraState lastState;
 
     [Header("MidPoint")]
     [SerializeField] MidPointController midPointController;
@@ -41,9 +43,14 @@ public class CameraController : MonoBehaviour
     private Quaternion startRotation;
     private Quaternion endRotation;
 
+    private Vector3 disCameraToHolder;
+    [SerializeField] private CameraCollidersController _cameraCollidersController;
+
     // Start is called before the first frame update
     void Start()
     {
+        disCameraToHolder = transform.position - Camera.main.transform.position;
+
         //Height
         frontHeight = transform.position.y - heightOffsetBetweenZones;
         midHeight = transform.position.y;
@@ -92,8 +99,39 @@ public class CameraController : MonoBehaviour
         startRotation = transform.rotation;
         transform.rotation = Quaternion.Lerp(startRotation, endRotation, rotationLerpSpeed);
     }
+
+    private void ZoomIn(float _zoomScalar)
+    {
+        ChangeState(CameraState.ACTION);
+
+    }
+
+    private void ZoomOut(float _zoomScalar)
+    {
+        ChangeState(CameraState.ACTION);
+
+    }
+
+    public void ZoomToGameObject(GameObject _target, float _zoomScalar)
+    {
+        ChangeState(CameraState.ACTION);
+
+        transform.position = _target.transform.position;
+
+        transform.position += disCameraToHolder.normalized * _zoomScalar; 
+    }
+
+    public void EndZoom()
+    {
+
+        _cameraCollidersController.CheckPlayerZone(PlayerManager.instance.transform.position);
+    }
+
     public void ChangeState(CameraState _newState)
     {
+
+        lastState = currentState;
+
         switch (currentState)
         {
             case CameraState.FRONT:
