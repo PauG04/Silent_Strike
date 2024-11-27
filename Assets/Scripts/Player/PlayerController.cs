@@ -237,13 +237,29 @@ public class PlayerController : MonoBehaviour
         if (inputMovementDirection.x < 0 && !sp.flipX)
         {
             sp.flipX = true;
-            attackCollider.transform.localPosition = new Vector3(attackCollider.transform.localPosition.x * -1, 0, 0);
         }
         else if (inputMovementDirection.x > 0 && sp.flipX)
         {
             sp.flipX = false;
-            attackCollider.transform.localPosition = new Vector3(attackCollider.transform.localPosition.x * -1, 0, 0);
         }
+
+        if (Mathf.Abs(inputMovementDirection.x) < Mathf.Abs(inputMovementDirection.y))
+        {
+            if (inputMovementDirection.y < 0)
+                attackCollider.transform.localPosition = new Vector3(0, 0, -0.27f);
+            else
+                attackCollider.transform.localPosition = new Vector3(0, 0, 0.27f);
+        }
+        else
+        {
+            if (inputMovementDirection.x < 0)
+                attackCollider.transform.localPosition = new Vector3(-0.27f, 0, 0);
+            else
+                attackCollider.transform.localPosition = new Vector3(0.27f, 0, 0);
+        }
+        
+
+        
     }
 
     #endregion

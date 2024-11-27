@@ -9901,7 +9901,7 @@ Transform:
   - {fileID: 1885866844385187099}
   - {fileID: 7844530883728644202}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1274804365765067904
 SpriteRenderer:
@@ -9992,7 +9992,6 @@ MonoBehaviour:
   stopParryTime: 0.25
   materialShader: {fileID: 2100000, guid: 702c2c0b242148644aab62e386ec0f6a, type: 2}
   hpBar: {fileID: 0}
-  lerpBar: {fileID: 0}
   staminaBar: {fileID: 0}
   postProcessingLerpColor: {fileID: 0}
   attack01Sound: {fileID: 8300000, guid: 4e803ad368f7827408668a3d25328425, type: 3}
