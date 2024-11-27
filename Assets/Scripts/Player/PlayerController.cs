@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float hp;
     private float currentHp;
     private bool invencibility;
+    private bool infinityStamina;
 
     [Header("Stamina")]
     [SerializeField] private float maxStamina;
@@ -133,9 +134,18 @@ public class PlayerController : MonoBehaviour
         movementDrag = rb.drag;
 
         invencibility = false;
+        infinityStamina = false;
         initSpeed = speed;
         canParry = false;
         blocking = false;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+            invencibility = !invencibility;
+        if (Input.GetKeyDown(KeyCode.H))
+            infinityStamina = !infinityStamina;
     }
 
     void FixedUpdate()
@@ -170,10 +180,6 @@ public class PlayerController : MonoBehaviour
         }
 
         RecoverStamina();
-
-        if (Input.GetKeyDown(KeyCode.G))
-            invencibility = !invencibility;
-
     }
 
     #region Movement
@@ -595,6 +601,9 @@ public class PlayerController : MonoBehaviour
 
     public void ConsumeStamina(float staminaConsumeValue)
     {
+        if (infinityStamina)
+            return;
+
         canRecoverStamina = false;
         currentStamina -= staminaConsumeValue;
 

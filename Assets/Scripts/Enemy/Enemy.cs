@@ -175,12 +175,12 @@ public class Enemy : Character
 
     private void StartOrbitate()
     {
-        if (Vector3.Distance(target.transform.position, transform.position) > 1.2)
+        if (Vector3.Distance(target.transform.position, transform.position) > 2.4)
         {
             current_speed = speed;
             orbitate = false;
         }
-        else if (Vector3.Distance(target.transform.position, transform.position) > 0.6)
+        else if (Vector3.Distance(target.transform.position, transform.position) > 1.2)
         {
             if (orbitate)
                 return;

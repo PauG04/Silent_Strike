@@ -61,7 +61,9 @@ public class EnemyManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B) && !bossActive)
         {
             for(int i = 0; i<spawnedEnemies.Count; i++)
-                Destroy(spawnedEnemies[i]);
+            {
+                spawnedEnemies[i].GetComponent<Enemy>().ReceiveDamageEnemy(100000, true);
+            }
 
             index = 0;
             SpawnEnemy(bossWave.enemies[index].enemyPrefab);
